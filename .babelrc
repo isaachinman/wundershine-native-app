@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "react-native-stage-0/decorator-support"
+  ],
+  "plugins": [
+    [
+      "import-glob"
+    ],
+    [
+      "module-resolver", {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "root": [
+          "./src"
+        ]
+      }
+    ]
+  ]
+}

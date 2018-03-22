@@ -1,0 +1,30 @@
+platform :ios, '9.0'
+
+target 'Wundershine' do
+
+  pod 'react-native-blur', :path => '../node_modules/react-native-blur'
+  pod 'react-native-navigation', :path => '../node_modules/react-native-navigation'
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+  pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'React', :path => '../node_modules/react-native'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge',
+    'RCTActionSheet',
+    'RCTText',
+    'RCTNetwork',
+    'RCTWebSocket',
+    'RCTAnimation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTPushNotification',
+    'DevSupport',
+  ]
+end
