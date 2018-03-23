@@ -9,7 +9,7 @@ const personalDetailsFormSchema = joi.object().keys({
   lastName: joi.string().required(),
 })
 
-export default class UserStore {
+class UserStore {
 
   @action
   async setup() {
@@ -85,3 +85,5 @@ export default class UserStore {
   }
 
 }
+
+export default new UserStore()

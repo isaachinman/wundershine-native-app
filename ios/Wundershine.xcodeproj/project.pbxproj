@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B0739A8F5C9048E9AC93D045 /* libPods-Wundershine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3988A5A05ABF10E5A9B33ED5 /* libPods-Wundershine.a */; };
+		1651914F11C059AE916D75FF /* libPods-ShareReceiver.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26DF8AAF3C01AFD343694BC2 /* libPods-ShareReceiver.a */; };
+		6A00166320650B9500EAFA0E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A00166120650B9500EAFA0E /* MainInterface.storyboard */; };
+		6A00166720650B9600EAFA0E /* ShareReceiver.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A00165C20650B9500EAFA0E /* ShareReceiver.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6A00166D20650BEA00EAFA0E /* ShareReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A00166C20650BEA00EAFA0E /* ShareReceiver.m */; };
+		6ACA76F5206577BF00A6BE39 /* ReactNativeShareExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */; };
+		951F0055FBD63C3D7AB8CC27 /* libPods-Wundershine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAF2DB259D45CD87C7B72DF /* libPods-Wundershine.a */; };
 		E33FD0F41FFBDBD900EB627A /* RNUeno.m in Sources */ = {isa = PBXBuildFile; fileRef = E33FD0F31FFBDBD900EB627A /* RNUeno.m */; };
 		E3A2B8A61FEACEE70099C8F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A2B89F1FEACEE70099C8F8 /* AppDelegate.m */; };
 		E3A2B8A71FEACEE70099C8F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3A2B8A01FEACEE70099C8F8 /* LaunchScreen.xib */; };
@@ -15,16 +20,68 @@
 		E3A2B8AB1FEACEE70099C8F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E3A2B8A51FEACEE70099C8F8 /* main.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6A00166520650B9600EAFA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A00165B20650B9500EAFA0E;
+			remoteInfo = ShareReceiver;
+		};
+		6A00167220650C8200EAFA0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 41B5DE301D0B505800949BD5;
+			remoteInfo = ReactNativeShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A00166B20650B9600EAFA0E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6A00166720650B9600EAFA0E /* ShareReceiver.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* Wundershine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundershine.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3988A5A05ABF10E5A9B33ED5 /* libPods-Wundershine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wundershine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		53031DDE923D9778D106F497 /* Pods-UenoNativeStarter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UenoNativeStarter.release.xcconfig"; path = "Pods/Target Support Files/Pods-UenoNativeStarter/Pods-UenoNativeStarter.release.xcconfig"; sourceTree = "<group>"; };
-		7B642519012E49C28F333EDB /* Pods-UenoNativeStarterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UenoNativeStarterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UenoNativeStarterTests/Pods-UenoNativeStarterTests.release.xcconfig"; sourceTree = "<group>"; };
-		B5CE841990A646807137FE1B /* Pods-UenoNativeStarter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UenoNativeStarter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UenoNativeStarter/Pods-UenoNativeStarter.debug.xcconfig"; sourceTree = "<group>"; };
-		C6D9CAC761C0BC40C9E6DED5 /* libPods-UenoNativeStarterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UenoNativeStarterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D54EB502811BEE926F2F8941 /* Pods-Wundershine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundershine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine.release.xcconfig"; sourceTree = "<group>"; };
-		DF6B3032214A4831BACEAB38 /* libPods-UenoNativeStarter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UenoNativeStarter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF940EB702F911EAF36780E6 /* Pods-UenoNativeStarterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UenoNativeStarterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UenoNativeStarterTests/Pods-UenoNativeStarterTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1FAF2DB259D45CD87C7B72DF /* libPods-Wundershine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Wundershine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		26DF8AAF3C01AFD343694BC2 /* libPods-ShareReceiver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareReceiver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43D3F013B0A8F2A146DE3084 /* Pods-ShareReceiver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareReceiver.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver.debug.xcconfig"; sourceTree = "<group>"; };
+		6A00165C20650B9500EAFA0E /* ShareReceiver.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareReceiver.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A00166220650B9500EAFA0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		6A00166420650B9600EAFA0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A00166C20650BEA00EAFA0E /* ShareReceiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareReceiver.m; sourceTree = "<group>"; };
+		6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeShareExtension.xcodeproj; path = "../node_modules/react-native-share-extension/ios/ReactNativeShareExtension.xcodeproj"; sourceTree = "<group>"; };
+		6A00167520650E2500EAFA0E /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35920656AD2005ABDAE /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35A20656AD2005ABDAE /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCodePush.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35B20656AD2005ABDAE /* libDoubleConversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libDoubleConversion.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35C20656AD2005ABDAE /* libFolly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFolly.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35D20656AD2005ABDAE /* libglog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libglog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E35E20656AD2005ABDAE /* libKSCrash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libKSCrash.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36120656AD2005ABDAE /* libReact-b9477e2b.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-b9477e2b.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36220656AD2005ABDAE /* libReact-c60eff18.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-c60eff18.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36320656AD2005ABDAE /* libreact-native-blur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-blur.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36420656AD2005ABDAE /* libreact-native-config.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-config.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36520656AD2005ABDAE /* libreact-native-navigation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-navigation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36620656AD2005ABDAE /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36720656AD2005ABDAE /* libSentry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36820656AD2005ABDAE /* libSentryReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentryReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A18E36920656AD2005ABDAE /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A8FB8FC2065744400EEFFA7 /* libReact-f5a795f1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-f5a795f1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeShareExtension.h; sourceTree = "<group>"; };
+		6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeShareExtension.m; sourceTree = "<group>"; };
+		7187B9D807611889EA80FFE4 /* Pods-ShareReceiver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareReceiver.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver.release.xcconfig"; sourceTree = "<group>"; };
+		DB762D40D55BFAED85929F12 /* Pods-Wundershine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundershine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine.release.xcconfig"; sourceTree = "<group>"; };
 		E33FD0F31FFBDBD900EB627A /* RNUeno.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNUeno.m; sourceTree = "<group>"; };
 		E33FD0F51FFBDBFB00EB627A /* RNUeno.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNUeno.h; sourceTree = "<group>"; };
 		E3A2B89E1FEACEE70099C8F8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,7 +90,7 @@
 		E3A2B8A31FEACEE70099C8F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E3A2B8A41FEACEE70099C8F8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3A2B8A51FEACEE70099C8F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F978EFCD4B3FC4AAB213917B /* Pods-Wundershine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundershine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine.debug.xcconfig"; sourceTree = "<group>"; };
+		F1D3BD74E40F9B230DB4A9F8 /* Pods-Wundershine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundershine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +98,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0739A8F5C9048E9AC93D045 /* libPods-Wundershine.a in Frameworks */,
+				951F0055FBD63C3D7AB8CC27 /* libPods-Wundershine.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A00165920650B9500EAFA0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1651914F11C059AE916D75FF /* libPods-ShareReceiver.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,29 +116,53 @@
 		4CE6C5BA572EF6078027A293 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF6B3032214A4831BACEAB38 /* libPods-UenoNativeStarter.a */,
-				C6D9CAC761C0BC40C9E6DED5 /* libPods-UenoNativeStarterTests.a */,
-				3988A5A05ABF10E5A9B33ED5 /* libPods-Wundershine.a */,
+				6A8FB8FC2065744400EEFFA7 /* libReact-f5a795f1.a */,
+				6A18E35920656AD2005ABDAE /* libBVLinearGradient.a */,
+				6A18E35A20656AD2005ABDAE /* libCodePush.a */,
+				6A18E35B20656AD2005ABDAE /* libDoubleConversion.a */,
+				6A18E35C20656AD2005ABDAE /* libFolly.a */,
+				6A18E35D20656AD2005ABDAE /* libglog.a */,
+				6A18E35E20656AD2005ABDAE /* libKSCrash.a */,
+				6A18E36120656AD2005ABDAE /* libReact-b9477e2b.a */,
+				6A18E36220656AD2005ABDAE /* libReact-c60eff18.a */,
+				6A18E36320656AD2005ABDAE /* libreact-native-blur.a */,
+				6A18E36420656AD2005ABDAE /* libreact-native-config.a */,
+				6A18E36520656AD2005ABDAE /* libreact-native-navigation.a */,
+				6A18E36620656AD2005ABDAE /* libRNVectorIcons.a */,
+				6A18E36720656AD2005ABDAE /* libSentry.a */,
+				6A18E36820656AD2005ABDAE /* libSentryReactNative.a */,
+				6A18E36920656AD2005ABDAE /* libyoga.a */,
+				6A00167520650E2500EAFA0E /* libReact.a */,
+				26DF8AAF3C01AFD343694BC2 /* libPods-ShareReceiver.a */,
+				1FAF2DB259D45CD87C7B72DF /* libPods-Wundershine.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8079FCF0BF9CE803AC9EB17F /* Pods */ = {
+		6A00165D20650B9500EAFA0E /* ShareReceiver */ = {
 			isa = PBXGroup;
 			children = (
-				B5CE841990A646807137FE1B /* Pods-UenoNativeStarter.debug.xcconfig */,
-				53031DDE923D9778D106F497 /* Pods-UenoNativeStarter.release.xcconfig */,
-				DF940EB702F911EAF36780E6 /* Pods-UenoNativeStarterTests.debug.xcconfig */,
-				7B642519012E49C28F333EDB /* Pods-UenoNativeStarterTests.release.xcconfig */,
-				F978EFCD4B3FC4AAB213917B /* Pods-Wundershine.debug.xcconfig */,
-				D54EB502811BEE926F2F8941 /* Pods-Wundershine.release.xcconfig */,
+				6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */,
+				6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */,
+				6A00166120650B9500EAFA0E /* MainInterface.storyboard */,
+				6A00166420650B9600EAFA0E /* Info.plist */,
+				6A00166C20650BEA00EAFA0E /* ShareReceiver.m */,
 			);
-			name = Pods;
+			path = ShareReceiver;
+			sourceTree = "<group>";
+		};
+		6A00166F20650C8200EAFA0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A00167320650C8200EAFA0E /* libReactNativeShareExtension.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -83,9 +172,10 @@
 			children = (
 				E3A2B89D1FEACEE70099C8F8 /* Wundershine */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				6A00165D20650B9500EAFA0E /* ShareReceiver */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				8079FCF0BF9CE803AC9EB17F /* Pods */,
 				4CE6C5BA572EF6078027A293 /* Frameworks */,
+				FE2086993CFAD720BF01B6C1 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -95,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Wundershine.app */,
+				6A00165C20650B9500EAFA0E /* ShareReceiver.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +203,17 @@
 				E33FD0F51FFBDBFB00EB627A /* RNUeno.h */,
 			);
 			path = Wundershine;
+			sourceTree = "<group>";
+		};
+		FE2086993CFAD720BF01B6C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				43D3F013B0A8F2A146DE3084 /* Pods-ShareReceiver.debug.xcconfig */,
+				7187B9D807611889EA80FFE4 /* Pods-ShareReceiver.release.xcconfig */,
+				F1D3BD74E40F9B230DB4A9F8 /* Pods-Wundershine.debug.xcconfig */,
+				DB762D40D55BFAED85929F12 /* Pods-Wundershine.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,22 +240,43 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Wundershine" */;
 			buildPhases = (
-				DE29A3C61EA94606C7B30F25 /* [CP] Check Pods Manifest.lock */,
+				EA946592A73B595038C3A0DB /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				F32D0D292EBCD0619CEB5424 /* [CP] Embed Pods Frameworks */,
-				BE2E2C58577DE61FBF9F0CAB /* [CP] Copy Pods Resources */,
+				6A00166B20650B9600EAFA0E /* Embed App Extensions */,
+				9E222883F3F00ECB311CD258 /* [CP] Embed Pods Frameworks */,
+				86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6A00166620650B9600EAFA0E /* PBXTargetDependency */,
 			);
 			name = Wundershine;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* Wundershine.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6A00165B20650B9500EAFA0E /* ShareReceiver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A00166A20650B9600EAFA0E /* Build configuration list for PBXNativeTarget "ShareReceiver" */;
+			buildPhases = (
+				2D15935F03260DA04647ABC6 /* [CP] Check Pods Manifest.lock */,
+				6A00165820650B9500EAFA0E /* Sources */,
+				6A00165920650B9500EAFA0E /* Frameworks */,
+				6A00165A20650B9500EAFA0E /* Resources */,
+				D50DC879C2B37A593399AE34 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareReceiver;
+			productName = ShareReceiver;
+			productReference = 6A00165C20650B9500EAFA0E /* ShareReceiver.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -167,6 +290,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = M734F5G6DK;
 						ProvisioningStyle = Manual;
+					};
+					6A00165B20650B9500EAFA0E = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = M734F5G6DK;
+						ProvisioningStyle = Automatic;
 					};
 					E3AAD4501F573E3700B7831D = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -186,13 +314,30 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6A00166F20650C8200EAFA0E /* Products */;
+					ProjectRef = 6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E3AAD4501F573E3700B7831D /* build-env */,
 				13B07F861A680F5B00A75B9A /* Wundershine */,
+				6A00165B20650B9500EAFA0E /* ShareReceiver */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		6A00167320650C8200EAFA0E /* libReactNativeShareExtension.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeShareExtension.a;
+			remoteRef = 6A00167220650C8200EAFA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -201,6 +346,14 @@
 			files = (
 				E3A2B8A91FEACEE70099C8F8 /* Images.xcassets in Resources */,
 				E3A2B8A71FEACEE70099C8F8 /* LaunchScreen.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A00165A20650B9500EAFA0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A00166320650B9500EAFA0E /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +374,25 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		BE2E2C58577DE61FBF9F0CAB /* [CP] Copy Pods Resources */ = {
+		2D15935F03260DA04647ABC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareReceiver-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,7 +430,37 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE29A3C61EA94606C7B30F25 /* [CP] Check Pods Manifest.lock */ = {
+		9E222883F3F00ECB311CD258 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D50DC879C2B37A593399AE34 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA946592A73B595038C3A0DB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,21 +478,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F32D0D292EBCD0619CEB5424 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -305,9 +491,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6A00165820650B9500EAFA0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6ACA76F5206577BF00A6BE39 /* ReactNativeShareExtension.m in Sources */,
+				6A00166D20650BEA00EAFA0E /* ShareReceiver.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6A00166620650B9600EAFA0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A00165B20650B9500EAFA0E /* ShareReceiver */;
+			targetProxy = 6A00166520650B9600EAFA0E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		6A00166120650B9500EAFA0E /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A00166220650B9500EAFA0E /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		E3A2B8A01FEACEE70099C8F8 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -321,9 +532,10 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F978EFCD4B3FC4AAB213917B /* Pods-Wundershine.debug.xcconfig */;
+			baseConfigurationReference = F1D3BD74E40F9B230DB4A9F8 /* Pods-Wundershine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
@@ -349,9 +561,10 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D54EB502811BEE926F2F8941 /* Pods-Wundershine.release.xcconfig */;
+			baseConfigurationReference = DB762D40D55BFAED85929F12 /* Pods-Wundershine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
@@ -371,6 +584,84 @@
 				PROVISIONING_PROFILE = "93f64944-5111-4c7a-afcc-f49d50f2e560";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.wundershine.app";
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		6A00166820650B9600EAFA0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43D3F013B0A8F2A146DE3084 /* Pods-ShareReceiver.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M734F5G6DK;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = ShareReceiver/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app.ShareReceiver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6A00166920650B9600EAFA0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7187B9D807611889EA80FFE4 /* Pods-ShareReceiver.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M734F5G6DK;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = ShareReceiver/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app.ShareReceiver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -497,6 +788,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A00166A20650B9600EAFA0E /* Build configuration list for PBXNativeTarget "ShareReceiver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A00166820650B9600EAFA0E /* Debug */,
+				6A00166920650B9600EAFA0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,6 +1,6 @@
 import { action, runInAction, observable } from 'mobx'
 
-export default class UIStore {
+class UIStore {
 
   @observable
   modals = {
@@ -38,3 +38,5 @@ export default class UIStore {
   toggleModal = (modalName, openState) => this.modals[modalName].open = openState
 
 }
+
+export default new UIStore()

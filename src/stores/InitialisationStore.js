@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx'
 
-export default class InitialisationStore {
+class InitialisationStore {
 
   @observable
   appIsInitialised = false
@@ -9,3 +9,5 @@ export default class InitialisationStore {
   setStatus = bool => this.appIsInitialised = bool
 
 }
+
+export default new InitialisationStore()

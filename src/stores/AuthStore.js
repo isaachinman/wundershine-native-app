@@ -2,6 +2,7 @@ import { action, computed, runInAction, observable } from 'mobx'
 import { AsyncStorage } from 'react-native'
 import { apiRequest } from 'utils/api'
 import joi from 'react-native-joi'
+import { loggedInSetup } from 'stores'
 import toast from 'utils/toast'
 import { NavActions } from 'utils/nav'
 
@@ -27,11 +28,11 @@ const resetPasswordSetFormSchema = joi.object().keys({
   password: joi.string().required(),
 })
 
-export default class AuthStore {
+class AuthStore {
 
-  constructor(loggedInSetup) {
-    this.loggedInSetup = loggedInSetup
-  }
+  // constructor(loggedInSetup) {
+  //   this.loggedInSetup = loggedInSetup
+  // }
 
   @observable
   loading = false
@@ -71,7 +72,7 @@ export default class AuthStore {
     if (doNav) {
       NavActions.resetTo({ screen: 'PhotoQueue' })
     }
-    this.loggedInSetup()
+    loggedInSetup()
   }
 
   @action
@@ -285,3 +286,5 @@ export default class AuthStore {
   }
 
 }
+
+export default new AuthStore()

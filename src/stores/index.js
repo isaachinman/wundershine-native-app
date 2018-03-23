@@ -18,6 +18,7 @@ import AuthStore from './AuthStore'
 import CartStore from './CartStore'
 import InitialisationStore from './InitialisationStore'
 import NetworkingStore from './NetworkingStore'
+import QueueStore from './QueueStore'
 import RoutingStore from './RoutingStore'
 import UserStore from './UserStore'
 import UIStore from './UIStore'
@@ -34,13 +35,14 @@ class Stores {
 
   // @persist('object', AuthStore)
 
-  auth = new AuthStore(this.loggedInSetup.bind(this))
-  cart = new CartStore()
-  initialisation = new InitialisationStore()
-  networking = new NetworkingStore()
-  routing = new RoutingStore()
-  user = new UserStore()
-  ui = new UIStore()
+  auth = AuthStore
+  cart = CartStore
+  initialisation = InitialisationStore
+  networking = NetworkingStore
+  queue = QueueStore
+  routing = RoutingStore
+  user = UserStore
+  ui = UIStore
 
   async generalSetup() {
     // Hydrate store
@@ -49,15 +51,16 @@ class Stores {
   }
 
   async loggedInSetup() {
-    const { setStatus } = this.initialisation
-    setStatus(false)
+    this.initialisation.setStatus(false)
     await pMinDelay(this.user.setup(), 1500)
-    setStatus(true)
+    this.initialisation.setStatus(true)
   }
 
 }
 
-export default new Stores()
+const stores = new Stores()
+export default stores
+export const loggedInSetup = stores.loggedInSetup.bind(stores) // eslint-disable-line
 
 /**
  * StoreProvider

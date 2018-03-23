@@ -1,7 +1,7 @@
 import { action, autorun, observable } from 'mobx'
 import toast from 'utils/toast'
 
-export default class NetworkingStore {
+class NetworkingStore {
 
   constructor() {
     autorun(() => {
@@ -26,3 +26,5 @@ export default class NetworkingStore {
   setNotifiedOfOfflineStatus = bool => this.notifiedOfOfflineStatus = bool
 
 }
+
+export default new NetworkingStore()

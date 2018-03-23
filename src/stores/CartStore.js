@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx'
 import { wundershineProducts } from 'data'
 
-export default class CartStore {
+class CartStore {
 
   @observable
   sku = wundershineProducts.SQPK05.sku
@@ -10,3 +10,5 @@ export default class CartStore {
   changeSKU = sku => this.sku = sku
 
 }
+
+export default new CartStore()
