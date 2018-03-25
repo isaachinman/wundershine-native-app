@@ -24,7 +24,7 @@ export default class Toast extends React.Component {
         visible={toast.visible}
         message={toast.message}
         backgroundColor={bgColor}
-        zIndex={9999}
+        zIndex={99999}
       />
     )
   }

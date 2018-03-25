@@ -1,9 +1,6 @@
-/**
- * Sample React Native Share Extension
- * @flow
- */
-
 import React from 'react'
+
+import { Linking, Platform } from 'react-native'
 import ShareExtension from 'utils/share-extension'
 
 export default class Share extends React.Component {
@@ -12,7 +9,14 @@ export default class Share extends React.Component {
     try {
       const data = await ShareExtension.data()
       const urlSafeData = JSON.stringify({ data })
-      await ShareExtension.openURL(`wundershine://PhotoQueue/ShareReceive?shareReceivingPhotos=${urlSafeData}`)
+      const url = `wundershine://PhotoQueue/ShareReceive?shareReceivingPhotos=${urlSafeData}`
+
+      if (Platform.OS === 'ios') {
+        await ShareExtension.openURL(url)
+      } else {
+        await Linking.openURL(url)
+      }
+
       await ShareExtension.close()
     } catch (e) {
       // Handle ShareExtension error

@@ -1,17 +1,32 @@
 import App from 'App'
 import { Drawer } from 'components'
 import { Navigation } from 'react-native-navigation'
-import * as screens from './*/*.js'
 
-// Assemble and export screens for registration
-export const Screens = new Map()
-Object.keys(screens).forEach((screen) => {
+import * as publicScreens from './public/*/*.js'
+import * as privateScreens from './private/*/*.js'
+
+// Assemble PublicScreens
+export const PublicScreens = new Map()
+Object.keys(publicScreens).forEach((screen) => {
   const screenName = screen.split('$')[1]
   if (!screenName.includes('Styles')) {
-    Screens.set(screenName, () => screens[screen])
-    module.exports[screenName] = screens[screen]
+    PublicScreens.set(screenName, () => publicScreens[screen])
+    module.exports[screenName] = publicScreens[screen]
   }
 })
+
+// Assemble PublicScreens
+export const PrivateScreens = new Map()
+Object.keys(privateScreens).forEach((screen) => {
+  const screenName = screen.split('$')[1]
+  if (!screenName.includes('Styles')) {
+    PrivateScreens.set(screenName, () => privateScreens[screen])
+    module.exports[screenName] = privateScreens[screen]
+  }
+})
+
+// Combine all screens for registration
+export const Screens = new Map([...PublicScreens, ...PrivateScreens])
 
 // Register App and Drawer
 Screens.set('App', () => App)

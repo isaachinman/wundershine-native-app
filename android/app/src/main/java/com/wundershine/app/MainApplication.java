@@ -18,6 +18,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import com.alinz.parkerdan.shareextension.SharePackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,7 +48,8 @@ public class MainApplication extends NavigationApplication {
           new ReactNativeConfigPackage(),
           new RNSentryPackage(MainApplication.this),
           new BlurViewPackage(),
-          new LinearGradientPackage()
+          new LinearGradientPackage(),
+          new SharePackage()
         );
     }
 

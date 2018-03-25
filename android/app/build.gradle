@@ -164,6 +164,8 @@ configurations.all {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    compile project(':react-native-share-extension')
+    compile "com.facebook.react:react-native:+"
     implementation project(':react-native-sentry')
     implementation project(':react-native-navigation')
     implementation project(':react-native-code-push')
