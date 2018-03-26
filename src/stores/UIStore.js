@@ -1,4 +1,5 @@
 import { action, runInAction, observable } from 'mobx'
+import { Platform, ToastAndroid } from 'react-native'
 
 class UIStore {
 
@@ -21,13 +22,20 @@ class UIStore {
   @action
   triggerToast = (options) => {
     const { message, autoDismiss, type } = options
-    this.toast.visible = true
-    this.toast.message = message
-    this.toast.type = type
-    if (autoDismiss) {
-      setTimeout(() => {
-        runInAction(() => this.toast.visible = false)
-      }, 4000)
+
+    // Toast UI will be handled natively on Android
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(message, ToastAndroid.SHORT)
+      this.toast.visible = false
+    } else {
+      this.toast.visible = true
+      this.toast.message = message
+      this.toast.type = type
+      if (autoDismiss) {
+        setTimeout(() => {
+          runInAction(() => this.toast.visible = false)
+        }, 4000)
+      }
     }
   }
 
