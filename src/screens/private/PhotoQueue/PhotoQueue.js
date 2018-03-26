@@ -20,6 +20,14 @@ export default class PhotoQueue extends React.Component {
     navBarHidden: true,
   }
 
+  componentDidUpdate = () => {
+    /* Upload photos automatically */
+    const { queue } = this.props
+    if (queue.photosToUpload.length > 0 && !queue.currentlyUploading) {
+      queue.uploadPhoto()
+    }
+  }
+
   handleLaunchImagePicker = async () => {
   }
 
@@ -31,11 +39,6 @@ export default class PhotoQueue extends React.Component {
       queue,
       ui,
     } = this.props
-
-    /* Upload photos automatically */
-    if (queue.photosToUpload.length > 0 && !queue.currentlyUploading) {
-      queue.uploadPhoto()
-    }
 
     /* UI Display Logic */
     const showLoadingUI = !initialisation.appIsInitialised

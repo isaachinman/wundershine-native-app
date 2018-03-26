@@ -19,6 +19,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
 import com.alinz.parkerdan.shareextension.SharePackage;
+import com.vydia.RNUploader.UploaderReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,8 @@ public class MainApplication extends NavigationApplication {
           new RNSentryPackage(MainApplication.this),
           new BlurViewPackage(),
           new LinearGradientPackage(),
-          new SharePackage()
+          new SharePackage(),
+          new UploaderReactPackage()
         );
     }
 

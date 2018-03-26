@@ -4,6 +4,7 @@ target 'Wundershine' do
 
   pod 'react-native-blur', :path => '../node_modules/react-native-blur'
   pod 'react-native-navigation', :path => '../node_modules/react-native-navigation'
+  pod 'react-native-background-upload', :path => '../node_modules/react-native-background-upload'
   pod 'react-native-config', :path => '../node_modules/react-native-config'
   pod 'SentryReactNative', :path => '../node_modules/react-native-sentry'
   pod 'CodePush', :path => '../node_modules/react-native-code-push'

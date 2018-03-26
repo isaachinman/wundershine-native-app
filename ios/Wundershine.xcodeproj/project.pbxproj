@@ -11,6 +11,7 @@
 		6A00166320650B9500EAFA0E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A00166120650B9500EAFA0E /* MainInterface.storyboard */; };
 		6A00166720650B9600EAFA0E /* ShareReceiver.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A00165C20650B9500EAFA0E /* ShareReceiver.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A00166D20650BEA00EAFA0E /* ShareReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A00166C20650BEA00EAFA0E /* ShareReceiver.m */; };
+		6A585D1820694F6B00E7B9DA /* libVydiaRNFileUploader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A585D1720694F5B00E7B9DA /* libVydiaRNFileUploader.a */; };
 		6ACA76F5206577BF00A6BE39 /* ReactNativeShareExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */; };
 		951F0055FBD63C3D7AB8CC27 /* libPods-Wundershine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAF2DB259D45CD87C7B72DF /* libPods-Wundershine.a */; };
 		E33FD0F41FFBDBD900EB627A /* RNUeno.m in Sources */ = {isa = PBXBuildFile; fileRef = E33FD0F31FFBDBD900EB627A /* RNUeno.m */; };
@@ -34,6 +35,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 41B5DE301D0B505800949BD5;
 			remoteInfo = ReactNativeShareExtension;
+		};
+		6A585D1620694F5B00E7B9DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = VydiaRNFileUploader;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -77,6 +85,7 @@
 		6A18E36720656AD2005ABDAE /* libSentry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E36820656AD2005ABDAE /* libSentryReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentryReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E36920656AD2005ABDAE /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VydiaRNFileUploader.xcodeproj; path = "../node_modules/react-native-background-upload/ios/VydiaRNFileUploader.xcodeproj"; sourceTree = "<group>"; };
 		6A8FB8FC2065744400EEFFA7 /* libReact-f5a795f1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-f5a795f1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeShareExtension.h; sourceTree = "<group>"; };
 		6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeShareExtension.m; sourceTree = "<group>"; };
@@ -106,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A585D1820694F6B00E7B9DA /* libVydiaRNFileUploader.a in Frameworks */,
 				1651914F11C059AE916D75FF /* libPods-ShareReceiver.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,9 +169,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6A585D1220694F5B00E7B9DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A585D1720694F5B00E7B9DA /* libVydiaRNFileUploader.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */,
 				6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */,
 			);
 			name = Libraries;
@@ -319,6 +338,10 @@
 					ProductGroup = 6A00166F20650C8200EAFA0E /* Products */;
 					ProjectRef = 6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */;
 				},
+				{
+					ProductGroup = 6A585D1220694F5B00E7B9DA /* Products */;
+					ProjectRef = 6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -335,6 +358,13 @@
 			fileType = archive.ar;
 			path = libReactNativeShareExtension.a;
 			remoteRef = 6A00167220650C8200EAFA0E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6A585D1720694F5B00E7B9DA /* libVydiaRNFileUploader.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libVydiaRNFileUploader.a;
+			remoteRef = 6A585D1620694F5B00E7B9DA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
