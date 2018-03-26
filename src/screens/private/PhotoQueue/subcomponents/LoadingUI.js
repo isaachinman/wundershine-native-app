@@ -6,24 +6,34 @@ import LinearGradient from 'react-native-linear-gradient'
 import { PlaceholderContainer, Placeholder } from 'react-native-loading-placeholder'
 import { View } from 'react-native'
 
+import { greyAccent } from 'styles/colours'
+
 const styles = {
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    marginVertical: 20,
-    marginHorizontal: 35,
-  },
   placeholderContainer: {
-    width: '90%',
     backgroundColor: '#fff',
-    height: 160,
-    paddingTop: 10,
-    marginBottom: 20,
+    height: 131,
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: greyAccent,
   },
   placeholder: {
     height: 8,
     marginTop: 6,
-    marginLeft: 15,
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#eeeeee',
+  },
+  imagePlaceholder: {
+    width: 100,
+    height: 100,
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#eeeeee',
+    marginRight: 15,
+  },
+  textPlaceholder: {
+    height: 8,
+    marginTop: 6,
     alignSelf: 'flex-start',
     justifyContent: 'center',
     backgroundColor: '#eeeeee',
@@ -55,16 +65,16 @@ export default class LoadingUI extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        {[1, 2].map(id => (
+        {[1, 2].map(n => (
           <PlaceholderContainer
             style={styles.placeholderContainer}
             animatedComponent={<Gradient />}
             duration={600}
             delay={200}
-            key={`loading-ui-placeholder-${id}`}
+            key={`loading-ui-placeholder-${n}`}
           >
             <View style={{ flexDirection: 'row' }}>
-              <Placeholder style={[styles.placeholder, { width: 50, height: 50 }]} />
+              <Placeholder style={styles.imagePlaceholder} />
               <View
                 style={{
                   flexDirection: 'column',
@@ -75,7 +85,7 @@ export default class LoadingUI extends React.PureComponent {
               >
                 <Placeholder
                   style={[
-                    styles.placeholder,
+                    styles.textPlaceholder,
                     {
                       width: '50%',
                       height: 10,
@@ -84,21 +94,21 @@ export default class LoadingUI extends React.PureComponent {
                 />
                 <Placeholder
                   style={[
-                    styles.placeholder,
+                    styles.textPlaceholder,
                     {
                       width: '35%',
                       height: 7,
                     },
                   ]}
                 />
+                <Placeholder
+                  style={[styles.textPlaceholder, { marginTop: 20, width: '80%' }]}
+                />
+                <Placeholder style={[styles.textPlaceholder, { width: '90%' }]} />
+                <Placeholder style={[styles.textPlaceholder, { width: '50%' }]} />
               </View>
             </View>
 
-            <Placeholder
-              style={[styles.placeholder, { marginTop: 20, width: '80%' }]}
-            />
-            <Placeholder style={[styles.placeholder, { width: '90%' }]} />
-            <Placeholder style={[styles.placeholder, { width: '50%' }]} />
           </PlaceholderContainer>
         ))}
       </View>

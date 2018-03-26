@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Body, Button, Container, Content, Header, Left, Right } from 'native-base'
-import { Text } from 'react-native'
-import { inject, observer } from 'mobx-react'
+import { FlatList, Text } from 'react-native'
+import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import PackSelectionModal from 'components/PackSelectionModal/PackSelectionModal'
 import { NavActions } from 'utils/nav'
 import { wundershineProducts } from 'data'
 
-import { EmptyUI, LoadingUI } from './subcomponents'
+import { EmptyUI, LoadingUI, QueueItem } from './subcomponents'
 import styles from './PhotoQueue.styles'
 
-@inject('cart', 'initialisation', 'ui')
+@inject('cart', 'initialisation', 'queue', 'ui')
 @observer
 export default class PhotoQueue extends React.Component {
 
@@ -23,10 +23,19 @@ export default class PhotoQueue extends React.Component {
   handleLaunchImagePicker = async () => {
   }
 
-
   render() {
 
-    const { cart, initialisation, ui } = this.props
+    const {
+      cart,
+      initialisation,
+      queue,
+      ui,
+    } = this.props
+
+    /* UI Display Logic */
+    const showLoadingUI = !initialisation.appIsInitialised
+    const showQueueUI = initialisation.appIsInitialised && queue.data.length > 0
+    const showEmptyUI = initialisation.appIsInitialised && queue.data.length === 0
 
     return (
       <Container>
@@ -61,10 +70,17 @@ export default class PhotoQueue extends React.Component {
           </Right>
         </Header>
         <Content contentContainerStyle={styles.content}>
-          {initialisation.appIsInitialised ?
-            <EmptyUI />
-            :
+          {showLoadingUI &&
             <LoadingUI />
+          }
+          {showQueueUI &&
+            <FlatList
+              data={queue.data.map(x => ({ ...x, key: x.id }))}
+              renderItem={({ item }) => <QueueItem key={item.key} />}
+            />
+          }
+          {showEmptyUI &&
+            <EmptyUI />
           }
           <Button
             style={styles.circularButton}
@@ -86,6 +102,9 @@ PhotoQueue.wrappedComponent.propTypes = {
   }).isRequired,
   initialisation: PropTypes.shape({
     appIsInitialised: PropTypes.bool,
+  }).isRequired,
+  queue: PropTypes.shape({
+    data: mobxPropTypes.observableArray, // eslint-disable-line react/no-typos
   }).isRequired,
   ui: PropTypes.shape({
     toggleModal: PropTypes.func,

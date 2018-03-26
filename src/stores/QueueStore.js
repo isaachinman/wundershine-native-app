@@ -3,6 +3,9 @@ import { action, observable } from 'mobx'
 class QueueStore {
 
   @observable
+  data = [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }, { id: 'e' }, { id: 'f' }, { id: 'g' }]
+
+  @observable
   photosToUpload = []
 
   @observable

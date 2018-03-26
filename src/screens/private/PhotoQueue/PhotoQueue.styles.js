@@ -24,8 +24,6 @@ export default {
   },
   content: {
     backgroundColor: greyBg,
-    justifyContent: 'center',
-    alignItems: 'center',
     flex: 1,
   },
   right: {
@@ -42,6 +40,7 @@ export default {
     margin: 20,
   },
   emptyUIContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
