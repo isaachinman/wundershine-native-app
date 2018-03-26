@@ -32,6 +32,11 @@ export default class PhotoQueue extends React.Component {
       ui,
     } = this.props
 
+    /* Upload photos automatically */
+    if (queue.photosToUpload.length > 0 && !queue.currentlyUploading) {
+      queue.uploadPhoto()
+    }
+
     /* UI Display Logic */
     const showLoadingUI = !initialisation.appIsInitialised
     const showQueueUI = initialisation.appIsInitialised && queue.data.length > 0
@@ -76,7 +81,7 @@ export default class PhotoQueue extends React.Component {
           {showQueueUI &&
             <FlatList
               data={queue.data.map(x => ({ ...x, key: x.id }))}
-              renderItem={({ item }) => <QueueItem key={item.key} />}
+              renderItem={({ item }) => <QueueItem {...item} key={item.key} />}
             />
           }
           {showEmptyUI &&

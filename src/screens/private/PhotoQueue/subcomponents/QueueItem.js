@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { ActivityIndicator, Text } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
@@ -28,6 +29,8 @@ const styles = {
 export default class QueueItem extends React.Component {
 
   render() {
+
+    const { name, origin, uri } = this.props
     return (
       <ListItem
         activeBackgroundColor={greyAccent}
@@ -39,16 +42,22 @@ export default class QueueItem extends React.Component {
           <AnimatedImage
             containerStyle={{ width: 100, height: 100, backgroundColor: greyAccent }}
             imageStyle={{ resizeMode: 'cover', height: 100 }}
-            imageSource={{ uri: 'https://static.pexels.com/photos/50721/pencils-crayons-colourful-rainbow-50721.jpeg' }}
+            imageSource={{ uri }}
             loader={<ActivityIndicator />}
             animationDuration={200}
           />
         </ListItem.Part>
         <ListItem.Part middle column containerStyle={styles.textContainer}>
-          <Text style={styles.imageTitle}>IMG_20162203_18818.jpg</Text>
-          <Text style={material.caption}>Sony RX1</Text>
+          <Text style={styles.imageTitle}>{name}</Text>
+          <Text style={material.caption}>{origin || 'Unknown'}</Text>
         </ListItem.Part>
       </ListItem>
     )
   }
+}
+
+QueueItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  origin: PropTypes.string.isRequired,
+  uri: PropTypes.string.isRequired,
 }
