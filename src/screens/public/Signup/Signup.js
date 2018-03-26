@@ -29,6 +29,7 @@ export default class Signup extends React.Component {
       <KeyboardAwareScrollView
         contentContainerStyle={mainWithFooter.container}
         extraScrollHeight={140}
+        keyboardShouldPersistTaps='handled'
       >
         <View style={mainWithFooter.main} />
         <View style={mainWithFooter.footer}>
