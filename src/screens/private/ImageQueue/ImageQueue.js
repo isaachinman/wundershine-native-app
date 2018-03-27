@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Body, Button, Container, Content, Header, Left, Right } from 'native-base'
-import { FlatList, Text } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import PackSelectionModal from 'components/PackSelectionModal/PackSelectionModal'
@@ -47,6 +47,7 @@ export default class ImageQueue extends React.Component {
 
     return (
       <Container>
+        <View key={queue.currentlyUploading} />
         <Header
           androidStatusBarColor='#dddddd'
           style={styles.header}
@@ -112,6 +113,7 @@ ImageQueue.wrappedComponent.propTypes = {
     appIsInitialised: PropTypes.bool,
   }).isRequired,
   queue: PropTypes.shape({
+    currentlyUploading: PropTypes.bool,
     data: mobxPropTypes.observableArray, // eslint-disable-line react/no-typos
   }).isRequired,
   ui: PropTypes.shape({

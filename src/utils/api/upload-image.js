@@ -7,7 +7,7 @@ export default async (_image) => {
 
   const image = Object.assign({}, _image)
 
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === 'ios' && !image.uri.includes('file://')) {
     image.uri = `file://${image.uri}`
   }
 
@@ -15,14 +15,17 @@ export default async (_image) => {
     image.uri = image.uri.replace('file://', '')
   }
 
+  const { name, uri, type } = image
+
   const options = {
-    url: `${config.API_ROOT}/pv/queue/add-image`,
-    path: image.uri,
+    url: `${config.API_ROOT}/pv/queue/square/add-image`,
+    path: uri,
     method: 'POST',
     type: 'raw',
     headers: {
       Authorization: `Bearer ${stores.auth.token}`,
       'content-type': 'application/octet-stream',
+      'image-data': JSON.stringify({ name, uri, type }),
     },
     // Android-only options
     notification: {
@@ -35,11 +38,15 @@ export default async (_image) => {
   return new Promise((resolve, reject) => {
     Upload.addListener('error', uploadID, (data) => {
       console.log(`Error: ${data.error}%`) // eslint-disable-line
-      reject()
+      reject(data)
     })
     Upload.addListener('completed', uploadID, (data) => {
       console.log('Completed!', data) // eslint-disable-line
-      resolve()
+      if (data.responseCode === 200) {
+        resolve(data)
+      } else {
+        reject(data)
+      }
     })
   })
 

@@ -8,6 +8,9 @@ class UIStore {
     packSelection: {
       open: false,
     },
+    imageRejected: {
+      open: false,
+    },
   }
 
   @observable
