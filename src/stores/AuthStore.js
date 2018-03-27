@@ -70,7 +70,7 @@ class AuthStore {
     runInAction(() => this.loggedIn = true)
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
     if (doNav) {
-      NavActions.resetTo({ screen: 'PhotoQueue' })
+      NavActions.resetTo({ screen: 'ImageQueue' })
     }
     loggedInSetup()
   }

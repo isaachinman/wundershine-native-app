@@ -48,7 +48,7 @@ export default class App extends React.Component {
     }
 
     if (auth.loggedIn) {
-      NavActions.resetTo({ screen: 'PhotoQueue' })
+      NavActions.resetTo({ screen: 'ImageQueue' })
     } else {
       NavActions.setDrawerEnabled({ side: 'left', enabled: false })
       NavActions.resetTo({ screen: 'Onboarding', animated: false })

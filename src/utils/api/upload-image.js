@@ -16,7 +16,7 @@ export default async (_image) => {
   }
 
   const options = {
-    url: `${config.API_ROOT}/pv/queue/add-photo`,
+    url: `${config.API_ROOT}/pv/queue/add-image`,
     path: image.uri,
     method: 'POST',
     type: 'raw',

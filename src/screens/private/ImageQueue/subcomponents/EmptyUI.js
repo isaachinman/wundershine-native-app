@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, Text, View } from 'react-native'
 
 import emptyQueueArrow from '../images/empty_queue_arrow.png'
-import styles from '../PhotoQueue.styles'
+import styles from '../ImageQueue.styles'
 
 export default class EmptyUI extends React.Component {
   render() {

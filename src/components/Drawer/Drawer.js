@@ -13,8 +13,8 @@ import styles from './Drawer.styles'
 
 const routes = [
   {
-    screenName: 'PhotoQueue',
-    key: 'PhotoQueue',
+    screenName: 'ImageQueue',
+    key: 'ImageQueue',
     displayName: 'Queue',
     icon: 'ios-images-outline',
   },

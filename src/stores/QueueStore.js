@@ -1,5 +1,6 @@
 import { action, toJS, runInAction, observable } from 'mobx'
-import { uploadPhoto } from 'utils/api'
+import uuid from 'uuid/v1'
+import { uploadImage } from 'utils/api'
 import path from 'react-native-path'
 
 class QueueStore {
@@ -8,46 +9,46 @@ class QueueStore {
   data = []
 
   @observable
-  photosToUpload = []
+  imagesToUpload = []
 
   @observable
   currentlyUploading = false
 
   @action
-  addPhotosToUpload = (photos) => {
-    console.log('Photos to upload: ', photos) // eslint-disable-line
-    const newPhotos = photos.map(photo => ({
-      name: path.basename(photo.value),
+  addImagesToUpload = (images) => {
+    console.log('Images to upload: ', images) // eslint-disable-line
+    const newImages = images.map(image => ({
+      name: path.basename(image.value),
       origin: 'Uploading to Cloud...',
-      uri: photo.value,
-      id: photo.value,
-      type: photo.type,
+      uri: image.value,
+      id: uuid(), // Temporary ID until server response
+      type: image.type,
       localOnly: true,
     }))
-    this.photosToUpload = [...this.photosToUpload, ...newPhotos]
-    this.data = [...this.data, ...newPhotos]
+    this.imagesToUpload = [...this.imagesToUpload, ...newImages]
+    this.data = [...this.data, ...newImages]
   }
 
   @action
-  uploadPhoto = async () => {
-    if (this.photosToUpload.length < 1) {
-      throw new Error('There are no photos queued for upload.')
+  uploadImage = async () => {
+    if (this.imagesToUpload.length < 1) {
+      throw new Error('There are no images queued for upload.')
     }
     runInAction(() => this.currentlyUploading = true)
 
-    const photo = this.photosToUpload[0]
-    await uploadPhoto(toJS(photo))
+    const image = this.imagesToUpload[0]
+    await uploadImage(toJS(image))
 
     runInAction(() => {
-      this.photosToUpload = this.photosToUpload.filter(p => p.id !== photo.id)
-      this.data = this.data.map((p) => {
-        if (p.id === photo.id) {
+      this.imagesToUpload = this.imagesToUpload.filter(i => i.id !== image.id)
+      this.data = this.data.map((i) => {
+        if (i.id === image.id) {
           return {
-            ...p,
+            ...i,
             origin: 'Uploaded',
           }
         }
-        return p
+        return i
       })
     })
     runInAction(() => this.currentlyUploading = false)

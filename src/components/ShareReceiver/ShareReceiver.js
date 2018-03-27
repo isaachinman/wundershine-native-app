@@ -9,7 +9,7 @@ export default class Share extends React.Component {
     try {
       const data = await ShareExtension.data()
       const urlSafeData = JSON.stringify({ data })
-      const url = `wundershine://PhotoQueue/ShareReceive?shareReceivingPhotos=${urlSafeData}`
+      const url = `wundershine://ImageQueue/ShareReceive?shareReceivingImages=${urlSafeData}`
 
       if (Platform.OS === 'ios') {
         await ShareExtension.openURL(url)

@@ -10,21 +10,21 @@ import { NavActions } from 'utils/nav'
 import { wundershineProducts } from 'data'
 
 import { EmptyUI, LoadingUI, QueueItem } from './subcomponents'
-import styles from './PhotoQueue.styles'
+import styles from './ImageQueue.styles'
 
 @inject('cart', 'initialisation', 'queue', 'ui')
 @observer
-export default class PhotoQueue extends React.Component {
+export default class ImageQueue extends React.Component {
 
   static navigatorStyle = {
     navBarHidden: true,
   }
 
   componentDidUpdate = () => {
-    /* Upload photos automatically */
+    /* Upload images automatically */
     const { queue } = this.props
-    if (queue.photosToUpload.length > 0 && !queue.currentlyUploading) {
-      queue.uploadPhoto()
+    if (queue.imagesToUpload.length > 0 && !queue.currentlyUploading) {
+      queue.uploadImage()
     }
   }
 
@@ -104,7 +104,7 @@ export default class PhotoQueue extends React.Component {
   }
 }
 
-PhotoQueue.wrappedComponent.propTypes = {
+ImageQueue.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     sku: PropTypes.string,
   }).isRequired,

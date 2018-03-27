@@ -27,9 +27,9 @@ class RoutingStore {
     if (urlQuery) {
       const params = qs.parse(urlQuery, { ignoreQueryPrefix: true })
 
-      // If inside a share-receiving redirect, set photos to upload
-      if (params.shareReceivingPhotos) {
-        QueueStore.addPhotosToUpload(JSON.parse(params.shareReceivingPhotos).data)
+      // If inside a share-receiving redirect, set images to upload
+      if (params.shareReceivingImages) {
+        QueueStore.addImagesToUpload(JSON.parse(params.shareReceivingImages).data)
       }
 
       runInAction(() => {
