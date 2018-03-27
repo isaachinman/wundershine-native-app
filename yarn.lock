@@ -6130,7 +6130,7 @@ react-native-animatable@^1.1.0:
 
 "react-native-background-upload@https://github.com/Wundershine/react-native-background-upload":
   version "4.4.0"
-  resolved "https://github.com/Wundershine/react-native-background-upload#5d0134d53e727adcd30ef6ded1e103e72d9cf159"
+  resolved "https://github.com/Wundershine/react-native-background-upload#e34d94244c05af881ff81477bffe7a44c1909257"
 
 react-native-blur@3.2.2, react-native-blur@^3.1.1:
   version "3.2.2"
