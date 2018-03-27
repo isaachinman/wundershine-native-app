@@ -5,7 +5,7 @@ import { Body, Button, Container, Content, Header, Left, Right } from 'native-ba
 import { FlatList, Text, View } from 'react-native'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
-import PackSelectionModal from 'components/PackSelectionModal/PackSelectionModal'
+import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import { wundershineProducts } from 'data'
 
@@ -100,6 +100,7 @@ export default class ImageQueue extends React.Component {
           </Button>
         </Content>
         <PackSelectionModal />
+        <ImageRejectedModal />
       </Container>
     )
   }
