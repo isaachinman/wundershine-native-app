@@ -43,6 +43,13 @@
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = VydiaRNFileUploader;
 		};
+		6A63A9FC206B908F00E044EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A63A9F8206B908E00E044EA /* RNFetchBlob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A15C300E1CD25C330074CB35;
+			remoteInfo = RNFetchBlob;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +93,7 @@
 		6A18E36820656AD2005ABDAE /* libSentryReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentryReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E36920656AD2005ABDAE /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VydiaRNFileUploader.xcodeproj; path = "../node_modules/react-native-background-upload/ios/VydiaRNFileUploader.xcodeproj"; sourceTree = "<group>"; };
+		6A63A9F8206B908E00E044EA /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		6A8FB8FC2065744400EEFFA7 /* libReact-f5a795f1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-f5a795f1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeShareExtension.h; sourceTree = "<group>"; };
 		6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeShareExtension.m; sourceTree = "<group>"; };
@@ -177,9 +185,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6A63A9F9206B908E00E044EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A63A9FD206B908F00E044EA /* libRNFetchBlob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6A63A9F8206B908E00E044EA /* RNFetchBlob.xcodeproj */,
 				6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */,
 				6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */,
 			);
@@ -339,6 +356,10 @@
 					ProjectRef = 6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */;
 				},
 				{
+					ProductGroup = 6A63A9F9206B908E00E044EA /* Products */;
+					ProjectRef = 6A63A9F8206B908E00E044EA /* RNFetchBlob.xcodeproj */;
+				},
+				{
 					ProductGroup = 6A585D1220694F5B00E7B9DA /* Products */;
 					ProjectRef = 6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */;
 				},
@@ -365,6 +386,13 @@
 			fileType = archive.ar;
 			path = libVydiaRNFileUploader.a;
 			remoteRef = 6A585D1620694F5B00E7B9DA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6A63A9FD206B908F00E044EA /* libRNFetchBlob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFetchBlob.a;
+			remoteRef = 6A63A9FC206B908F00E044EA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

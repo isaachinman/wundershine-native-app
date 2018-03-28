@@ -1,12 +1,21 @@
+import { Keyboard } from 'react-native'
+
 class NavigationActionsClass {
 
   setNavigator(navigator) {
     this.navigator = navigator
   }
 
+  onNavigateExtras() {
+    Keyboard.dismiss()
+  }
+
   push = params => this.navigator && this.navigator.push(params)
   pop = params => this.navigator && this.navigator.pop(params)
-  resetTo = params => this.navigator && this.navigator.resetTo(params)
+  resetTo = params => this.navigator && (() => {
+    this.onNavigateExtras()
+    this.navigator.resetTo(params)
+  })()
   toggleDrawer = params => this.navigator && this.navigator.toggleDrawer(params)
   toggleNavBar = params => this.navigator && this.navigator.toggleNavBar(params)
   setTitle = params => this.navigator && this.navigator.setTitle(params)

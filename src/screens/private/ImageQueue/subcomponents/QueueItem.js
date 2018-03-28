@@ -67,7 +67,7 @@ export default class QueueItem extends React.Component {
           />
           {notUploadedYet &&
             <View style={styles.loadingImageOverlay}>
-              <ActivityIndicator />
+              <ActivityIndicator color={whiteSecondary} />
             </View>
           }
         </ListItem.Part>

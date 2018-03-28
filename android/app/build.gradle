@@ -163,6 +163,7 @@ configurations.all {
 }
 
 dependencies {
+    compile project(':react-native-fetch-blob')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     compile project(':react-native-share-extension')
     compile "com.facebook.react:react-native:+"

@@ -4,6 +4,8 @@ import { uploadImage } from 'utils/api'
 import { validateImages } from 'utils/images'
 import path from 'react-native-path'
 
+import UIStore from './UIStore'
+
 class QueueStore {
 
   @observable
@@ -21,7 +23,7 @@ class QueueStore {
     const { rejectedImages, validatedImages } = await validateImages(images)
 
     if (rejectedImages.length > 0) {
-      // Handle rejection feedback
+      UIStore.toggleModal('imageRejected', true)
     }
 
     if (validatedImages.length > 0) {
