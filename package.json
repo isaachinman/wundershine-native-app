@@ -24,6 +24,7 @@
 	],
 	"dependencies": {
 		"axios": "^0.18.0",
+		"cloudinary-core": "^2.5.0",
 		"mobx": "4.0.2",
 		"mobx-persist": "0.4.1",
 		"mobx-react": "5.0.0",

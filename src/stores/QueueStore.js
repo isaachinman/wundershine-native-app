@@ -1,6 +1,6 @@
 import { action, toJS, runInAction, observable } from 'mobx'
+import { apiRequest, uploadImage } from 'utils/api'
 import uuid from 'uuid/v1'
-import { uploadImage } from 'utils/api'
 import { validateImages } from 'utils/images'
 import path from 'react-native-path'
 
@@ -8,14 +8,43 @@ import UIStore from './UIStore'
 
 class QueueStore {
 
+  @action
+  async setup() {
+    await this.getQueue()
+  }
+
   @observable
   data = []
+
+  @observable
+  error = null
 
   @observable
   imagesToUpload = []
 
   @observable
+  loading = false
+
+  @observable
   currentlyUploading = false
+
+  @action
+  setLoading = bool => this.loading = bool
+
+  @action
+  getQueue = async () => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/queue/square' })
+      const { data } = res
+      runInAction(() => {
+        this.data = data
+      })
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.setLoading(false)
+  }
 
   @action
   addImagesToUpload = async (images) => {
@@ -28,12 +57,13 @@ class QueueStore {
 
     if (validatedImages.length > 0) {
       const newImages = validatedImages.map(image => ({
+        _id: uuid(), // Temporary ID until server response
         name: path.basename(image.value),
         origin: 'Need to determine origin',
         uri: image.value,
-        id: uuid(), // Temporary ID until server response
         type: image.type,
         notUploadedYet: true,
+        uriIsLocal: true,
       }))
 
       runInAction(() => {
@@ -58,9 +88,9 @@ class QueueStore {
       await uploadImage(toJS(image))
 
       runInAction(() => {
-        this.imagesToUpload = this.imagesToUpload.filter(i => i.id !== image.id)
+        this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
         this.data = this.data.map((i) => {
-          if (i.id === image.id) {
+          if (i._id === image._id) {
             return {
               ...i,
               notUploadedYet: false,
@@ -73,8 +103,8 @@ class QueueStore {
 
     } catch (error) {
       runInAction(() => {
-        this.imagesToUpload = this.imagesToUpload.filter(i => i.id !== image.id)
-        this.data = this.data.filter(i => i.id !== image.id)
+        this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
+        this.data = this.data.filter(i => i._id !== image._id)
         this.currentlyUploading = false
       })
     }

@@ -84,7 +84,7 @@ export default class ImageQueue extends React.Component {
           }
           {showQueueUI &&
             <FlatList
-              data={queue.data.map(x => ({ ...x, key: x.id }))}
+              data={queue.data.map(x => ({ ...x, key: x._id }))}
               renderItem={({ item }) => <QueueItem {...item} key={item.key} />}
             />
           }

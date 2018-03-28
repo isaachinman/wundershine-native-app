@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { ActivityIndicator, Text, View } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
+import { cloudinary } from 'utils/images'
 
 import { greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
@@ -44,11 +45,16 @@ export default class QueueItem extends React.Component {
   render() {
 
     const {
+      cloudinaryID,
       name,
       notUploadedYet,
       origin,
       uri,
+      uriIsLocal,
     } = this.props
+
+    const imageSource = notUploadedYet || uriIsLocal ? uri :
+      cloudinary.url(cloudinaryID, { width: 400, crop: 'scale' })
 
     return (
       <ListItem
@@ -61,7 +67,7 @@ export default class QueueItem extends React.Component {
           <AnimatedImage
             containerStyle={{ width: 100, height: 100, backgroundColor: greyAccent }}
             imageStyle={{ resizeMode: 'cover', height: 100 }}
-            imageSource={{ uri }}
+            imageSource={{ uri: imageSource }}
             loader={<ActivityIndicator color={whiteSecondary} />}
             animationDuration={200}
           />
@@ -85,12 +91,17 @@ export default class QueueItem extends React.Component {
 }
 
 QueueItem.defaultProps = {
+  cloudinaryID: null,
   notUploadedYet: false,
+  origin: null,
+  uriIsLocal: false,
 }
 
 QueueItem.propTypes = {
+  cloudinaryID: PropTypes.string,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
-  origin: PropTypes.string.isRequired,
+  origin: PropTypes.string,
   uri: PropTypes.string.isRequired,
+  uriIsLocal: PropTypes.bool,
 }
