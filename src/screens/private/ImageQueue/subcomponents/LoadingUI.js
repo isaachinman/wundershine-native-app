@@ -64,14 +64,15 @@ export default class LoadingUI extends React.PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
-        {[1, 2].map(n => (
-          <PlaceholderContainer
-            style={styles.placeholderContainer}
-            animatedComponent={<Gradient />}
-            duration={600}
-            delay={200}
+      <PlaceholderContainer
+        animatedComponent={<Gradient />}
+        duration={600}
+        delay={200}
+      >
+        {[1, 2, 3].map(n => (
+          <View
             key={`loading-ui-placeholder-${n}`}
+            style={styles.placeholderContainer}
           >
             <View style={{ flexDirection: 'row' }}>
               <Placeholder style={styles.imagePlaceholder} />
@@ -108,10 +109,9 @@ export default class LoadingUI extends React.PureComponent {
                 <Placeholder style={[styles.textPlaceholder, { width: '50%' }]} />
               </View>
             </View>
-
-          </PlaceholderContainer>
+          </View>
         ))}
-      </View>
+      </PlaceholderContainer>
     )
   }
 
