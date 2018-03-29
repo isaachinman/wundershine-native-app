@@ -1,8 +1,8 @@
+import bytes from 'bytes'
+import config from 'config'
 import { Image } from 'react-native'
 
-const MAX_IMAGE_SIZE_BYTES = 25000000
-const MIN_IMAGE_WIDTH = 1500
-const MIN_IMAGE_HEIGHT = 1500
+const { MAX_IMAGE_SIZE_MB, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT } = config.imageSettings.square
 
 export default async (images) => {
 
@@ -19,7 +19,7 @@ export default async (images) => {
 
     // Check filesize
     const stats = await RNFetchBlob.fs.stat(image.value)
-    if (stats.size > MAX_IMAGE_SIZE_BYTES) {
+    if (stats.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
       isValid = false
       error = 'FILE_SIZE_TOO_BIG'
     }
