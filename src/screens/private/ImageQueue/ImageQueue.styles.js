@@ -61,6 +61,10 @@ export default {
     backgroundColor: whitePrimary,
     justifyContent: 'center',
     marginBottom: 30,
+    shadowColor: blackTertiary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
   circularButtonIcon: {
     color: blackTertiary,
