@@ -8,10 +8,23 @@ import { Col, Grid, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 import { Image, Text, TouchableOpacity } from 'react-native'
 import { Modal } from 'react-native-ui-lib'
-import { wundershineProducts } from 'data'
+import wundershineProducts from 'wundershine-data/products.json'
 
+import SQPK05Image from 'images/SQPK05.png'
+import SQPK15Image from 'images/SQPK15.png'
 import styles from './PackSelectionModal.styles'
 import checkImage from './images/check.png'
+
+const productSupplementaryContent = {
+  SQPK05: {
+    image: SQPK05Image,
+    shippingText: 'Includes free worldwide shipping',
+  },
+  SQPK15: {
+    image: SQPK15Image,
+    shippingText: 'Includes free worldwide shipping',
+  },
+}
 
 const packOptions = [
   wundershineProducts.SQPK05,
@@ -79,12 +92,12 @@ export default class PackSelectionModal extends React.Component {
                           <Image
                             style={styles.packImage}
                             resizeMode='contain'
-                            source={pack.image}
+                            source={productSupplementaryContent[pack.sku].image}
                           />
                         </Col>
                         <Col style={styles.textContainer}>
                           <Row>
-                            <Col><Text style={styles.packTitle}>{pack.title}</Text></Col>
+                            <Col><Text style={styles.packTitle}>{pack.name}</Text></Col>
                             {packIsSelected ?
                               <Col>
                                 <Image
@@ -98,7 +111,9 @@ export default class PackSelectionModal extends React.Component {
                             }
                           </Row>
                           <Text style={styles.packPrice}>€{pack.price}</Text>
-                          <Text style={styles.packShipping}>{pack.shippingText}</Text>
+                          <Text style={styles.packShipping}>
+                            {productSupplementaryContent[pack.sku].shippingText}
+                          </Text>
                         </Col>
                       </Row>
                     </TouchableOpacity>

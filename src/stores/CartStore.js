@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx'
-import { wundershineProducts } from 'data'
+import wundershineProducts from 'wundershine-data/products.json'
 
 class CartStore {
 

@@ -7,7 +7,7 @@ import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
-import { wundershineProducts } from 'data'
+import wundershineProducts from 'wundershine-data/products.json'
 
 import { EmptyUI, LoadingUI, QueueItem } from './subcomponents'
 import styles from './ImageQueue.styles'
@@ -69,7 +69,7 @@ export default class ImageQueue extends React.Component {
               onPress={() => ui.toggleModal('packSelection', true)}
             >
               <Text style={styles.packPickerSelectionText}>
-                {wundershineProducts[cart.sku].title}
+                {wundershineProducts[cart.sku].name}
               </Text>
               <Text style={styles.packPickerArrow}>&#x25BC;</Text>
             </Button>
