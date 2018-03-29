@@ -16,16 +16,19 @@ export default async (_image) => {
   }
 
   const { name, uri, type } = image
+  const addToQueues = ['square'] // Hardcoded for now
 
   const options = {
-    url: `${config.API_ROOT}/pv/queue/square/add-image`,
+    url: `${config.API_ROOT}/pv/queue/add-image`,
     path: uri,
     method: 'POST',
     type: 'raw',
     headers: {
       Authorization: `Bearer ${stores.auth.token}`,
       'content-type': 'application/octet-stream',
-      'image-data': JSON.stringify({ name, uri, type }),
+      'image-data': JSON.stringify({
+        name, uri, type, addToQueues,
+      }),
     },
     // Android-only options
     notification: {
