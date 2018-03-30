@@ -9,7 +9,7 @@ import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import wundershineProducts from 'wundershine-data/products.json'
 
-import { EmptyUI, LoadingUI, QueueItem } from './subcomponents'
+import { EmptyUI, ErrorUI, LoadingUI, QueueItem } from './subcomponents'
 import styles from './ImageQueue.styles'
 
 @inject('cart', 'initialisation', 'queue', 'ui')
@@ -41,9 +41,24 @@ export default class ImageQueue extends React.Component {
     } = this.props
 
     /* UI Display Logic */
-    const showLoadingUI = !initialisation.appIsInitialised
-    const showQueueUI = initialisation.appIsInitialised && queue.data.length > 0
-    const showEmptyUI = initialisation.appIsInitialised && queue.data.length === 0
+    let showErrorUI = false
+    let showLoadingUI = false
+    let showQueueUI = false
+    let showEmptyUI = false
+
+    if (queue.error) {
+      showErrorUI = true
+    } else {
+      if (initialisation.appIsInitialised) { // eslint-disable-line no-lonely-if
+        if (queue.data.square.images.length > 0) {
+          showQueueUI = true
+        } else {
+          showEmptyUI = true
+        }
+      } else {
+        showLoadingUI = true
+      }
+    }
 
     return (
       <Container>
@@ -84,12 +99,16 @@ export default class ImageQueue extends React.Component {
           }
           {showQueueUI &&
             <FlatList
-              data={queue.data.map(x => ({ ...x, key: x._id }))}
-              renderItem={({ item }) => <QueueItem {...item} key={item.key} />}
+              data={queue.data.square.images.map(x => ({ ...x, key: x._id }))}
+              renderItem={({ item }) =>
+                <QueueItem {...item} deleteImage={queue.deleteImage} key={item.key} />}
             />
           }
           {showEmptyUI &&
             <EmptyUI />
+          }
+          {showErrorUI &&
+            <ErrorUI />
           }
           <Button
             style={styles.circularButton}
@@ -115,7 +134,12 @@ ImageQueue.wrappedComponent.propTypes = {
   }).isRequired,
   queue: PropTypes.shape({
     currentlyUploading: PropTypes.bool,
-    data: mobxPropTypes.observableArray, // eslint-disable-line react/no-typos
+    data: PropTypes.shape({
+      square: PropTypes.shape({
+        packSelected: PropTypes.string,
+        images: mobxPropTypes.observableArray, // eslint-disable-line react/no-typos
+      }),
+    }),
   }).isRequired,
   ui: PropTypes.shape({
     toggleModal: PropTypes.func,

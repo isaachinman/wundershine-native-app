@@ -48,6 +48,12 @@ export default {
     height: 180 * sizingFactor,
     width: 30 * sizingFactor,
   },
+  errorUIContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 100,
+  },
   circularButton: {
     alignSelf: 'center',
     position: 'absolute',
