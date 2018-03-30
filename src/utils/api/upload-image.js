@@ -3,7 +3,7 @@ import stores from 'stores'
 import { Platform } from 'react-native'
 import Upload from 'react-native-background-upload'
 
-export default async (_image) => {
+export default async (_image, queueType) => {
 
   const image = Object.assign({}, _image)
 
@@ -16,10 +16,9 @@ export default async (_image) => {
   }
 
   const { name, uri, type } = image
-  const addToQueues = ['square'] // Hardcoded for now
 
   const options = {
-    url: `${config.API_ROOT}/pv/queue/add-image`,
+    url: `${config.API_ROOT}/pv/queue/${queueType}/images/create`,
     path: uri,
     method: 'POST',
     type: 'raw',
@@ -27,7 +26,7 @@ export default async (_image) => {
       Authorization: `Bearer ${stores.auth.token}`,
       'content-type': 'application/octet-stream',
       'image-data': JSON.stringify({
-        name, uri, type, addToQueues,
+        name, uri, type,
       }),
     },
     // Android-only options

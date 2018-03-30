@@ -2,9 +2,9 @@ import bytes from 'bytes'
 import config from 'config'
 import { Image } from 'react-native'
 
-const { MAX_IMAGE_SIZE_MB, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT } = config.imageSettings.square
+export default async (images, queueType) => {
 
-export default async (images) => {
+  const { MAX_IMAGE_SIZE_MB, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT } = config.imageSettings[queueType]
 
   // https://github.com/wkh237/react-native-fetch-blob/issues/685
   const RNFetchBlob = require('react-native-fetch-blob').default

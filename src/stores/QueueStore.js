@@ -8,13 +8,20 @@ import UIStore from './UIStore'
 
 class QueueStore {
 
+  queueType = 'square'
+
   @action
   async setup() {
     await this.getQueue()
   }
 
   @observable
-  data = []
+  data = {
+    [this.queueType]: {
+      packSelected: null,
+      images: [],
+    },
+  }
 
   @observable
   error = null
@@ -35,10 +42,10 @@ class QueueStore {
   getQueue = async () => {
     this.setLoading(true)
     try {
-      const res = await apiRequest({ url: '/pv/queue/square' })
+      const res = await apiRequest({ url: `/pv/queue/${this.queueType}` })
       const { data } = res
       runInAction(() => {
-        this.data = data
+        this.data[this.queueType] = data
       })
     } catch (error) {
       runInAction(() => this.error = error)
@@ -49,7 +56,7 @@ class QueueStore {
   @action
   addImagesToUpload = async (images) => {
 
-    const { rejectedImages, validatedImages } = await validateImages(images)
+    const { rejectedImages, validatedImages } = await validateImages(images, this.queueType)
 
     if (rejectedImages.length > 0) {
       UIStore.toggleModal('imageRejected', true)
@@ -68,7 +75,7 @@ class QueueStore {
 
       runInAction(() => {
         this.imagesToUpload = [...this.imagesToUpload, ...newImages]
-        this.data = [...this.data, ...newImages]
+        this.data[this.queueType].images = [...this.data[this.queueType].images, ...newImages]
       })
     }
 
@@ -85,11 +92,11 @@ class QueueStore {
 
     try {
 
-      await uploadImage(toJS(image))
+      await uploadImage(toJS(image), this.queueType)
 
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
-        this.data = this.data.map((i) => {
+        this.data[this.queueType].images = this.data[this.queueType].images.map((i) => {
           if (i._id === image._id) {
             return {
               ...i,
@@ -104,11 +111,26 @@ class QueueStore {
     } catch (error) {
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
-        this.data = this.data.filter(i => i._id !== image._id)
+        this.data[this.queueType].images = this.data[this.queueType].images
+          .filter(i => i._id !== image._id)
         this.currentlyUploading = false
       })
     }
+  }
 
+  @action
+  deleteImage = async (imageID) => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ method: 'DELETE', url: `/pv/queue/${this.queueType}/images/${imageID}` })
+      const { data } = res
+      runInAction(() => {
+        this.data[this.queueType] = data
+      })
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.setLoading(false)
   }
 
 }
