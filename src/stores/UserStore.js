@@ -1,13 +1,9 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
 import joi from 'react-native-joi'
+import { createUser } from 'models'
 import toast from 'utils/toast'
-
-const personalDetailsFormSchema = joi.object().keys({
-  email: joi.string().email().required(),
-  firstName: joi.string().required(),
-  lastName: joi.string().required(),
-})
+import { personalDetailsFormSchema } from 'schemas'
 
 class UserStore {
 
@@ -50,12 +46,9 @@ class UserStore {
       const res = await apiRequest({ url: '/pv/user' })
       const { data } = res
       runInAction(() => {
-        this.data = data
-        this.personalDetailsForm = {
-          email: data.email,
-          firstName: data.firstName,
-          lastName: data.lastName,
-        }
+        this.data = createUser(data)
+        const { email, firstName, lastName } = this.data
+        this.personalDetailsForm = { email, firstName, lastName }
       })
     } catch (error) {
       runInAction(() => this.error = error)

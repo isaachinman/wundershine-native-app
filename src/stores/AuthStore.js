@@ -6,27 +6,14 @@ import { loggedInSetup } from 'stores'
 import toast from 'utils/toast'
 import { NavActions } from 'utils/nav'
 
+import {
+  loginFormSchema,
+  signupFormSchema,
+  resetPasswordRequestFormSchema,
+  resetPasswordSetFormSchema,
+} from 'schemas'
+
 const storeKey = '@AuthStore'
-
-const loginFormSchema = joi.object().keys({
-  email: joi.string().email().required(),
-  password: joi.string().required(),
-})
-
-const signupFormSchema = joi.object().keys({
-  email: joi.string().email().required(),
-  firstName: joi.string().required(),
-  lastName: joi.string().required(),
-  password: joi.string().required(),
-})
-
-const resetPasswordRequestFormSchema = joi.object().keys({
-  email: joi.string().email().required(),
-})
-
-const resetPasswordSetFormSchema = joi.object().keys({
-  password: joi.string().required(),
-})
 
 class AuthStore {
 
@@ -171,7 +158,14 @@ class AuthStore {
     const { email, password } = this.signupForm
     try {
 
-      await apiRequest({ url: '/pb/signup', data: this.signupForm })
+      const newUser = await apiRequest({ url: '/pb/signup', data: this.signupForm })
+
+      /* eslint-disable */
+      console.log('Should somehow use newUser data here instead of another GET request')
+      console.log('Also need to pass "firstTime" to UserStore to bypass loading animation on setup()')
+      console.log(newUser)
+      /* eslint-enable */
+
       await this.login({ email, password })
       this.clearForm('signup')
 
