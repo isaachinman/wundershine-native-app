@@ -1,4 +1,5 @@
-import { blackSecondary, blackPrimary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
+import { blue, blackTertiary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
+import { material } from 'react-native-typography'
 
 export default {
   header: {
@@ -10,11 +11,12 @@ export default {
   footer: {
     backgroundColor: greyBg,
   },
-  blackText: {
-    color: blackPrimary,
+  title: {
+    ...material.subheadingObject,
+    color: blackTertiary,
   },
   iconLarge: {
-    color: blackSecondary,
+    color: blue,
     fontSize: 44,
     marginHorizontal: 20,
   },

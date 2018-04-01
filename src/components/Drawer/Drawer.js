@@ -1,10 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Button, Icon } from 'components'
-import { Body, Container, Content, Footer, FooterTab, Header, Title } from 'native-base'
+import { Icon } from 'components'
+import { Body, Container, Content, Header, Title } from 'native-base'
 import { ListItem } from 'react-native-ui-lib'
 import { FlatList, Linking, Text, View } from 'react-native'
-import { observer, inject } from 'mobx-react'
 import { NavActions } from 'utils/nav'
 
 import { greyAccent } from 'styles/colours'
@@ -38,14 +36,7 @@ const routes = [
   },
 ]
 
-@inject('auth')
-@observer
 export default class Drawer extends React.Component {
-
-  handleLogout = () => {
-    NavActions.toggleDrawer({ side: 'left' })
-    this.props.auth.logout()
-  }
 
   handleRedirect = (redirect) => {
     NavActions.toggleDrawer({ side: 'left' })
@@ -60,7 +51,7 @@ export default class Drawer extends React.Component {
           style={styles.header}
         >
           <Body>
-            <Title style={styles.blackText}>Wundershine</Title>
+            <Title style={styles.title}>WUNDERSHINE</Title>
           </Body>
         </Header>
         <Content style={styles.content}>
@@ -84,23 +75,7 @@ export default class Drawer extends React.Component {
             )}
           />
         </Content>
-        <Footer style={styles.footer}>
-          <FooterTab>
-            <Button
-              text='Log out'
-              onPress={this.handleLogout}
-              full
-              info
-            />
-          </FooterTab>
-        </Footer>
       </Container>
     )
   }
-}
-
-Drawer.wrappedComponent.propTypes = {
-  auth: PropTypes.shape({
-    logout: PropTypes.func,
-  }).isRequired,
 }

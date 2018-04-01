@@ -1,4 +1,4 @@
-import { blue, greyBg, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
+import { blue, red, greyBg, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
 
 export default {
   header: {
@@ -16,6 +16,11 @@ export default {
   },
   iconLarge: {
     color: blue,
+    fontSize: 44,
+    marginHorizontal: 20,
+  },
+  iconLogout: {
+    color: red,
     fontSize: 44,
     marginHorizontal: 20,
   },
