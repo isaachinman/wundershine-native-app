@@ -1,3 +1,16 @@
+/*
+
+   This module simply provides util functions for
+   schemas.
+
+   Each schema gets a create{{schema_name}} function
+   and a validate{{schema_name}} function. If no
+   argument is passed to the create function, an
+   "empty" object is returned, with all schemas properties
+   set to null.
+
+*/
+
 import joi from 'react-native-joi'
 import * as schemas from 'schemas'
 
