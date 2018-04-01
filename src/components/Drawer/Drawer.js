@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Icon } from 'components'
 import { Body, Container, Content, Footer, FooterTab, Header, Title } from 'native-base'
 import { ListItem } from 'react-native-ui-lib'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, Linking, Text, View } from 'react-native'
 import { observer, inject } from 'mobx-react'
 import { NavActions } from 'utils/nav'
 
@@ -13,16 +13,28 @@ import styles from './Drawer.styles'
 
 const routes = [
   {
-    screenName: 'ImageQueue',
     key: 'ImageQueue',
     displayName: 'Queue',
     icon: 'ios-images-outline',
+    redirect: () => NavActions.push({ screen: 'ImageQueue' }),
   },
   {
-    screenName: 'Settings',
     key: 'Settings',
     displayName: 'Settings',
     icon: 'ios-contact-outline',
+    redirect: () => NavActions.push({ screen: 'Settings' }),
+  },
+  {
+    key: 'Coupons',
+    displayName: 'Coupons',
+    icon: 'ios-pricetags-outline',
+    redirect: () => NavActions.push({ screen: 'Settings' }),
+  },
+  {
+    key: 'Frame Shop',
+    displayName: 'Frame Shop',
+    icon: 'ios-albums-outline',
+    redirect: () => Linking.openURL('http://www.wundershine.com'),
   },
 ]
 
@@ -30,20 +42,14 @@ const routes = [
 @observer
 export default class Drawer extends React.Component {
 
-
-  handleNavAction = (action) => {
-    NavActions.toggleDrawer({ side: 'left' })
-    action()
-  }
-
   handleLogout = () => {
     NavActions.toggleDrawer({ side: 'left' })
     this.props.auth.logout()
   }
 
-  handleRedirect = (screen) => {
+  handleRedirect = (redirect) => {
     NavActions.toggleDrawer({ side: 'left' })
-    NavActions.push({ screen })
+    redirect()
   }
 
   render() {
@@ -64,7 +70,7 @@ export default class Drawer extends React.Component {
               <ListItem
                 activeBackgroundColor={greyAccent}
                 height={100}
-                onPress={() => this.handleRedirect(item.screenName)}
+                onPress={() => this.handleRedirect(item.redirect)}
               >
                 <ListItem.Part left>
                   <Icon name={item.icon} style={styles.iconLarge} />

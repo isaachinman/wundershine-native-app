@@ -1,4 +1,4 @@
-import { blue, blackPrimary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
+import { blackSecondary, blackPrimary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
 
 export default {
   header: {
@@ -14,7 +14,7 @@ export default {
     color: blackPrimary,
   },
   iconLarge: {
-    color: blue,
+    color: blackSecondary,
     fontSize: 44,
     marginHorizontal: 20,
   },
