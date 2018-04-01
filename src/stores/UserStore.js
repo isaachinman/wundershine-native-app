@@ -1,9 +1,8 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
-import joi from 'react-native-joi'
-import { createUser } from 'models'
 import toast from 'utils/toast'
-import { personalDetailsFormSchema } from 'schemas'
+
+import { createUser, createPersonalDetailsForm, validatePersonalDetailsForm } from 'models'
 
 class UserStore {
 
@@ -22,16 +21,10 @@ class UserStore {
   loading = false
 
   @observable
-  personalDetailsForm = {
-    email: null,
-    firstName: null,
-    lastName: null,
-  }
+  personalDetailsForm = createPersonalDetailsForm()
 
   @computed
-  get personalDetailsFormIsValid() {
-    return joi.validate(this.loginForm, personalDetailsFormSchema).error === null
-  }
+  get personalDetailsFormIsValid() { return validatePersonalDetailsForm(this.personalDetailsForm) }
 
   @action
   setLoading = bool => this.loading = bool

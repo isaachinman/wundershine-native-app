@@ -1,25 +1,15 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { AsyncStorage } from 'react-native'
 import { apiRequest } from 'utils/api'
-import joi from 'react-native-joi'
 import { loggedInSetup } from 'stores'
 import toast from 'utils/toast'
 import { NavActions } from 'utils/nav'
 
-import {
-  loginFormSchema,
-  signupFormSchema,
-  resetPasswordRequestFormSchema,
-  resetPasswordSetFormSchema,
-} from 'schemas'
+import * as modelActions from 'models'
 
 const storeKey = '@AuthStore'
 
 class AuthStore {
-
-  // constructor(loggedInSetup) {
-  //   this.loggedInSetup = loggedInSetup
-  // }
 
   @observable
   loading = false
@@ -47,10 +37,7 @@ class AuthStore {
   loggedIn = false
 
   @observable
-  loginForm = {
-    email: null,
-    password: null,
-  }
+  loginForm = modelActions.createLoginForm()
 
   @action
   redirectToLoggedInUI = (doNav = false) => {
@@ -69,7 +56,7 @@ class AuthStore {
   }
 
   @computed
-  get loginFormIsValid() { return joi.validate(this.loginForm, loginFormSchema).error === null }
+  get loginFormIsValid() { return modelActions.validateLoginForm(this.loginForm) }
 
   @action
   async setToken(token) {
@@ -142,15 +129,10 @@ class AuthStore {
 
   /* ---------- Signup ---------- */
   @observable
-  signupForm = {
-    email: null,
-    password: null,
-    firstName: null,
-    lastName: null,
-  }
+  signupForm = modelActions.createSignupForm()
 
   @computed
-  get signupFormIsValid() { return joi.validate(this.signupForm, signupFormSchema).error === null }
+  get signupFormIsValid() { return modelActions.validateSignupForm(this.signupForm) }
 
   @action
   signup = async () => {
@@ -181,32 +163,22 @@ class AuthStore {
 
   /* ---------- Reset Password ---------- */
   @observable
-  resetPasswordRequestForm = {
-    email: null,
-  }
+  resetPasswordRequestForm = modelActions.createResetPasswordRequestForm()
 
   @observable
-  resetPasswordSetForm = {
-    password: null,
-  }
+  resetPasswordSetForm = modelActions.createResetPasswordSetForm()
 
   @observable
   resetPasswordReturningEmail = null
 
   @computed
   get resetPasswordRequestFormIsValid() {
-    return joi.validate(
-      this.resetPasswordRequestForm,
-      resetPasswordRequestFormSchema,
-    ).error === null
+    return modelActions.validateResetPasswordRequestForm(this.resetPasswordRequestForm)
   }
 
   @computed
   get resetPasswordSetFormIsValid() {
-    return joi.validate(
-      this.resetPasswordSetForm,
-      resetPasswordSetFormSchema,
-    ).error === null
+    return modelActions.validateResetPasswordSetForm(this.resetPasswordSetForm)
   }
 
   @action
