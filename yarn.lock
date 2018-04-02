@@ -8092,7 +8092,7 @@ ws@^4.0.0:
 
 wundershine-data-fetcher@^2.0.0:
   version "2.0.0"
-  resolved "https://npm-proxy.fury.io/BYX1b7GSUJsnQjbqV7Es/isaachinman/~/d/wundershine-data-fetcher/wundershine-data-fetcher-2.0.0#54ddd408d7b216d7e231df1c09a1c642060f08df"
+  resolved "https://npm-proxy.fury.io/BYX1b7GSUJsnQjbqV7Es/isaachinman/~/d/wundershine-data-fetcher/wundershine-data-fetcher-2.0.0#60528121ef9ef06cf3c6c230d6084b9873e5781f"
   dependencies:
     axios "^0.18.0"
     babel-cli "^6.26.0"
