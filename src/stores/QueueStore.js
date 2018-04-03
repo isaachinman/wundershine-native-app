@@ -134,7 +134,6 @@ class QueueStore {
 
   @action
   changePack = async (sku) => {
-    this.setLoading(true)
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/change-pack`, data: { sku } })
       const { data } = res
@@ -144,7 +143,6 @@ class QueueStore {
     } catch (error) {
       runInAction(() => this.error = error)
     }
-    this.setLoading(false)
   }
 
 }
