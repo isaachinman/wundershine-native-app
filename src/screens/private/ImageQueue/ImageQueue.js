@@ -16,7 +16,10 @@ import {
   HelperUI,
   QueueItem,
 } from './subcomponents'
+
 import styles from './ImageQueue.styles'
+
+import { QUEUE_ITEM_HEIGHT, QUEUE_PADDING_BOTTOM } from './constants'
 
 @inject('cart', 'initialisation', 'queue', 'ui')
 @observer
@@ -58,6 +61,7 @@ export default class ImageQueue extends React.Component {
     /* Assemble items for flatlist and add helper ui text */
     const queueItems = queue.data.square.images.map(x => ({ ...x, key: x._id }))
     queueItems.push({ key: 'helper-ui' })
+    const queueHelperUIVisible = ui.animatables.queueHelperUI.visible
 
     if (queue.error) {
       showErrorUI = true
@@ -117,11 +121,42 @@ export default class ImageQueue extends React.Component {
           {showErrorUI && <ErrorUI />}
           {showQueueUI &&
             <FlatList
+              scrollEventThrottle={16}
+              onLayout={(e) => {
+                const { height } = e.nativeEvent.layout
+                if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM) {
+                  ui.setAnimatable('queueHelperUI', 'visible', true)
+                }
+                ui.setDimension('queueLayoutHeight', height)
+              }}
+              onContentSizeChange={(width, height) => {
+                if (height - QUEUE_PADDING_BOTTOM > ui.dimensions.queueLayoutHeight) {
+                  ui.setAnimatable('queueHelperUI', 'visible', false)
+                } else if (!ui.animatables.queueHelperUI.visible) {
+                  ui.setAnimatable('queueHelperUI', 'visible', true)
+                }
+              }}
+              onScroll={(e) => {
+                const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent
+                const atBottom = layoutMeasurement.height + contentOffset.y >=
+                  (contentSize.height - QUEUE_PADDING_BOTTOM)
+                if (atBottom) {
+                  ui.setAnimatable('queueHelperUI', 'visible', true)
+                } else if (ui.animatables.queueHelperUI.visible) {
+                  ui.setAnimatable('queueHelperUI', 'visible', false)
+                }
+              }}
               contentContainerStyle={styles.flatlist}
               data={queueItems}
               renderItem={({ item }) => {
                 if (item.key === 'helper-ui') {
-                  return <HelperUI key={item.key} belowLimit={images.length < 5} />
+                  return (
+                    <HelperUI
+                      key={item.key}
+                      belowLimit={images.length < 5}
+                      visible={queueHelperUIVisible}
+                    />
+                  )
                 }
                 return <QueueItem {...item} deleteImage={queue.deleteImage} key={item.key} />
               }}

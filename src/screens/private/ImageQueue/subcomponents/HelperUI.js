@@ -1,15 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Text, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
+import { Text } from 'react-native'
 
 import styles from '../ImageQueue.styles'
 
-export default class HelperUI extends React.Component {
+export default class HelperUI extends React.PureComponent {
   render() {
     const { belowLimit } = this.props
     return (
-      <View style={styles.helperUIContainer}>
+      <Animatable.View
+        transition='opacity'
+        duration={600}
+        useNativeDriver
+        style={{
+          ...styles.helperUIContainer,
+          opacity: this.props.visible ? 1 : 0,
+        }}
+      >
         <Text style={styles.helperUIHeading}>Add as many photos as you like</Text>
         {belowLimit ?
           <Text style={styles.helperUISubheading}>
@@ -23,12 +32,13 @@ export default class HelperUI extends React.Component {
             creative app!
           </Text>
         }
-      </View>
+      </Animatable.View>
     )
   }
 }
 
 HelperUI.propTypes = {
   belowLimit: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
 }
 

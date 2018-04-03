@@ -2,6 +2,8 @@ import { blackPrimary, blackSecondary, blackTertiary, whitePrimary, whiteSeconda
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
+import { QUEUE_PADDING_BOTTOM } from './constants'
+
 const screenHeight = Dimensions.get('window').height
 const sizingFactor = (((screenHeight / 4) - 180) / 100) + 1
 
@@ -26,7 +28,7 @@ export default {
     color: whiteSecondary,
   },
   flatlist: {
-    paddingBottom: 140,
+    paddingBottom: QUEUE_PADDING_BOTTOM,
   },
   content: {
     backgroundColor: greyBg,

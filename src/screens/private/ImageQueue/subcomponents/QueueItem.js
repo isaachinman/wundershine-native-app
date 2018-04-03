@@ -8,10 +8,12 @@ import { cloudinary } from 'utils/images'
 import { greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
 
+import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION } from '../constants'
+
 const styles = {
   container: {
     padding: 15,
-    minHeight: 130,
+    minHeight: QUEUE_ITEM_HEIGHT,
     borderBottomWidth: 1,
     borderBottomColor: greyAccent,
   },
@@ -20,8 +22,8 @@ const styles = {
     maxWidth: 180,
   },
   loadingImageOverlay: {
-    width: 100,
-    height: 100,
+    width: QUEUE_IMAGE_DIMENSION,
+    height: QUEUE_IMAGE_DIMENSION,
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,0.4)',
     display: 'flex',
@@ -37,6 +39,15 @@ const styles = {
   importText: {
     ...material.captionObject,
     fontStyle: 'italic',
+  },
+  animatedImageContainerStyle: {
+    width: QUEUE_IMAGE_DIMENSION,
+    height: QUEUE_IMAGE_DIMENSION,
+    backgroundColor: greyAccent,
+  },
+  animatedImageStyle: {
+    resizeMode: 'cover',
+    height: QUEUE_IMAGE_DIMENSION,
   },
 }
 
@@ -65,8 +76,8 @@ export default class QueueItem extends React.Component {
       >
         <ListItem.Part left>
           <AnimatedImage
-            containerStyle={{ width: 100, height: 100, backgroundColor: greyAccent }}
-            imageStyle={{ resizeMode: 'cover', height: 100 }}
+            containerStyle={styles.animatedImageContainerStyle}
+            imageStyle={styles.animatedImageStyle}
             imageSource={{ uri: imageSource }}
             loader={<ActivityIndicator color={whiteSecondary} />}
             animationDuration={200}

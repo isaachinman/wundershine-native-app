@@ -22,6 +22,18 @@ class UIStore {
     type: 'normal',
   }
 
+  @observable
+  animatables = {
+    queueHelperUI: {
+      visible: false,
+    },
+  }
+
+  @observable
+  dimensions = {
+    queueLayoutHeight: null,
+  }
+
   @action
   triggerToast = (options) => {
     const { message, autoDismiss, type } = options
@@ -47,6 +59,13 @@ class UIStore {
 
   @action
   toggleModal = (modalName, openState) => this.modals[modalName].open = openState
+
+  @action
+  setAnimatable = (animatableName, property, state) =>
+    this.animatables[animatableName][property] = state
+
+  @action
+  setDimension = (dimension, value) => this.dimensions[dimension] = value
 
 }
 

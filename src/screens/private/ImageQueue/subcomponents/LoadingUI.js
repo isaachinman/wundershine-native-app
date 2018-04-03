@@ -6,12 +6,14 @@ import LinearGradient from 'react-native-linear-gradient'
 import { PlaceholderContainer, Placeholder } from 'react-native-loading-placeholder'
 import { View } from 'react-native'
 
-import { greyAccent } from 'styles/colours'
+import { greyAccent, whitePrimary } from 'styles/colours'
+
+import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION } from '../constants'
 
 const styles = {
   placeholderContainer: {
-    backgroundColor: '#fff',
-    height: 131,
+    backgroundColor: whitePrimary,
+    height: QUEUE_ITEM_HEIGHT + 1,
     padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: greyAccent,
@@ -21,14 +23,14 @@ const styles = {
     marginTop: 6,
     alignSelf: 'flex-start',
     justifyContent: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: greyAccent,
   },
   imagePlaceholder: {
-    width: 100,
-    height: 100,
+    width: QUEUE_IMAGE_DIMENSION,
+    height: QUEUE_IMAGE_DIMENSION,
     alignSelf: 'flex-start',
     justifyContent: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: greyAccent,
     marginRight: 15,
   },
   textPlaceholder: {
@@ -36,7 +38,7 @@ const styles = {
     marginTop: 6,
     alignSelf: 'flex-start',
     justifyContent: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: greyAccent,
   },
   row: {
     flexDirection: 'row',
