@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, whitePrimary, whiteTertiary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
@@ -22,9 +22,16 @@ export default {
     ...material.titleObject,
     ...systemWeights.bold,
   },
+  nextDisabled: {
+    color: whiteSecondary,
+  },
+  flatlist: {
+    paddingBottom: 140,
+  },
   content: {
     backgroundColor: greyBg,
     flex: 1,
+    flexDirection: 'column',
   },
   right: {
     paddingRight: 10,
@@ -86,5 +93,25 @@ export default {
     ...systemWeights.semibold,
     color: blackPrimary,
     fontSize: 14,
+  },
+  helperUIContainer: {
+    paddingTop: 35,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+  },
+  helperUIHeading: {
+    ...systemWeights.light,
+    color: '#616161',
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  helperUISubheading: {
+    ...systemWeights.light,
+    color: whiteTertiary,
+    fontSize: 15,
+    lineHeight: 22,
+    textAlign: 'center',
+    maxWidth: 300,
   },
 }

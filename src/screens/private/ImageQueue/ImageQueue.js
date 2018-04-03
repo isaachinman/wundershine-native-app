@@ -9,7 +9,13 @@ import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import wundershineProducts from 'wundershine-data/products.json'
 
-import { EmptyUI, ErrorUI, LoadingUI, QueueItem } from './subcomponents'
+import {
+  EmptyUI,
+  ErrorUI,
+  LoadingUI,
+  HelperUI,
+  QueueItem,
+} from './subcomponents'
 import styles from './ImageQueue.styles'
 
 @inject('cart', 'initialisation', 'queue', 'ui')
@@ -34,27 +40,36 @@ export default class ImageQueue extends React.Component {
   render() {
 
     const {
-      cart,
       initialisation,
       queue,
       ui,
     } = this.props
+
+    const { images, packSelected } = queue.data[queue.queueType]
 
     /* UI Display Logic */
     let showErrorUI = false
     let showLoadingUI = false
     let showQueueUI = false
     let showEmptyUI = false
+    let queueIsProcessable = false
+    let packSelectedName = null
+
+    /* Assemble items for flatlist and add helper ui text */
+    const queueItems = queue.data.square.images.map(x => ({ ...x, key: x._id }))
+    queueItems.push({ key: 'helper-ui' })
 
     if (queue.error) {
       showErrorUI = true
     } else {
       if (initialisation.appIsInitialised) { // eslint-disable-line no-lonely-if
-        if (queue.data.square.images.length > 0) {
+        if (images.length > 0) {
           showQueueUI = true
+          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <= images.length
         } else {
           showEmptyUI = true
         }
+        packSelectedName = wundershineProducts[packSelected].name
       } else {
         showLoadingUI = true
       }
@@ -84,31 +99,33 @@ export default class ImageQueue extends React.Component {
               onPress={() => ui.toggleModal('packSelection', true)}
             >
               <Text style={styles.packPickerSelectionText}>
-                {wundershineProducts[cart.sku].name}
+                {packSelectedName}
               </Text>
               <Text style={styles.packPickerArrow}>&#x25BC;</Text>
             </Button>
-            <Button transparent>
-              <Text>Next</Text>
+            <Button
+              disabled={!queueIsProcessable}
+              transparent
+            >
+              <Text style={queueIsProcessable ? {} : styles.nextDisabled}>NEXT</Text>
             </Button>
           </Right>
         </Header>
         <Content contentContainerStyle={styles.content}>
-          {showLoadingUI &&
-            <LoadingUI />
-          }
+          {showLoadingUI && <LoadingUI />}
+          {showEmptyUI && <EmptyUI />}
+          {showErrorUI && <ErrorUI />}
           {showQueueUI &&
             <FlatList
-              data={queue.data.square.images.map(x => ({ ...x, key: x._id }))}
-              renderItem={({ item }) =>
-                <QueueItem {...item} deleteImage={queue.deleteImage} key={item.key} />}
+              contentContainerStyle={styles.flatlist}
+              data={queueItems}
+              renderItem={({ item }) => {
+                if (item.key === 'helper-ui') {
+                  return <HelperUI key={item.key} belowLimit={images.length < 5} />
+                }
+                return <QueueItem {...item} deleteImage={queue.deleteImage} key={item.key} />
+              }}
             />
-          }
-          {showEmptyUI &&
-            <EmptyUI />
-          }
-          {showErrorUI &&
-            <ErrorUI />
           }
           <Button
             style={styles.circularButton}
