@@ -30,17 +30,17 @@ class QueueStore {
   imagesToUpload = []
 
   @observable
-  loading = false
+  imagesLoading = []
 
   @observable
   currentlyUploading = false
 
-  @action
-  setLoading = bool => this.loading = bool
+  @action setImageLoading = imageID => this.imagesLoading.push(imageID)
+  @action removeImageLoading = imageID =>
+    this.imagesLoading = this.imagesLoading.filter(i => i._id !== imageID)
 
   @action
   getQueue = async () => {
-    this.setLoading(true)
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}` })
       const { data } = res
@@ -50,7 +50,6 @@ class QueueStore {
     } catch (error) {
       runInAction(() => this.error = error)
     }
-    this.setLoading(false)
   }
 
   @action
@@ -120,7 +119,7 @@ class QueueStore {
 
   @action
   deleteImage = async (imageID) => {
-    this.setLoading(true)
+    this.setImageLoading(imageID)
     try {
       const res = await apiRequest({ method: 'DELETE', url: `/pv/queue/${this.queueType}/images/${imageID}` })
       const { data } = res
@@ -130,7 +129,7 @@ class QueueStore {
     } catch (error) {
       runInAction(() => this.error = error)
     }
-    this.setLoading(false)
+    this.removeImageLoading(imageID)
   }
 
   @action

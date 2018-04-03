@@ -57,6 +57,7 @@ export default class QueueItem extends React.Component {
 
     const {
       cloudinaryID,
+      loading,
       name,
       notUploadedYet,
       origin,
@@ -95,7 +96,7 @@ export default class QueueItem extends React.Component {
             :
             <View>
               <Text style={material.caption}>{origin || 'Unknown'}</Text>
-              <Text onPress={() => this.props.deleteImage(this.props._id)}>Delete</Text>
+              <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
             </View>
           }
         </ListItem.Part>
@@ -115,6 +116,7 @@ QueueItem.propTypes = {
   _id: PropTypes.string.isRequired,
   cloudinaryID: PropTypes.string,
   deleteImage: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
   origin: PropTypes.string,
