@@ -133,6 +133,21 @@ class QueueStore {
     this.setLoading(false)
   }
 
+  @action
+  changePack = async (sku) => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: `/pv/queue/${this.queueType}/change-pack`, data: { sku } })
+      const { data } = res
+      runInAction(() => {
+        this.data[this.queueType] = data
+      })
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.setLoading(false)
+  }
+
 }
 
 export default new QueueStore()

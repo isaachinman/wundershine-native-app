@@ -31,20 +31,20 @@ const packOptions = [
   wundershineProducts.SQPK15,
 ]
 
-@inject('cart', 'ui')
+@inject('queue', 'ui')
 @observer
 export default class PackSelectionModal extends React.Component {
 
   handleClose = () => this.props.ui.toggleModal('packSelection', false)
 
   handlePackChange = (sku) => {
-    this.props.cart.changeSKU(sku)
+    this.props.queue.changePack(sku)
     setTimeout(() => this.handleClose(), 350)
   }
 
   render() {
 
-    const { cart, ui } = this.props
+    const { queue, ui } = this.props
 
     return (
       <Modal
@@ -78,7 +78,7 @@ export default class PackSelectionModal extends React.Component {
           <Content contentContainerStyle={styles.content}>
             <Grid>
               {packOptions.map((pack) => {
-                const packIsSelected = cart.sku === pack.sku
+                const packIsSelected = queue.data[queue.queueType].packSelected === pack.sku
                 return (
                   <Row key={pack.sku}>
                     <TouchableOpacity
@@ -129,8 +129,8 @@ export default class PackSelectionModal extends React.Component {
 }
 
 PackSelectionModal.wrappedComponent.propTypes = {
-  cart: PropTypes.shape({
-    changeSKU: PropTypes.func,
+  queue: PropTypes.shape({
+    changePack: PropTypes.func,
     sku: PropTypes.string,
   }).isRequired,
   ui: PropTypes.shape({
