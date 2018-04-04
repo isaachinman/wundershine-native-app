@@ -1,8 +1,9 @@
-import { action, toJS, runInAction, observable } from 'mobx'
+import { action, computed, toJS, runInAction, observable } from 'mobx'
 import { apiRequest, uploadImage } from 'utils/api'
 import uuid from 'uuid/v1'
 import { validateImages } from 'utils/images'
 import path from 'react-native-path'
+import wundershineProducts from 'wundershine-data/products.json'
 
 import UIStore from './UIStore'
 
@@ -17,10 +18,8 @@ class QueueStore {
 
   @observable
   data = {
-    [this.queueType]: {
-      packSelected: null,
-      images: [],
-    },
+    packSelected: null,
+    images: [],
   }
 
   @observable
@@ -35,13 +34,22 @@ class QueueStore {
   @observable
   currentlyUploading = false
 
+  @computed
+  get selectionActionsAllowed() {
+    if (this.data.packSelected) {
+      const packMinimum = wundershineProducts[this.data.packSelected].imageQuantity
+      return this.data.images.length > packMinimum
+    }
+    return false
+  }
+
   @action setImageLoading = imageID => this.imagesLoading.push(imageID)
   @action removeImageLoading = imageID =>
     this.imagesLoading = this.imagesLoading.filter(i => i._id !== imageID)
 
   @action
   mergeIntoLocalData = (data) => {
-    this.data[this.queueType] = {
+    this.data = {
       packSelected: data.packSelected,
       images: [
         ...data.selectedImages.map(x => ({ ...x, selected: true })),
@@ -79,11 +87,12 @@ class QueueStore {
         type: image.type,
         notUploadedYet: true,
         uriIsLocal: true,
+        selected: false,
       }))
 
       runInAction(() => {
         this.imagesToUpload = [...this.imagesToUpload, ...newImages]
-        this.data[this.queueType].images = [...this.data[this.queueType].images, ...newImages]
+        this.data.images = [...this.data.images, ...newImages]
       })
     }
 
@@ -103,12 +112,12 @@ class QueueStore {
       const creationData = await uploadImage(toJS(image), this.queueType)
 
       runInAction(() => {
-        this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
+        this.imagesToUpload = this.imagesToUpload.filter(i => i.localID !== image.localID)
 
         // On complete, swap image data for server response,
         // except for local uri (prevent flicker)
-        this.data[this.queueType].images = this.data[this.queueType].images.map((i) => {
-          if (i._id === image._id) {
+        this.data.images = this.data.images.map((i) => {
+          if (i.localID === image.localID) {
             return {
               ...creationData.image,
               selected: creationData.selected,
@@ -125,7 +134,7 @@ class QueueStore {
     } catch (error) {
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
-        this.data[this.queueType].images = this.data[this.queueType].images
+        this.data.images = this.data.images
           .filter(i => i._id !== image._id)
         this.currentlyUploading = false
       })

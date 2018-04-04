@@ -48,7 +48,7 @@ export default class ImageQueue extends React.Component {
       ui,
     } = this.props
 
-    const { images, packSelected } = queue.data[queue.queueType]
+    const { images, packSelected } = queue.data
 
     /* UI Display Logic */
     let showErrorUI = false
@@ -61,7 +61,7 @@ export default class ImageQueue extends React.Component {
     /* Assemble items for flatlist and add helper ui text */
     /* Prefer localID as key to prevent flicker of imported images after upload */
     /* Prefer _id as _id to allow API actions on newly-uploaded images */
-    const queueItems = queue.data.square.images.map(item => ({
+    const queueItems = queue.data.images.map(item => ({
       ...item,
       key: item.localID || item._id,
       _id: item._id || item.localID,
@@ -170,6 +170,7 @@ export default class ImageQueue extends React.Component {
                     {...item}
                     deleteImage={queue.deleteImage}
                     selectImage={queue.selectImage}
+                    selectionActionsAllowed={queue.selectionActionsAllowed}
                     key={item.key}
                   />
                 )

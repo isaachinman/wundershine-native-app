@@ -71,6 +71,7 @@ export default class QueueItem extends React.Component {
       notUploadedYet,
       origin,
       selected,
+      selectionActionsAllowed,
       uri,
       uriIsLocal,
     } = this.props
@@ -108,7 +109,9 @@ export default class QueueItem extends React.Component {
               <Text style={styles.imageTitle}>{name}</Text>
             </Col>
             <Col style={{ flex: 0 }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                disabled={!selectionActionsAllowed}
+              >
                 <Icon style={selectionIconStyle} name={selectionIcon} />
               </TouchableOpacity>
             </Col>
@@ -144,6 +147,7 @@ QueueItem.propTypes = {
   notUploadedYet: PropTypes.bool,
   origin: PropTypes.string,
   selected: PropTypes.bool.isRequired,
+  selectionActionsAllowed: PropTypes.bool.isRequired,
   selectImage: PropTypes.func.isRequired,
   uri: PropTypes.string.isRequired,
   uriIsLocal: PropTypes.bool,

@@ -78,7 +78,7 @@ export default class PackSelectionModal extends React.Component {
           <Content contentContainerStyle={styles.content}>
             <Grid>
               {packOptions.map((pack) => {
-                const packIsSelected = queue.data[queue.queueType].packSelected === pack.sku
+                const packIsSelected = queue.data.packSelected === pack.sku
                 return (
                   <Row key={pack.sku}>
                     <TouchableOpacity
