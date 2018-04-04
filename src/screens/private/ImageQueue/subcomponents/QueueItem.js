@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ActivityIndicator, Text, View } from 'react-native'
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
 import { cloudinary } from 'utils/images'
+import { Col, Row } from 'react-native-easy-grid'
+import { Icon } from 'components'
 
-import { greyAccent, whiteSecondary } from 'styles/colours'
+import { blackSecondary, greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION } from '../constants'
@@ -18,8 +20,7 @@ const styles = {
     borderBottomColor: greyAccent,
   },
   textContainer: {
-    paddingHorizontal: 15,
-    maxWidth: 180,
+    paddingLeft: 15,
   },
   loadingImageOverlay: {
     width: QUEUE_IMAGE_DIMENSION,
@@ -49,6 +50,14 @@ const styles = {
     resizeMode: 'cover',
     height: QUEUE_IMAGE_DIMENSION,
   },
+  iconSelected: {
+    fontSize: 34,
+    color: blackSecondary,
+  },
+  iconDeselected: {
+    fontSize: 34,
+    color: whiteSecondary,
+  },
 }
 
 export default class QueueItem extends React.Component {
@@ -61,12 +70,16 @@ export default class QueueItem extends React.Component {
       name,
       notUploadedYet,
       origin,
+      selected,
       uri,
       uriIsLocal,
     } = this.props
 
     const imageSource = notUploadedYet || uriIsLocal ? uri :
       cloudinary.url(cloudinaryID, { width: 400, crop: 'scale' })
+
+    const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
+    const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
 
     return (
       <ListItem
@@ -90,13 +103,23 @@ export default class QueueItem extends React.Component {
           }
         </ListItem.Part>
         <ListItem.Part middle column containerStyle={styles.textContainer}>
-          <Text style={styles.imageTitle}>{name}</Text>
+          <Row>
+            <Col>
+              <Text style={styles.imageTitle}>{name}</Text>
+            </Col>
+            <Col style={{ flex: 0 }}>
+              <TouchableOpacity>
+                <Icon style={selectionIconStyle} name={selectionIcon} />
+              </TouchableOpacity>
+            </Col>
+          </Row>
           {notUploadedYet ?
             <Text style={styles.importText}>Import in progress...</Text>
             :
             <View>
               <Text style={material.caption}>{origin || 'Unknown'}</Text>
               <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
+              <Text onPress={() => this.props.selectImage(this.props._id)}>{loading ? 'Loading' : 'Select'}</Text>
             </View>
           }
         </ListItem.Part>
@@ -120,6 +143,8 @@ QueueItem.propTypes = {
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
   origin: PropTypes.string,
+  selected: PropTypes.bool.isRequired,
+  selectImage: PropTypes.func.isRequired,
   uri: PropTypes.string.isRequired,
   uriIsLocal: PropTypes.bool,
 }

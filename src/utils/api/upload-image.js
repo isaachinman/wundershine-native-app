@@ -45,7 +45,7 @@ export default async (_image, queueType) => {
     Upload.addListener('completed', uploadID, (data) => {
       console.log('Completed!', data) // eslint-disable-line
       if (data.responseCode === 200) {
-        resolve(data)
+        resolve(JSON.parse(data.responseBody))
       } else {
         reject(data)
       }

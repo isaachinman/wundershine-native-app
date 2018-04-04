@@ -40,13 +40,22 @@ class QueueStore {
     this.imagesLoading = this.imagesLoading.filter(i => i._id !== imageID)
 
   @action
+  mergeIntoLocalData = (data) => {
+    this.data[this.queueType] = {
+      packSelected: data.packSelected,
+      images: [
+        ...data.selectedImages.map(x => ({ ...x, selected: true })),
+        ...data.deselectedImages.map(x => ({ ...x, selected: false })),
+      ],
+    }
+  }
+
+  @action
   getQueue = async () => {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}` })
       const { data } = res
-      runInAction(() => {
-        this.data[this.queueType] = data
-      })
+      this.mergeIntoLocalData(data)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -63,7 +72,7 @@ class QueueStore {
 
     if (validatedImages.length > 0) {
       const newImages = validatedImages.map(image => ({
-        _id: uuid(), // Temporary ID until server response
+        localID: uuid(), // Temporary ID until server response
         name: path.basename(image.value),
         origin: 'Need to determine origin',
         uri: image.value,
@@ -91,15 +100,21 @@ class QueueStore {
 
     try {
 
-      await uploadImage(toJS(image), this.queueType)
+      const creationData = await uploadImage(toJS(image), this.queueType)
 
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i._id !== image._id)
+
+        // On complete, swap image data for server response,
+        // except for local uri (prevent flicker)
         this.data[this.queueType].images = this.data[this.queueType].images.map((i) => {
           if (i._id === image._id) {
             return {
-              ...i,
-              notUploadedYet: false,
+              ...creationData.image,
+              selected: creationData.selected,
+              uriIsLocal: true,
+              uri: image.uri,
+              localID: image.localID,
             }
           }
           return i
@@ -123,9 +138,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ method: 'DELETE', url: `/pv/queue/${this.queueType}/images/${imageID}` })
       const { data } = res
-      runInAction(() => {
-        this.data[this.queueType] = data
-      })
+      this.mergeIntoLocalData(data)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -137,12 +150,23 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/change-pack`, data: { sku } })
       const { data } = res
-      runInAction(() => {
-        this.data[this.queueType] = data
-      })
+      this.mergeIntoLocalData(data)
     } catch (error) {
       runInAction(() => this.error = error)
     }
+  }
+
+  @action
+  selectImage = async (imageID) => {
+    this.setImageLoading(imageID)
+    try {
+      const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/select`, data: { imageID } })
+      const { data } = res
+      this.mergeIntoLocalData(data)
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.removeImageLoading(imageID)
   }
 
 }

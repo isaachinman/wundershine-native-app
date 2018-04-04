@@ -81,7 +81,7 @@ export default class LoadingUI extends React.PureComponent {
               <View
                 style={{
                   flexDirection: 'column',
-                  width: '100%',
+                  flex: 1,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -107,7 +107,7 @@ export default class LoadingUI extends React.PureComponent {
                 <Placeholder
                   style={[styles.textPlaceholder, { marginTop: 20, width: '80%' }]}
                 />
-                <Placeholder style={[styles.textPlaceholder, { width: '90%' }]} />
+                <Placeholder style={[styles.textPlaceholder, { width: '95%' }]} />
                 <Placeholder style={[styles.textPlaceholder, { width: '50%' }]} />
               </View>
             </View>

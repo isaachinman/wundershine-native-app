@@ -59,8 +59,14 @@ export default class ImageQueue extends React.Component {
     let packSelectedName = null
 
     /* Assemble items for flatlist and add helper ui text */
-    const queueItems = queue.data.square.images.map(x =>
-      ({ ...x, key: x._id, loading: queue.imagesLoading.includes(x._id) }))
+    /* Prefer localID as key to prevent flicker of imported images after upload */
+    /* Prefer _id as _id to allow API actions on newly-uploaded images */
+    const queueItems = queue.data.square.images.map(item => ({
+      ...item,
+      key: item.localID || item._id,
+      _id: item._id || item.localID,
+      loading: queue.imagesLoading.includes(item._id),
+    }))
     queueItems.push({ key: 'helper-ui' })
     const queueHelperUIVisible = ui.animatables.queueHelperUI.visible
 
@@ -163,6 +169,7 @@ export default class ImageQueue extends React.Component {
                   <QueueItem
                     {...item}
                     deleteImage={queue.deleteImage}
+                    selectImage={queue.selectImage}
                     key={item.key}
                   />
                 )
