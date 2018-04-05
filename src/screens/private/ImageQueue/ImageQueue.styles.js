@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
@@ -115,5 +115,12 @@ export default {
     lineHeight: 22,
     textAlign: 'center',
     maxWidth: 300,
+  },
+  packnamePlaceholder: {
+    width: 40,
+    height: 8,
+    marginRight: 5,
+    justifyContent: 'center',
+    backgroundColor: greyAccent,
   },
 }

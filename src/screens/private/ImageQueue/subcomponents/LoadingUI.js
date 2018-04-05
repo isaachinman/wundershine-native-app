@@ -1,9 +1,6 @@
-/* eslint-disable react/no-multi-comp */
-
 import React from 'react'
 
-import LinearGradient from 'react-native-linear-gradient'
-import { PlaceholderContainer, Placeholder } from 'react-native-loading-placeholder'
+import { Placeholder } from 'react-native-loading-placeholder'
 import { View } from 'react-native'
 
 import { greyAccent, whitePrimary } from 'styles/colours'
@@ -46,31 +43,11 @@ const styles = {
   },
 }
 
-class Gradient extends React.PureComponent {
-  render() {
-    return (
-      <LinearGradient
-        colors={['#eeeeee', '#dddddd', '#eeeeee']}
-        start={{ x: 1.0, y: 0.0 }}
-        end={{ x: 0.0, y: 0.0 }}
-        style={{
-          flex: 1,
-          width: 120,
-        }}
-      />
-    )
-  }
-}
-
 export default class LoadingUI extends React.PureComponent {
 
   render() {
     return (
-      <PlaceholderContainer
-        animatedComponent={<Gradient />}
-        duration={600}
-        delay={200}
-      >
+      <React.Fragment>
         {[1, 2, 3].map(n => (
           <View
             key={`loading-ui-placeholder-${n}`}
@@ -113,7 +90,7 @@ export default class LoadingUI extends React.PureComponent {
             </View>
           </View>
         ))}
-      </PlaceholderContainer>
+      </React.Fragment>
     )
   }
 

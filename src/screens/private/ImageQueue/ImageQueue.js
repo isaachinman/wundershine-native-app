@@ -7,6 +7,7 @@ import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
+import { Placeholder } from 'react-native-loading-placeholder'
 import wundershineProducts from 'wundershine-data/products.json'
 
 import { whiteSecondary } from 'styles/colours'
@@ -16,6 +17,7 @@ import {
   ErrorUI,
   LoadingUI,
   HelperUI,
+  PlaceholderContainer,
   QueueItem,
 } from './subcomponents'
 
@@ -65,7 +67,6 @@ export default class ImageQueue extends React.Component {
     let showQueueUI = false
     let showEmptyUI = false
     let queueIsProcessable = false
-    let packSelectedName = null
 
     /* Assemble items for flatlist and add helper ui text */
     /* Prefer localID as key to prevent flicker of imported images after upload */
@@ -89,122 +90,127 @@ export default class ImageQueue extends React.Component {
         } else {
           showEmptyUI = true
         }
-        packSelectedName = wundershineProducts[packSelected].name
       } else {
         showLoadingUI = true
       }
     }
 
     return (
-      <Container>
-        <View key={queue.currentlyUploading} />
-        <Header
-          androidStatusBarColor='#dddddd'
-          style={styles.header}
-        >
-          <Left>
-            <Button
-              onPress={() => NavActions.toggleDrawer({ side: 'left' })}
-              transparent
-            >
-              <Icon name='ios-menu' style={styles.iconMenu} />
-            </Button>
-          </Left>
-          <Body style={styles.headerBody}>
-            <Text style={styles.headerTitle}>Queue</Text>
-          </Body>
-          <Right style={styles.right}>
-            <Button
-              transparent
-              onPress={() => ui.toggleModal('packSelection', true)}
-            >
-              <Text style={styles.packPickerSelectionText}>
-                {packSelectedName}
-              </Text>
-              <Text style={styles.packPickerArrow}>&#x25BC;</Text>
-            </Button>
-            <Button
-              disabled={!queueIsProcessable}
-              transparent
-            >
-              <Text style={queueIsProcessable ? {} : styles.nextDisabled}>NEXT</Text>
-            </Button>
-          </Right>
-        </Header>
-        <View style={styles.content}>
-          {showLoadingUI && <LoadingUI />}
-          {showEmptyUI && <EmptyUI />}
-          {showErrorUI && <ErrorUI />}
-          {showQueueUI &&
-            <FlatList
-              scrollEventThrottle={16}
-              onLayout={(e) => {
-                const { height } = e.nativeEvent.layout
-                if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM) {
-                  ui.setAnimatable('queueHelperUI', 'visible', true)
+      <PlaceholderContainer>
+        <Container>
+          <View key={queue.currentlyUploading} />
+          <Header
+            androidStatusBarColor='#dddddd'
+            style={styles.header}
+          >
+            <Left>
+              <Button
+                onPress={() => NavActions.toggleDrawer({ side: 'left' })}
+                transparent
+              >
+                <Icon name='ios-menu' style={styles.iconMenu} />
+              </Button>
+            </Left>
+            <Body style={styles.headerBody}>
+              <Text style={styles.headerTitle}>Queue</Text>
+            </Body>
+            <Right style={styles.right}>
+              <Button
+                transparent
+                onPress={() => ui.toggleModal('packSelection', true)}
+              >
+                {showLoadingUI ?
+                  <Placeholder style={styles.packnamePlaceholder} />
+                :
+                  <Text style={styles.packPickerSelectionText}>
+                    {wundershineProducts[packSelected].name}
+                  </Text>
                 }
-                ui.setDimension('queueLayoutHeight', height)
-              }}
-              onContentSizeChange={(width, height) => {
-                if (height - QUEUE_PADDING_BOTTOM > ui.dimensions.queueLayoutHeight) {
-                  ui.setAnimatable('queueHelperUI', 'visible', false)
-                } else if (!ui.animatables.queueHelperUI.visible) {
-                  ui.setAnimatable('queueHelperUI', 'visible', true)
-                }
-              }}
-              onScroll={(e) => {
-                const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent
-                const atBottom = layoutMeasurement.height + contentOffset.y >=
-                  (contentSize.height - QUEUE_PADDING_BOTTOM)
-                if (atBottom) {
-                  ui.setAnimatable('queueHelperUI', 'visible', true)
-                } else if (ui.animatables.queueHelperUI.visible) {
-                  ui.setAnimatable('queueHelperUI', 'visible', false)
-                }
-              }}
-              refreshControl={(
-                <RefreshControl
-                  refreshing={queue.refreshing}
-                  onRefresh={this.handleRefresh}
-                  tintColor={whiteSecondary}
-                />
-              )}
-              contentContainerStyle={styles.flatlist}
-              data={queueItems}
-              renderItem={({ item }) => {
-                if (item.key === 'helper-ui') {
+                <Text style={styles.packPickerArrow}>&#x25BC;</Text>
+              </Button>
+              <Button
+                disabled={!queueIsProcessable}
+                transparent
+              >
+                <Text style={queueIsProcessable ? {} : styles.nextDisabled}>NEXT</Text>
+              </Button>
+            </Right>
+          </Header>
+          <View style={styles.content}>
+            {showLoadingUI && <LoadingUI />}
+            {showEmptyUI && <EmptyUI />}
+            {showErrorUI && <ErrorUI />}
+            {showQueueUI &&
+              <FlatList
+                scrollEventThrottle={16}
+                onLayout={(e) => {
+                  const { height } = e.nativeEvent.layout
+                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM) {
+                    ui.setAnimatable('queueHelperUI', 'visible', true)
+                  }
+                  ui.setDimension('queueLayoutHeight', height)
+                }}
+                onContentSizeChange={(width, height) => {
+                  if (height - QUEUE_PADDING_BOTTOM > ui.dimensions.queueLayoutHeight) {
+                    ui.setAnimatable('queueHelperUI', 'visible', false)
+                  } else if (!ui.animatables.queueHelperUI.visible) {
+                    ui.setAnimatable('queueHelperUI', 'visible', true)
+                  }
+                }}
+                onScroll={(e) => {
+                  const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent
+                  const atBottom = layoutMeasurement.height + contentOffset.y >=
+                    (contentSize.height - QUEUE_PADDING_BOTTOM)
+                  if (atBottom) {
+                    ui.setAnimatable('queueHelperUI', 'visible', true)
+                  } else if (ui.animatables.queueHelperUI.visible) {
+                    ui.setAnimatable('queueHelperUI', 'visible', false)
+                  }
+                }}
+                refreshControl={(
+                  <RefreshControl
+                    refreshing={queue.refreshing}
+                    onRefresh={this.handleRefresh}
+                    tintColor={whiteSecondary}
+                  />
+                )}
+                contentContainerStyle={styles.flatlist}
+                data={queueItems}
+                renderItem={({ item }) => {
+                  if (item.key === 'helper-ui') {
+                    return (
+                      <HelperUI
+                        key={item.key}
+                        belowLimit={images.length < 5}
+                        visible={queueHelperUIVisible}
+                      />
+                    )
+                  }
                   return (
-                    <HelperUI
+                    <QueueItem
+                      {...item}
+                      deleteImage={queue.deleteImage}
+                      selectImage={queue.selectImage}
+                      deselectImage={queue.deselectImage}
+                      selectionActionsAllowed={queue.selectionActionsAllowed}
                       key={item.key}
-                      belowLimit={images.length < 5}
-                      visible={queueHelperUIVisible}
                     />
                   )
-                }
-                return (
-                  <QueueItem
-                    {...item}
-                    deleteImage={queue.deleteImage}
-                    selectImage={queue.selectImage}
-                    deselectImage={queue.deselectImage}
-                    selectionActionsAllowed={queue.selectionActionsAllowed}
-                    key={item.key}
-                  />
-                )
-              }}
-            />
-          }
-          <Button
-            style={styles.circularButton}
-            active
-            onPress={this.handleLaunchImagePicker}
-          >
-            <Icon name='ios-add' style={styles.circularButtonIcon} />
-          </Button>
-        </View>
-        <PackSelectionModal />
-        <ImageRejectedModal />
-      </Container>
+                }}
+              />
+            }
+            <Button
+              style={styles.circularButton}
+              active
+              onPress={this.handleLaunchImagePicker}
+            >
+              <Icon name='ios-add' style={styles.circularButtonIcon} />
+            </Button>
+          </View>
+          <PackSelectionModal />
+          <ImageRejectedModal />
+        </Container>
+      </PlaceholderContainer>
     )
   }
 }
