@@ -84,12 +84,23 @@ const styles = {
     color: blackSecondary,
     paddingRight: 50,
   },
+  iconMore: {
+    color: whiteSecondary,
+    opacity: 0.8,
+    marginRight: 5,
+    fontSize: 28,
+    alignSelf: 'flex-end',
+  },
 }
 
 export default class QueueItem extends React.Component {
 
+  openSlideout = () => {
+    this.snapper.snapTo({ index: 1 })
+  }
+
   handleSlideoutAction = (action) => {
-    this.snapper.snapTo({ x: 0 })
+    this.snapper.snapTo({ index: 0 })
     action()
   }
 
@@ -157,7 +168,7 @@ export default class QueueItem extends React.Component {
                     </View>
                   }
                 </Col>
-                <Col style={{ flex: 0 }}>
+                <Col style={{ flex: 0, justifyContent: 'space-between' }}>
                   {loading ?
                     <View style={styles.loadingIconContainer}>
                       <ActivityIndicator color={whiteSecondary} />
@@ -170,6 +181,11 @@ export default class QueueItem extends React.Component {
                       <Icon name={selectionIcon} style={selectionIconStyle} />
                     </TouchableOpacity>
                   }
+                  <TouchableOpacity
+                    onPress={this.openSlideout}
+                  >
+                    <Icon name='ios-more' style={styles.iconMore} />
+                  </TouchableOpacity>
                 </Col>
               </Row>
             </ListItem.Part>
