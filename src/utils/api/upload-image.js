@@ -15,6 +15,8 @@ export default async (_image, queueType) => {
     image.uri = image.uri.replace('file://', '')
   }
 
+  image.uri = encodeURI(image.uri)
+
   const { name, uri, type } = image
 
   const options = {
@@ -38,6 +40,9 @@ export default async (_image, queueType) => {
   const uploadID = await Upload.startUpload(options)
 
   return new Promise((resolve, reject) => {
+    Upload.addListener('cancelled', uploadID, (data) => {
+      console.log('Cancelled!', data) // eslint-disable-line
+    })
     Upload.addListener('error', uploadID, (data) => {
       console.log(`Error: ${data.error}%`) // eslint-disable-line
       reject(data)
