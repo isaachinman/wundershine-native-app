@@ -30,6 +30,8 @@ target 'Wundershine' do
   ]
   pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
 
+  pod 'Interactable', :path => '../node_modules/react-native-interactable'
+
 end
 
 target 'ShareReceiver' do

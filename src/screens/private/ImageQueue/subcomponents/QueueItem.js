@@ -7,6 +7,8 @@ import { cloudinary } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 
+import Interactable from 'react-native-interactable'
+
 import { blackSecondary, greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
 
@@ -67,14 +69,35 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  slideoutContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: -1,
+    flexDirection: 'row',
+  },
+  iconSlideout: {
+    fontSize: 28,
+    color: blackSecondary,
+    paddingRight: 50,
+  },
 }
 
 export default class QueueItem extends React.Component {
+
+  handleSlideoutAction = (action) => {
+    this.snapper.snapTo({ x: 0 })
+    action()
+  }
 
   render() {
 
     const {
       _id,
+      deleteImage,
       deselectImage,
       cloudinaryID,
       loading,
@@ -96,56 +119,71 @@ export default class QueueItem extends React.Component {
     const selectionIconAction = selected ? deselectImage : selectImage
 
     return (
-      <ListItem
-        activeBackgroundColor={greyAccent}
-        height={100}
-        onPress={() => { }}
-        containerStyle={styles.container}
-      >
-        <ListItem.Part left>
-          <AnimatedImage
-            containerStyle={styles.animatedImageContainerStyle}
-            imageStyle={styles.animatedImageStyle}
-            imageSource={{ uri: imageSource }}
-            loader={<ActivityIndicator color={whiteSecondary} />}
-            animationDuration={200}
-          />
-          {notUploadedYet &&
-            <View style={styles.loadingImageOverlay}>
-              <ActivityIndicator color={whiteSecondary} />
-            </View>
-          }
-        </ListItem.Part>
-        <ListItem.Part middle column containerStyle={styles.textContainer}>
-          <Row>
-            <Col style={styles.titleContainer}>
-              <Text style={styles.imageTitle}>{name}</Text>
-              {notUploadedYet ?
-                <Text style={styles.importText}>Import in progress...</Text>
-                :
-                <View>
-                  <Text style={material.caption}>{origin || 'iPhone X'}</Text>
-                  <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
-                </View>
-              }
-            </Col>
-            <Col style={{ flex: 0 }}>
-              {loading ?
-                <View style={styles.loadingIconContainer}>
+      <View>
+        <Interactable.View
+          horizontalOnly
+          snapPoints={[{ x: 0 }, { x: -190 }]}
+          ref={x => this.snapper = x}
+        >
+          <ListItem
+            activeBackgroundColor={greyAccent}
+            height={100}
+            onPress={() => { }}
+            containerStyle={styles.container}
+          >
+            <ListItem.Part left>
+              <AnimatedImage
+                containerStyle={styles.animatedImageContainerStyle}
+                imageStyle={styles.animatedImageStyle}
+                imageSource={{ uri: imageSource }}
+                loader={<ActivityIndicator color={whiteSecondary} />}
+                animationDuration={200}
+              />
+              {notUploadedYet &&
+                <View style={styles.loadingImageOverlay}>
                   <ActivityIndicator color={whiteSecondary} />
                 </View>
-                :
-                <TouchableOpacity
-                  disabled={!selectionActionsAllowed}
-                  onPress={() => selectionIconAction(_id)}
-                >
-                  <Icon style={selectionIconStyle} name={selectionIcon} />
-                </TouchableOpacity>
               }
-            </Col>
-          </Row>
-        </ListItem.Part>
-      </ListItem>
+            </ListItem.Part>
+            <ListItem.Part middle column containerStyle={styles.textContainer}>
+              <Row>
+                <Col style={styles.titleContainer}>
+                  <Text style={styles.imageTitle}>{name}</Text>
+                  {notUploadedYet ?
+                    <Text style={styles.importText}>Import in progress...</Text>
+                    :
+                    <View>
+                      <Text style={material.caption}>{origin || 'iPhone X'}</Text>
+                    </View>
+                  }
+                </Col>
+                <Col style={{ flex: 0 }}>
+                  {loading ?
+                    <View style={styles.loadingIconContainer}>
+                      <ActivityIndicator color={whiteSecondary} />
+                    </View>
+                    :
+                    <TouchableOpacity
+                      disabled={!selectionActionsAllowed}
+                      onPress={() => selectionIconAction(_id)}
+                    >
+                      <Icon name={selectionIcon} style={selectionIconStyle} />
+                    </TouchableOpacity>
+                  }
+                </Col>
+              </Row>
+            </ListItem.Part>
+          </ListItem>
+        </Interactable.View>
+        <View style={styles.slideoutContainer}>
+          <TouchableOpacity onPress={() => this.handleSlideoutAction(() => {})}>
+            <Icon name='ios-crop-outline' style={styles.iconSlideout} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleSlideoutAction(deleteImage.bind(null, _id))}>
+            <Icon name='ios-trash-outline' style={styles.iconSlideout} />
+          </TouchableOpacity>
+        </View>
+      </View>
     )
   }
 }
