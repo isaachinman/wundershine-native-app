@@ -10,7 +10,7 @@ import { Icon } from 'components'
 import { blackSecondary, greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
 
-import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION } from '../constants'
+import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
 
 const styles = {
   container: {
@@ -51,12 +51,18 @@ const styles = {
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
-    fontSize: 34,
+    fontSize: QUEUE_ICON_SIZE,
     color: blackSecondary,
   },
   iconDeselected: {
-    fontSize: 34,
+    fontSize: QUEUE_ICON_SIZE,
     color: whiteSecondary,
+  },
+  loadingIconContainer: {
+    width: QUEUE_ICON_SIZE,
+    height: QUEUE_ICON_SIZE,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }
 
@@ -65,12 +71,15 @@ export default class QueueItem extends React.Component {
   render() {
 
     const {
+      _id,
+      deselectImage,
       cloudinaryID,
       loading,
       name,
       notUploadedYet,
       origin,
       selected,
+      selectImage,
       selectionActionsAllowed,
       uri,
       uriIsLocal,
@@ -81,6 +90,7 @@ export default class QueueItem extends React.Component {
 
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
+    const selectionIconAction = selected ? deselectImage : selectImage
 
     return (
       <ListItem
@@ -109,11 +119,18 @@ export default class QueueItem extends React.Component {
               <Text style={styles.imageTitle}>{name}</Text>
             </Col>
             <Col style={{ flex: 0 }}>
-              <TouchableOpacity
-                disabled={!selectionActionsAllowed}
-              >
-                <Icon style={selectionIconStyle} name={selectionIcon} />
-              </TouchableOpacity>
+              {loading ?
+                <View style={styles.loadingIconContainer}>
+                  <ActivityIndicator color={whiteSecondary} />
+                </View>
+                :
+                <TouchableOpacity
+                  disabled={!selectionActionsAllowed}
+                  onPress={() => selectionIconAction(_id)}
+                >
+                  <Icon style={selectionIconStyle} name={selectionIcon} />
+                </TouchableOpacity>
+              }
             </Col>
           </Row>
           {notUploadedYet ?
@@ -122,7 +139,6 @@ export default class QueueItem extends React.Component {
             <View>
               <Text style={material.caption}>{origin || 'Unknown'}</Text>
               <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
-              <Text onPress={() => this.props.selectImage(this.props._id)}>{loading ? 'Loading' : 'Select'}</Text>
             </View>
           }
         </ListItem.Part>
@@ -142,6 +158,7 @@ QueueItem.propTypes = {
   _id: PropTypes.string.isRequired,
   cloudinaryID: PropTypes.string,
   deleteImage: PropTypes.func.isRequired,
+  deselectImage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,

@@ -34,6 +34,9 @@ class QueueStore {
   @observable
   currentlyUploading = false
 
+  @observable
+  refreshing = false
+
   @computed
   get selectionActionsAllowed() {
     if (this.data.packSelected) {
@@ -43,9 +46,14 @@ class QueueStore {
     return false
   }
 
-  @action setImageLoading = imageID => this.imagesLoading.push(imageID)
-  @action removeImageLoading = imageID =>
-    this.imagesLoading = this.imagesLoading.filter(i => i._id !== imageID)
+  @action
+  setImageLoading = imageID => this.imagesLoading.push(imageID)
+  @action
+  removeImageLoading = imageID =>
+    this.imagesLoading = this.imagesLoading.filter(i => i !== imageID)
+
+  @action
+  setRefreshing = bool => this.refreshing = bool
 
   @action
   mergeIntoLocalData = (data) => {
@@ -170,6 +178,19 @@ class QueueStore {
     this.setImageLoading(imageID)
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/select`, data: { imageID } })
+      const { data } = res
+      this.mergeIntoLocalData(data)
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.removeImageLoading(imageID)
+  }
+
+  @action
+  deselectImage = async (imageID) => {
+    this.setImageLoading(imageID)
+    try {
+      const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/deselect`, data: { imageID } })
       const { data } = res
       this.mergeIntoLocalData(data)
     } catch (error) {

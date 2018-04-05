@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Body, Button, Container, Content, Header, Left, Right } from 'native-base'
-import { FlatList, Text, View } from 'react-native'
+import { Body, Button, Container, Header, Left, Right } from 'native-base'
+import { FlatList, RefreshControl, Text, View } from 'react-native'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import wundershineProducts from 'wundershine-data/products.json'
+
+import { whiteSecondary } from 'styles/colours'
 
 import {
   EmptyUI,
@@ -35,6 +37,13 @@ export default class ImageQueue extends React.Component {
     if (queue.imagesToUpload.length > 0 && !queue.currentlyUploading) {
       queue.uploadImage()
     }
+  }
+
+  handleRefresh = async () => {
+    const { queue } = this.props
+    queue.setRefreshing(true)
+    await queue.getQueue()
+    queue.setRefreshing(false)
   }
 
   handleLaunchImagePicker = async () => {
@@ -122,7 +131,7 @@ export default class ImageQueue extends React.Component {
             </Button>
           </Right>
         </Header>
-        <Content contentContainerStyle={styles.content}>
+        <View style={styles.content}>
           {showLoadingUI && <LoadingUI />}
           {showEmptyUI && <EmptyUI />}
           {showErrorUI && <ErrorUI />}
@@ -153,6 +162,13 @@ export default class ImageQueue extends React.Component {
                   ui.setAnimatable('queueHelperUI', 'visible', false)
                 }
               }}
+              refreshControl={(
+                <RefreshControl
+                  refreshing={queue.refreshing}
+                  onRefresh={this.handleRefresh}
+                  tintColor={whiteSecondary}
+                />
+              )}
               contentContainerStyle={styles.flatlist}
               data={queueItems}
               renderItem={({ item }) => {
@@ -170,6 +186,7 @@ export default class ImageQueue extends React.Component {
                     {...item}
                     deleteImage={queue.deleteImage}
                     selectImage={queue.selectImage}
+                    deselectImage={queue.deselectImage}
                     selectionActionsAllowed={queue.selectionActionsAllowed}
                     key={item.key}
                   />
@@ -184,7 +201,7 @@ export default class ImageQueue extends React.Component {
           >
             <Icon name='ios-add' style={styles.circularButtonIcon} />
           </Button>
-        </Content>
+        </View>
         <PackSelectionModal />
         <ImageRejectedModal />
       </Container>
