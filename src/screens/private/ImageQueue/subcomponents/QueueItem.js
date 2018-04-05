@@ -22,6 +22,9 @@ const styles = {
   textContainer: {
     paddingLeft: 15,
   },
+  titleContainer: {
+    paddingRight: 15,
+  },
   loadingImageOverlay: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
@@ -115,8 +118,16 @@ export default class QueueItem extends React.Component {
         </ListItem.Part>
         <ListItem.Part middle column containerStyle={styles.textContainer}>
           <Row>
-            <Col>
+            <Col style={styles.titleContainer}>
               <Text style={styles.imageTitle}>{name}</Text>
+              {notUploadedYet ?
+                <Text style={styles.importText}>Import in progress...</Text>
+                :
+                <View>
+                  <Text style={material.caption}>{origin || 'iPhone X'}</Text>
+                  <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
+                </View>
+              }
             </Col>
             <Col style={{ flex: 0 }}>
               {loading ?
@@ -133,14 +144,6 @@ export default class QueueItem extends React.Component {
               }
             </Col>
           </Row>
-          {notUploadedYet ?
-            <Text style={styles.importText}>Import in progress...</Text>
-            :
-            <View>
-              <Text style={material.caption}>{origin || 'Unknown'}</Text>
-              <Text onPress={() => this.props.deleteImage(this.props._id)}>{loading ? 'Loading' : 'Delete'}</Text>
-            </View>
-          }
         </ListItem.Part>
       </ListItem>
     )
