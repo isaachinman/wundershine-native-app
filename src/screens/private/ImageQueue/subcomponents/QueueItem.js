@@ -56,18 +56,21 @@ const styles = {
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
+    width: 28,
+    height: 38,
     fontSize: QUEUE_ICON_SIZE,
     color: blackSecondary,
   },
   iconDeselected: {
+    width: 28,
+    height: 38,
     fontSize: QUEUE_ICON_SIZE,
     color: whiteSecondary,
   },
   loadingIconContainer: {
-    width: QUEUE_ICON_SIZE,
-    height: QUEUE_ICON_SIZE,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 7,
+    width: 28,
+    height: 38,
   },
   slideoutContainer: {
     position: 'absolute',

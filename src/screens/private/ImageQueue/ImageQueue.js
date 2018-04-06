@@ -142,7 +142,7 @@ export default class ImageQueue extends React.Component {
             {showErrorUI && <ErrorUI />}
             {showQueueUI &&
               <FlatList
-                scrollEventThrottle={16}
+                scrollEventThrottle={1}
                 onLayout={(e) => {
                   const { height } = e.nativeEvent.layout
                   if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM) {

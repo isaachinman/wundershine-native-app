@@ -1,5 +1,6 @@
 import { action, computed, toJS, runInAction, observable } from 'mobx'
 import { apiRequest, uploadImage } from 'utils/api'
+import { LayoutAnimation } from 'react-native'
 import uuid from 'uuid/v1'
 import { validateImages } from 'utils/images'
 import path from 'react-native-path'
@@ -57,6 +58,7 @@ class QueueStore {
 
   @action
   mergeIntoLocalData = (data) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
     this.data = {
       packSelected: data.packSelected,
       images: [
