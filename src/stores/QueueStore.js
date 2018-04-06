@@ -57,8 +57,10 @@ class QueueStore {
   setRefreshing = bool => this.refreshing = bool
 
   @action
-  mergeIntoLocalData = (data) => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
+  mergeIntoLocalData = (data, animate = false) => {
+    if (animate) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    }
     this.data = {
       packSelected: data.packSelected,
       images: [
@@ -73,7 +75,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}` })
       const { data } = res
-      this.mergeIntoLocalData(data)
+      this.mergeIntoLocalData(data, true)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -157,7 +159,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ method: 'DELETE', url: `/pv/queue/${this.queueType}/images/${imageID}` })
       const { data } = res
-      this.mergeIntoLocalData(data)
+      this.mergeIntoLocalData(data, true)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -181,7 +183,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/select`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data)
+      this.mergeIntoLocalData(data, true)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -194,7 +196,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/deselect`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data)
+      this.mergeIntoLocalData(data, true)
     } catch (error) {
       runInAction(() => this.error = error)
     }

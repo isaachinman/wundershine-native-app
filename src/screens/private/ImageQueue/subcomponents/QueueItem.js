@@ -137,6 +137,7 @@ export default class QueueItem extends React.Component {
         <Interactable.View
           horizontalOnly
           snapPoints={[{ x: 0 }, { x: -190 }]}
+          frictionAreas={[{ damping: 0.85, influenceArea: { top: 0 } }]}
           ref={x => this.snapper = x}
         >
           <ListItem
