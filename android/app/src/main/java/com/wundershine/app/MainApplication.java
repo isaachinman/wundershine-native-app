@@ -10,6 +10,7 @@ import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import io.sentry.RNSentryPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.wix.interactable.Interactable;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactApplication;
@@ -53,7 +54,8 @@ public class MainApplication extends NavigationApplication {
           new LinearGradientPackage(),
           new SharePackage(),
           new UploaderReactPackage(),
-          new RNFetchBlobPackage()
+          new RNFetchBlobPackage(),
+          new Interactable()
         );
     }
 
