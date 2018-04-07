@@ -163,6 +163,7 @@ configurations.all {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-interactable')
     compile project(':react-native-fetch-blob')
     implementation fileTree(dir: "libs", include: ["*.jar"])

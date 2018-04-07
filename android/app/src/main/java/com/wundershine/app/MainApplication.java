@@ -14,6 +14,7 @@ import com.wix.interactable.Interactable;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

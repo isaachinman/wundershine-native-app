@@ -32,6 +32,8 @@ target 'Wundershine' do
 
   pod 'Interactable', :path => '../node_modules/react-native-interactable'
 
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+
 end
 
 target 'ShareReceiver' do

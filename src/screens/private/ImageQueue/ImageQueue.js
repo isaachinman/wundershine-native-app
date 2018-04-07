@@ -5,6 +5,7 @@ import { Body, Button, Container, Header, Left, Right } from 'native-base'
 import { FlatList, RefreshControl, Text, View } from 'react-native'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
+import ImagePicker from 'react-native-image-crop-picker'
 import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import { Placeholder } from 'react-native-loading-placeholder'
@@ -49,6 +50,17 @@ export default class ImageQueue extends React.Component {
   }
 
   handleLaunchImagePicker = async () => {
+    const { queue } = this.props
+    ImagePicker.openPicker({
+      multiple: true,
+    }).then((images) => {
+      console.log(images)
+      queue.addImagesToUpload(images.map(image => ({
+        name: image.filename,
+        value: image.path,
+        type: image.mime === 'image/jpeg' ? 'jpg' : null,
+      })))
+    })
   }
 
   render() {
