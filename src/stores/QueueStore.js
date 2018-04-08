@@ -3,7 +3,6 @@ import { apiRequest, uploadImage } from 'utils/api'
 import { LayoutAnimation } from 'react-native'
 import uuid from 'uuid/v1'
 import { validateImages } from 'utils/images'
-import path from 'react-native-path'
 import wundershineProducts from 'wundershine-data/products.json'
 
 import UIStore from './UIStore'
@@ -92,11 +91,8 @@ class QueueStore {
 
     if (validatedImages.length > 0) {
       const newImages = validatedImages.map(image => ({
+        ...image,
         localID: uuid(), // Temporary ID until server response
-        name: path.basename(image.value),
-        origin: 'Need to determine origin',
-        uri: image.value,
-        type: image.type,
         notUploadedYet: true,
         uriIsLocal: true,
         selected: false,

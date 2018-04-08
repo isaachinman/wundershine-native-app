@@ -50,17 +50,21 @@ export default class ImageQueue extends React.Component {
   }
 
   handleLaunchImagePicker = async () => {
-    const { queue } = this.props
-    ImagePicker.openPicker({
-      multiple: true,
-    }).then((images) => {
-      console.log(images)
-      queue.addImagesToUpload(images.map(image => ({
-        name: image.filename,
-        value: image.path,
-        type: image.mime === 'image/jpeg' ? 'jpg' : null,
-      })))
-    })
+    try {
+      const images = await ImagePicker.openPicker({
+        multiple: true,
+        includeExif: true,
+        maxFiles: 15,
+        mediaType: 'photo',
+        smartAlbums: ['UserLibrary', 'RecentlyAdded', 'PhotoStream', 'Generic', 'Favorites', 'SelfPortraits', 'LongExposure'],
+      })
+      this.props.queue.addImagesToUpload(images)
+    } catch (error) {
+      if (error.toString().includes('User cancelled image selection')) {
+        // Handle user cancelled selection
+      }
+    }
+
   }
 
   render() {
@@ -235,6 +239,7 @@ ImageQueue.wrappedComponent.propTypes = {
     appIsInitialised: PropTypes.bool,
   }).isRequired,
   queue: PropTypes.shape({
+    addImagesToUpload: PropTypes.func,
     currentlyUploading: PropTypes.bool,
     data: PropTypes.shape({
       square: PropTypes.shape({

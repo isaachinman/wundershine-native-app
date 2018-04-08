@@ -56,7 +56,8 @@ public class MainApplication extends NavigationApplication {
           new SharePackage(),
           new UploaderReactPackage(),
           new RNFetchBlobPackage(),
-          new Interactable()
+          new Interactable(),
+          new PickerPackage()
         );
     }
 

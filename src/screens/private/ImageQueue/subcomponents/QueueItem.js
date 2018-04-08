@@ -117,7 +117,7 @@ export default class QueueItem extends React.Component {
       loading,
       name,
       notUploadedYet,
-      origin,
+      metadata,
       selected,
       selectImage,
       selectionActionsAllowed,
@@ -131,6 +131,17 @@ export default class QueueItem extends React.Component {
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
     const selectionIconAction = selected ? deselectImage : selectImage
+
+    // Determine origin text
+    let origin = null
+    const { make, model } = metadata.camera
+    if (make && model) {
+      if (new RegExp(`\\b${make.replace(/\s+/g, '|')}\\b`, 'i').test(model)) {
+        origin = model
+      } else {
+        origin = `${make} ${model}`
+      }
+    }
 
     return (
       <View>
@@ -211,7 +222,6 @@ export default class QueueItem extends React.Component {
 QueueItem.defaultProps = {
   cloudinaryID: null,
   notUploadedYet: false,
-  origin: null,
   uriIsLocal: false,
 }
 
@@ -223,7 +233,12 @@ QueueItem.propTypes = {
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
-  origin: PropTypes.string,
+  metadata: PropTypes.shape({
+    camera: PropTypes.shape({
+      make: PropTypes.string,
+      model: PropTypes.string,
+    }),
+  }).isRequired,
   selected: PropTypes.bool.isRequired,
   selectionActionsAllowed: PropTypes.bool.isRequired,
   selectImage: PropTypes.func.isRequired,

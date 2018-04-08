@@ -17,7 +17,12 @@ export default async (_image, queueType) => {
 
   image.uri = encodeURI(image.uri)
 
-  const { name, uri, type } = image
+  const {
+    name,
+    uri,
+    type,
+    metadata,
+  } = image
 
   const options = {
     url: `${config.API_ROOT}/pv/queue/${queueType}/images/create`,
@@ -28,7 +33,11 @@ export default async (_image, queueType) => {
       Authorization: `Bearer ${stores.auth.token}`,
       'content-type': 'application/octet-stream',
       'image-data': JSON.stringify({
-        name, uri, type,
+        name,
+        uri,
+        type,
+        make: metadata.camera.make,
+        model: metadata.camera.model,
       }),
     },
     // Android-only options
