@@ -6,6 +6,7 @@ import { AnimatedImage, ListItem } from 'react-native-ui-lib'
 import { cloudinary } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
+import { NavActions } from 'utils/nav'
 
 import Interactable from 'react-native-interactable'
 
@@ -102,6 +103,10 @@ export default class QueueItem extends React.Component {
     this.snapper.snapTo({ index: 1 })
   }
 
+  redirectToEditScreen = () => {
+    NavActions.push({ screen: 'EditImage', passProps: { imageID: this.props._id } })
+  }
+
   handleSlideoutAction = (action) => {
     this.snapper.snapTo({ index: 0 })
     action()
@@ -154,7 +159,7 @@ export default class QueueItem extends React.Component {
           <ListItem
             activeBackgroundColor={greyAccent}
             height={100}
-            onPress={() => { }}
+            onPress={this.redirectToEditScreen}
             containerStyle={styles.container}
           >
             <ListItem.Part left>
@@ -207,7 +212,7 @@ export default class QueueItem extends React.Component {
           </ListItem>
         </Interactable.View>
         <View style={styles.slideoutContainer}>
-          <TouchableOpacity onPress={() => this.handleSlideoutAction(() => {})}>
+          <TouchableOpacity onPress={() => this.handleSlideoutAction(this.redirectToEditScreen)}>
             <Icon name='ios-crop-outline' style={styles.iconSlideout} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleSlideoutAction(deleteImage.bind(null, _id))}>
