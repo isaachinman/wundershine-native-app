@@ -7,10 +7,4 @@ export default {
   name: joi.string().required(),
   uri: joi.string().required(),
   type: joi.string().required(),
-  metadata: {
-    camera: {
-      make: joi.string().allow(null),
-      model: joi.string().allow(null),
-    },
-  },
 }

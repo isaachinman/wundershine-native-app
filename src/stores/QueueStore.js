@@ -92,10 +92,15 @@ class QueueStore {
     if (validatedImages.length > 0) {
       const newImages = validatedImages.map(image => ({
         ...image,
-        localID: uuid(), // Temporary ID until server response
+        // Temporary ID until server response
+        localID: uuid(),
         notUploadedYet: true,
         uriIsLocal: true,
         selected: false,
+        // Metadata is determined by Cloudinary
+        metadata: {
+          camera: {},
+        },
       }))
 
       runInAction(() => {

@@ -21,7 +21,6 @@ export default async (_image, queueType) => {
     name,
     uri,
     type,
-    metadata,
   } = image
 
   const options = {
@@ -36,8 +35,6 @@ export default async (_image, queueType) => {
         name,
         uri,
         type,
-        make: metadata.camera.make,
-        model: metadata.camera.model,
       }),
     },
     // Android-only options

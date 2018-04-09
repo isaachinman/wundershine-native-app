@@ -43,18 +43,6 @@ export default async (images, queueType) => {
       let isValid = true
       let error = null
 
-      // Try to determine origin from exif data
-      let make = null
-      let model = null
-      if (image.exif && image.exif['{TIFF}']) {
-        if (image.exif['{TIFF}'].Make) {
-          make = image.exif['{TIFF}'].Make
-        }
-        if (image.exif['{TIFF}'].Model) {
-          model = image.exif['{TIFF}'].Model
-        }
-      }
-
       const imageToReturn = {
         uri: image.path,
         name: image.filename || path.basename(image.path),
@@ -62,9 +50,6 @@ export default async (images, queueType) => {
         bytes: image.size,
         width: image.width,
         height: image.height,
-        metadata: {
-          camera: { make, model },
-        },
       }
 
       if (image.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
@@ -115,12 +100,6 @@ export default async (images, queueType) => {
         bytes: null,
         width: null,
         height: null,
-        metadata: {
-          camera: {
-            make: null,
-            model: null,
-          },
-        },
       }
 
       // Check filesize
