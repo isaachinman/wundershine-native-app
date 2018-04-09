@@ -117,7 +117,7 @@ export default class QueueItem extends React.Component {
       loading,
       name,
       notUploadedYet,
-      metadata,
+      metaData,
       selected,
       selectImage,
       selectionActionsAllowed,
@@ -134,7 +134,7 @@ export default class QueueItem extends React.Component {
 
     // Determine origin text
     let origin = null
-    const { make, model } = metadata
+    const { make, model } = metaData
     if (make && model) {
       if (new RegExp(`\\b${make.replace(/\s+/g, '|')}\\b`, 'i').test(model)) {
         origin = model
@@ -233,7 +233,7 @@ QueueItem.propTypes = {
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
-  metadata: PropTypes.shape({
+  metaData: PropTypes.shape({
     dpi: PropTypes.number,
     make: PropTypes.string,
     model: PropTypes.string,
