@@ -98,9 +98,7 @@ class QueueStore {
         uriIsLocal: true,
         selected: false,
         // Metadata is determined by Cloudinary
-        metadata: {
-          camera: {},
-        },
+        metadata: {},
       }))
 
       runInAction(() => {

@@ -134,7 +134,7 @@ export default class QueueItem extends React.Component {
 
     // Determine origin text
     let origin = null
-    const { make, model } = metadata.camera
+    const { make, model } = metadata
     if (make && model) {
       if (new RegExp(`\\b${make.replace(/\s+/g, '|')}\\b`, 'i').test(model)) {
         origin = model
@@ -234,10 +234,9 @@ QueueItem.propTypes = {
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
   metadata: PropTypes.shape({
-    camera: PropTypes.shape({
-      make: PropTypes.string,
-      model: PropTypes.string,
-    }),
+    dpi: PropTypes.number,
+    make: PropTypes.string,
+    model: PropTypes.string,
   }).isRequired,
   selected: PropTypes.bool.isRequired,
   selectionActionsAllowed: PropTypes.bool.isRequired,
