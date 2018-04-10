@@ -104,7 +104,8 @@ export default class QueueItem extends React.Component {
   }
 
   redirectToEditScreen = () => {
-    NavActions.push({ screen: 'EditImage', passProps: { imageID: this.props._id } })
+    NavActions.setDrawerEnabled({ side: 'left', enabled: false })
+    NavActions.push({ screen: 'EditImage', passProps: { ...this.props } })
   }
 
   handleSlideoutAction = (action) => {

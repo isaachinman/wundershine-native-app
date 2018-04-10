@@ -41,6 +41,7 @@ export const startApp = () => {
       backButtonHidden: true,
     },
     drawer: {
+      disableOpenGesture: true,
       left: {
         screen: 'Drawer',
       },
