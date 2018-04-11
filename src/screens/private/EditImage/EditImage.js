@@ -42,32 +42,30 @@ export default class EditImage extends React.Component {
       this.layout = LANDSCAPE
     }
 
-    let adjustedWidth
-    let adjustedHeight
-    let leftOffset
-
     /* Landscape */
     if (this.layout === LANDSCAPE) {
 
-      adjustedWidth = ((SQUARE_FRAME_DIMENSION / width) * width) * this.aspectRatio
-      adjustedHeight = SQUARE_FRAME_DIMENSION
-      leftOffset = -((adjustedWidth - SQUARE_FRAME_DIMENSION) / 2)
+      this.adjustedWidth = ((SQUARE_FRAME_DIMENSION / width) * width) * this.aspectRatio
+      this.adjustedHeight = SQUARE_FRAME_DIMENSION
 
-      this.imageStyles = {
-        width: adjustedWidth,
-        height: adjustedHeight,
-        left: leftOffset,
-      }
+      this.topOffset = 0
+      this.leftOffset = -((this.adjustedWidth - SQUARE_FRAME_DIMENSION) / 2)
 
       this.previousTop = 0
-      this.previousLeft = leftOffset
+      this.previousLeft = this.leftOffset
 
+    }
+
+    this.imageStyles = {
+      width: this.adjustedWidth,
+      height: this.adjustedHeight,
+      top: this.topOffset,
+      left: this.leftOffset,
     }
 
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => this.setHighlight(true),
       onPanResponderMove: this.handlePanResponderMove,
       onPanResponderRelease: this.handlePanResponderEnd,
       onPanResponderTerminate: this.handlePanResponderEnd,
@@ -77,38 +75,49 @@ export default class EditImage extends React.Component {
 
   componentDidMount = () => this.updateNativeStyles()
 
-  setHighlight = (highlighted) => {
-    this.imageStyles.opacity = highlighted ? 0.8 : 1
-    this.updateNativeStyles()
-  }
-
   updateNativeStyles = () => this.image && this.image.setNativeProps(this.imageStyles)
 
   calculateLeft = (previousLeft, dx) => {
+    let leftVal = previousLeft + dx
 
-    let leftVal = previousLeft
-    console.log(typeof dx)
-    if (typeof dx === 'number') {
-      console.log('inside: ', previousLeft, dx)
-      leftVal = previousLeft + dx
-      if (leftVal >= 0) {
-        leftVal = 0
-      }
+    // Left boundary
+    if (leftVal >= 0) {
+      leftVal = 0
     }
-    console.log(leftVal)
+
+    // Right boundary
+    if (leftVal <= this.leftOffset * 2) {
+      leftVal = this.leftOffset * 2
+    }
+
     return leftVal
   }
 
+  calculateTop = (previousTop, dy) => {
+    let topVal = previousTop + dy
+
+    // Top boundary
+    if (topVal >= 0) {
+      topVal = 0
+    }
+
+    // Bottom boundary
+    if (topVal <= this.topOffset * 2) {
+      topVal = this.topOffset * 2
+    }
+
+    return topVal
+  }
+
   handlePanResponderMove = (e, gestureState) => {
-    this.imageStyles.left = this.calculateLeft(this.previousLeft + gestureState.dx)
-    this.imageStyles.top = this.previousTop + gestureState.dy
+    this.imageStyles.left = this.calculateLeft(this.previousLeft, gestureState.dx)
+    this.imageStyles.top = this.calculateTop(this.previousTop, gestureState.dy)
     this.updateNativeStyles()
   }
 
   handlePanResponderEnd = (e, gestureState) => {
-    this.previousLeft += gestureState.dx
-    this.previousTop += gestureState.dy
-    this.setHighlight(false)
+    this.previousLeft = this.calculateLeft(this.previousLeft, gestureState.dx)
+    this.previousTop = this.calculateTop(this.previousTop, gestureState.dy)
   }
 
   render() {
