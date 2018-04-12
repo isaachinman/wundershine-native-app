@@ -202,6 +202,22 @@ class QueueStore {
     this.removeImageLoading(imageID)
   }
 
+  @action
+  updateImageTransformation = async (imageID, transformation) => {
+    this.setImageLoading(imageID)
+    try {
+      const res = await apiRequest({
+        url: `/pv/queue/${this.queueType}/images/transform/${imageID}`,
+        data: transformation,
+      })
+      const { data } = res
+      this.mergeIntoLocalData(data, true)
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.removeImageLoading(imageID)
+  }
+
 }
 
 export default new QueueStore()

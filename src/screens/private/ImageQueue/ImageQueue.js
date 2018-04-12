@@ -208,6 +208,7 @@ export default class ImageQueue extends React.Component {
                       deleteImage={queue.deleteImage}
                       selectImage={queue.selectImage}
                       deselectImage={queue.deselectImage}
+                      updateImageTransformation={queue.updateImageTransformation}
                       selectionActionsAllowed={queue.selectionActionsAllowed}
                       key={item.key}
                     />
