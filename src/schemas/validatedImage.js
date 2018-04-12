@@ -7,4 +7,10 @@ export default {
   name: joi.string().required(),
   uri: joi.string().required(),
   type: joi.string().required(),
+  transformation: {
+    topBoundary: joi.number().required(),
+    rightBoundary: joi.number().required(),
+    bottomBoundary: joi.number().required(),
+    leftBoundary: joi.number().required(),
+  },
 }

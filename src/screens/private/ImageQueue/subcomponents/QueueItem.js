@@ -129,10 +129,28 @@ export default class QueueItem extends React.Component {
       selectionActionsAllowed,
       uri,
       uriIsLocal,
+      transformation,
     } = this.props
 
+    const SCALED_SIZE = transformation.bottomBoundary - transformation.topBoundary
+
     const imageSource = notUploadedYet || uriIsLocal ? uri :
-      cloudinary.url(cloudinaryID, { width: 400, crop: 'scale' })
+      cloudinary.url(cloudinaryID, {
+        transformation: [
+          {
+            width: SCALED_SIZE,
+            height: SCALED_SIZE,
+            crop: 'crop',
+            x: transformation.leftBoundary,
+            y: transformation.topBoundary,
+          },
+          {
+            width: QUEUE_IMAGE_DIMENSION * 2,
+            height: QUEUE_IMAGE_DIMENSION * 2,
+            crop: 'scale',
+          },
+        ],
+      })
 
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
@@ -247,6 +265,12 @@ QueueItem.propTypes = {
   selected: PropTypes.bool.isRequired,
   selectionActionsAllowed: PropTypes.bool.isRequired,
   selectImage: PropTypes.func.isRequired,
+  transformation: PropTypes.shape({
+    topBoundary: PropTypes.number,
+    rightBoundary: PropTypes.number,
+    bottomBoundary: PropTypes.number,
+    leftBoundary: PropTypes.number,
+  }).isRequired,
   uri: PropTypes.string.isRequired,
   uriIsLocal: PropTypes.bool,
 }

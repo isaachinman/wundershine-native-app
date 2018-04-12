@@ -21,7 +21,15 @@ export default async (_image, queueType) => {
     name,
     uri,
     type,
+    transformation,
   } = image
+
+  const {
+    topBoundary,
+    rightBoundary,
+    bottomBoundary,
+    leftBoundary,
+  } = transformation
 
   const options = {
     url: `${config.API_ROOT}/pv/queue/${queueType}/images/create`,
@@ -35,6 +43,10 @@ export default async (_image, queueType) => {
         name,
         uri,
         type,
+        topBoundary,
+        rightBoundary,
+        bottomBoundary,
+        leftBoundary,
       }),
     },
     // Android-only options

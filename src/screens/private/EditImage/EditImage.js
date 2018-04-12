@@ -2,15 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { inject, observer } from 'mobx-react'
-import { screenUtils } from 'utils/nav'
+import { NavActions, screenUtils } from 'utils/nav'
 
 import { Button } from 'components'
 import { Image, PanResponder, View } from 'react-native'
-
-// // Layouts
-// const SQUARE = 'wundershine/SQUARE_LAYOUT'
-// const LANDSCAPE = 'wundershine/LANDSCAPE_LAYOUT'
-// const PORTRAIT = 'wundershine/PORTRAIT_LAYOUT'
 
 const SQUARE_FRAME_DIMENSION = 300
 
@@ -38,16 +33,6 @@ export default class EditImage extends React.Component {
     const { _id, queue } = this.props
 
     this.masterImage = queue.data.images.find(i => i._id === _id)
-
-    // this.aspectRatio = width / height
-
-    // if (this.aspectRatio < 1) {
-    //   this.layout = PORTRAIT
-    // } else if (this.aspectRatio === 1) {
-    //   this.layout = SQUARE
-    // } else if (this.aspectRatio > 1) {
-    //   this.layout = LANDSCAPE
-    // }
 
     this.applyTransformation()
 
@@ -103,7 +88,7 @@ export default class EditImage extends React.Component {
 
   }
 
-  saveTransformation = () => {
+  saveTransformation = async () => {
     const { adjustedWidth, adjustedHeight } = this
     const { _id, queue } = this.props
     const { width, height } = this.masterImage
@@ -116,12 +101,17 @@ export default class EditImage extends React.Component {
     const topBoundary = (yShift / adjustedHeight) * height
     const bottomBoundary = ((yShift + SQUARE_FRAME_DIMENSION) / adjustedHeight) * height
 
-    queue.updateImageTransformation(_id, {
-      topBoundary,
-      rightBoundary,
-      bottomBoundary,
-      leftBoundary,
-    })
+    try {
+      await queue.updateImageTransformation(_id, {
+        topBoundary: Math.round(topBoundary),
+        rightBoundary: Math.round(rightBoundary),
+        bottomBoundary: Math.round(bottomBoundary),
+        leftBoundary: Math.round(leftBoundary),
+      })
+      NavActions.push({ screen: 'ImageQueue' })
+    } catch (error) {
+      // Handle error
+    }
 
   }
 
