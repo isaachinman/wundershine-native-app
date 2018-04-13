@@ -70,10 +70,8 @@ export default class EditImage extends React.Component {
     const { adjustedWidth, adjustedHeight } = this
 
     const leftBoundary = -(transformation.leftBoundary / width) * adjustedWidth
-    // const rightBoundary = (transformation.rightBoundary / width) * adjustedWidth
-
-    const topBoundary = (transformation.topBoundary / height) * adjustedHeight
-    // const bottomBoundary = (transformation.bottomBoundary / height) * adjustedHeight
+    const topBoundary = -(transformation.topBoundary / height) * adjustedHeight
+    // Will need to add right and bottom boundaries to support zoom
 
     this.leftOffset = leftBoundary
     this.previousLeft = leftBoundary
@@ -82,9 +80,10 @@ export default class EditImage extends React.Component {
     this.previousTop = topBoundary
 
     this.xShift = this.leftOffset
-    this.yShift = 0
+    this.yShift = this.topOffset
 
     this.rightLimit = this.leftOffset - ((adjustedWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
+    this.bottomLimit = this.topOffset - ((adjustedHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
 
   }
 
@@ -145,8 +144,8 @@ export default class EditImage extends React.Component {
       topVal = 0
     }
     // Bottom boundary
-    if (topVal <= this.topOffset * 2) {
-      topVal = this.topOffset * 2
+    if (topVal <= this.bottomLimit) {
+      topVal = this.bottomLimit
     }
     return topVal
   }

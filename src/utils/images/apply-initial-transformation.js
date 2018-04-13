@@ -12,6 +12,10 @@ export default (image) => {
 
   if (aspectRatio < 1) {
     // PORTRAIT
+    transformation.leftBoundary = 0
+    transformation.rightBoundary = width
+    transformation.topBoundary = (height / 2) - (width / 2)
+    transformation.bottomBoundary = (height / 2) + (width / 2)
   } else if (aspectRatio === 1) {
     // SQUARE
   } else if (aspectRatio > 1) {
@@ -21,6 +25,11 @@ export default (image) => {
     transformation.leftBoundary = (width / 2) - (height / 2)
     transformation.rightBoundary = (width / 2) + (height / 2)
   }
+
+  // Round pixels
+  Object.keys(transformation).forEach((boundary) => {
+    transformation[boundary] = Math.round(transformation[boundary])
+  })
 
   return {
     ...image,
