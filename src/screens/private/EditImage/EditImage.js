@@ -58,6 +58,8 @@ export default class EditImage extends React.Component {
       onResponderMove: this.handleResponderMove,
       onResponderRelease: this.handleResponderEnd,
       onResponderTerminate: this.handleResponderEnd,
+      moveThreshold: 10,
+      minMoveDistance: 10,
     })
 
   }
@@ -169,13 +171,17 @@ export default class EditImage extends React.Component {
       topVal = this.bottomLimit
     }
 
-    if (this.verticalLetterboxMargin) {
-      if (this.imageStyles.height <= SQUARE_FRAME_DIMENSION) {
-        topVal = 0
-      }
-      if (topVal >= 0) {
-        topVal = 0
-      }
+    // if (this.verticalLetterboxMargin) {
+    //   if (this.imageStyles.height <= SQUARE_FRAME_DIMENSION) {
+    //     topVal = 0
+    //   }
+    //   if (topVal >= 0) {
+    //     topVal = 0
+    //   }
+    // }
+
+    if (this.horizontalLetterboxMargin) {
+      topVal = this.horizontalLetterboxMargin
     }
 
     return topVal
@@ -199,7 +205,7 @@ export default class EditImage extends React.Component {
     this.horizontalLetterboxMargin = null
 
     // Portrait limit
-    if (newWidth < SQUARE_FRAME_DIMENSION) {
+    if (this.layout === PORTRAIT && newWidth < SQUARE_FRAME_DIMENSION) {
       this.verticalLetterboxMargin = (SQUARE_FRAME_DIMENSION - newWidth) / 2
       xShift = this.verticalLetterboxMargin
       if (newHeight <= SQUARE_FRAME_DIMENSION) {
@@ -208,13 +214,36 @@ export default class EditImage extends React.Component {
       if (yShift >= 0) {
         yShift = 0
       }
+      if (yShift + newHeight <= SQUARE_FRAME_DIMENSION) {
+        yShift = 0
+      }
     }
+
+    // Landscape limit
+    if (this.layout === LANDSCAPE && newHeight < SQUARE_FRAME_DIMENSION) {
+      this.horizontalLetterboxMargin = (SQUARE_FRAME_DIMENSION - newHeight) / 2
+      yShift = this.horizontalLetterboxMargin
+      if (newWidth <= SQUARE_FRAME_DIMENSION) {
+        return false
+      }
+      if (xShift >= 0) {
+        xShift = 0
+      }
+      if (xShift + newWidth <= SQUARE_FRAME_DIMENSION) {
+        xShift = 0
+      }
+    }
+
+    this.rightLimit = this.leftOffset - ((newWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
+    this.bottomLimit = this.topOffset - ((newHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
 
     this.imageStyles.width = newWidth
     this.imageStyles.height = newHeight
 
     this.xShift = xShift
     this.yShift = yShift
+    this.previousLeft = xShift
+    this.previousTop = yShift
 
     return true
 
@@ -253,6 +282,7 @@ export default class EditImage extends React.Component {
           block
           bordered
           primary
+          style={{ marginTop: 20 }}
         />
       </View>
     )
