@@ -75,10 +75,8 @@ export default class EditImage extends React.Component {
 
     const widthScale = widthOfSelection / SQUARE_FRAME_DIMENSION
     const heightScale = heightOfSelection / SQUARE_FRAME_DIMENSION
-    this.adjustedWidth = width / widthScale
-    this.adjustedHeight = height / heightScale
-
-    const { adjustedWidth, adjustedHeight } = this
+    const adjustedWidth = width / widthScale
+    const adjustedHeight = height / heightScale
 
     const leftBoundary = -(transformation.leftBoundary / width) * adjustedWidth
     const topBoundary = -(transformation.topBoundary / height) * adjustedHeight
@@ -97,8 +95,8 @@ export default class EditImage extends React.Component {
     this.bottomLimit = this.topOffset - ((adjustedHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
 
     this.imageStyles = {
-      width: this.adjustedWidth,
-      height: this.adjustedHeight,
+      width: adjustedWidth,
+      height: adjustedHeight,
       top: this.topOffset,
       left: this.leftOffset,
     }
@@ -106,17 +104,59 @@ export default class EditImage extends React.Component {
   }
 
   saveTransformation = async () => {
-    const { adjustedWidth, adjustedHeight } = this
+
     const { _id, queue } = this.props
     const { width, height } = this.masterImage
     const xShift = Math.abs(this.xShift)
     const yShift = Math.abs(this.yShift)
 
-    const leftBoundary = (xShift / adjustedWidth) * width
-    const rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / adjustedWidth) * width
+    let topBoundary
+    let rightBoundary
+    let bottomBoundary
+    let leftBoundary
 
-    const topBoundary = (yShift / adjustedHeight) * height
-    const bottomBoundary = ((yShift + SQUARE_FRAME_DIMENSION) / adjustedHeight) * height
+    // Square selection
+    if (this.imageStyles.width >= SQUARE_FRAME_DIMENSION &&
+      this.imageStyles.height >= SQUARE_FRAME_DIMENSION) {
+
+      topBoundary = (yShift / this.imageStyles.height) * height
+      bottomBoundary = ((yShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.height) * height
+
+      leftBoundary = (xShift / this.imageStyles.width) * width
+      rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.width) * width
+
+    }
+
+    // Portrait letterbox
+    if (this.imageStyles.width < SQUARE_FRAME_DIMENSION) {
+      topBoundary = (yShift / this.imageStyles.height) * height
+      rightBoundary = width
+      bottomBoundary = ((yShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.height) * height
+      leftBoundary = 0
+    }
+
+    // Landscape letterbox
+    if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+      topBoundary = 0
+      rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.width) * width
+      bottomBoundary = height
+      leftBoundary = (xShift / this.imageStyles.width) * width
+    }
+
+
+    // // if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+    // //   rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / adjustedWidth) * width
+    // // }
+
+    // console.log('current width: ', this.imageStyles.width)
+    // console.log('current height: ', this.imageStyles.height)
+    // console.log('xShift: ', this.xShift)
+    // console.log('yShift: ', this.yShift)
+
+    // console.log('topBoundary: ', topBoundary)
+    // console.log('rightBoundary: ', rightBoundary)
+    // console.log('bottomBoundary: ', bottomBoundary)
+    // console.log('leftBoundary: ', leftBoundary)
 
     try {
       await queue.updateImageTransformation(_id, {
