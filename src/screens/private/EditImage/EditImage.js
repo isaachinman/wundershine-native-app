@@ -70,23 +70,57 @@ export default class EditImage extends React.Component {
 
     const { transformation, width, height } = this.masterImage
 
-    const widthOfSelection = transformation.rightBoundary - transformation.leftBoundary
-    const heightOfSelection = transformation.bottomBoundary - transformation.topBoundary
+    const {
+      topBoundary,
+      rightBoundary,
+      bottomBoundary,
+      leftBoundary,
+    } = transformation
 
-    const widthScale = widthOfSelection / SQUARE_FRAME_DIMENSION
-    const heightScale = heightOfSelection / SQUARE_FRAME_DIMENSION
-    const adjustedWidth = width / widthScale
-    const adjustedHeight = height / heightScale
+    const widthOfSelection = rightBoundary - leftBoundary
+    const heightOfSelection = bottomBoundary - topBoundary
+    const aspectRatioOfSelection = widthOfSelection / heightOfSelection
 
-    const leftBoundary = -(transformation.leftBoundary / width) * adjustedWidth
-    const topBoundary = -(transformation.topBoundary / height) * adjustedHeight
-    // Will need to add right and bottom boundaries to support zoom
+    let adjustedWidth
+    let adjustedHeight
 
-    this.leftOffset = leftBoundary
-    this.previousLeft = leftBoundary
+    let topOffset
+    let leftOffset
 
-    this.topOffset = topBoundary
-    this.previousTop = topBoundary
+    if (aspectRatioOfSelection < 1 && widthOfSelection === width) {
+
+      const heightInFrame = height - (height - (bottomBoundary - topBoundary))
+      const heightScale = heightInFrame / SQUARE_FRAME_DIMENSION
+      adjustedWidth = width / heightScale
+      adjustedHeight = height / heightScale
+      topOffset = -(topBoundary / heightScale)
+      leftOffset = (SQUARE_FRAME_DIMENSION - adjustedWidth) / 2
+
+    } else if (aspectRatioOfSelection === 1) {
+
+      const widthScale = widthOfSelection / SQUARE_FRAME_DIMENSION
+      const heightScale = heightOfSelection / SQUARE_FRAME_DIMENSION
+      adjustedWidth = width / widthScale
+      adjustedHeight = height / heightScale
+      leftOffset = -(transformation.leftBoundary / width) * adjustedWidth
+      topOffset = -(transformation.topBoundary / height) * adjustedHeight
+
+    } else if (aspectRatioOfSelection > 1 && heightOfSelection === height) {
+
+      const widthInFrame = width - (width - (rightBoundary - leftBoundary))
+      const widthScale = widthInFrame / SQUARE_FRAME_DIMENSION
+      adjustedWidth = width / widthScale
+      adjustedHeight = height / widthScale
+      leftOffset = -(leftBoundary / widthScale)
+      topOffset = (SQUARE_FRAME_DIMENSION - adjustedHeight) / 2
+
+    }
+
+    this.leftOffset = leftOffset
+    this.previousLeft = leftOffset
+
+    this.topOffset = topOffset
+    this.previousTop = topOffset
 
     this.xShift = this.leftOffset
     this.yShift = this.topOffset
