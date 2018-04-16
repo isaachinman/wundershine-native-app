@@ -153,8 +153,8 @@ export default class EditImage extends React.Component {
       leftVal = this.rightLimit
     }
 
-    if (this.verticalLetterboxMargin) {
-      leftVal = this.verticalLetterboxMargin
+    if (this.imageStyles.width < SQUARE_FRAME_DIMENSION) {
+      leftVal = this.xShift
     }
 
     return leftVal
@@ -171,17 +171,8 @@ export default class EditImage extends React.Component {
       topVal = this.bottomLimit
     }
 
-    // if (this.verticalLetterboxMargin) {
-    //   if (this.imageStyles.height <= SQUARE_FRAME_DIMENSION) {
-    //     topVal = 0
-    //   }
-    //   if (topVal >= 0) {
-    //     topVal = 0
-    //   }
-    // }
-
-    if (this.horizontalLetterboxMargin) {
-      topVal = this.horizontalLetterboxMargin
+    if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+      topVal = this.yShift
     }
 
     return topVal
@@ -201,13 +192,9 @@ export default class EditImage extends React.Component {
     let xShift = this.xShift - ((newWidth - oldWidth) / 2)
     let yShift = this.yShift - ((newHeight - oldHeight) / 2)
 
-    this.verticalLetterboxMargin = null
-    this.horizontalLetterboxMargin = null
-
     // Portrait limit
     if (this.layout === PORTRAIT && newWidth < SQUARE_FRAME_DIMENSION) {
-      this.verticalLetterboxMargin = (SQUARE_FRAME_DIMENSION - newWidth) / 2
-      xShift = this.verticalLetterboxMargin
+      xShift = (SQUARE_FRAME_DIMENSION - newWidth) / 2
       if (newHeight <= SQUARE_FRAME_DIMENSION) {
         return false
       }
@@ -221,8 +208,7 @@ export default class EditImage extends React.Component {
 
     // Landscape limit
     if (this.layout === LANDSCAPE && newHeight < SQUARE_FRAME_DIMENSION) {
-      this.horizontalLetterboxMargin = (SQUARE_FRAME_DIMENSION - newHeight) / 2
-      yShift = this.horizontalLetterboxMargin
+      yShift = (SQUARE_FRAME_DIMENSION - newHeight) / 2
       if (newWidth <= SQUARE_FRAME_DIMENSION) {
         return false
       }
