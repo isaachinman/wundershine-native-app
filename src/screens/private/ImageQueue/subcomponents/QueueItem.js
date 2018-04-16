@@ -50,10 +50,10 @@ const styles = {
   animatedImageContainerStyle: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
-    backgroundColor: greyAccent,
+
   },
   animatedImageStyle: {
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
@@ -132,22 +132,26 @@ export default class QueueItem extends React.Component {
       transformation,
     } = this.props
 
-    const SCALED_SIZE = transformation.bottomBoundary - transformation.topBoundary
+    const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
+    const HEIGHT_OF_SELECTION = transformation.bottomBoundary - transformation.topBoundary
+    const SCALE = WIDTH_OF_SELECTION / QUEUE_IMAGE_DIMENSION
+    const WIDTH_OF_THUMBNAIL = Math.round(WIDTH_OF_SELECTION / SCALE) * 2
+    const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
 
     const imageSource = notUploadedYet || uriIsLocal ? uri :
       cloudinary.url(cloudinaryID, {
         transformation: [
           {
-            width: SCALED_SIZE,
-            height: SCALED_SIZE,
+            width: WIDTH_OF_SELECTION,
+            height: HEIGHT_OF_SELECTION,
             crop: 'crop',
             x: transformation.leftBoundary,
             y: transformation.topBoundary,
           },
           {
-            width: QUEUE_IMAGE_DIMENSION * 2,
-            height: QUEUE_IMAGE_DIMENSION * 2,
-            crop: 'scale',
+            width: WIDTH_OF_THUMBNAIL,
+            height: HEIGHT_OF_THUMBNAIL,
+            crop: 'thumb',
           },
         ],
       })
@@ -167,6 +171,11 @@ export default class QueueItem extends React.Component {
       }
     }
 
+    const animatedImageStyle = {
+      ...styles.animatedImageStyle,
+      resizeMode: uriIsLocal ? 'cover' : 'contain',
+    }
+
     return (
       <View>
         <Interactable.View
@@ -184,7 +193,7 @@ export default class QueueItem extends React.Component {
             <ListItem.Part left>
               <AnimatedImage
                 containerStyle={styles.animatedImageContainerStyle}
-                imageStyle={styles.animatedImageStyle}
+                imageStyle={animatedImageStyle}
                 imageSource={{ uri: imageSource }}
                 loader={<ActivityIndicator color={whiteSecondary} />}
                 animationDuration={200}
