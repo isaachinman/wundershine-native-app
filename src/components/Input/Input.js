@@ -7,6 +7,8 @@ import { blackSecondary, green } from 'styles/colours'
 const styles = {
   textInput: {
     minHeight: 21,
+    marginBottom: 0,
+    paddingBottom: 10,
   },
 }
 
