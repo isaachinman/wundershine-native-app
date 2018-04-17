@@ -7,6 +7,7 @@ import { NavActions, screenUtils } from 'utils/nav'
 import { Image, View } from 'react-native'
 import { createResponder } from 'react-native-gesture-responder'
 
+import { roundBoundaries } from 'utils/images'
 import { SQUARE, PORTRAIT, LANDSCAPE } from 'utils/images/aspect-ratios'
 import { SQUARE_FRAME_DIMENSION } from './constants'
 import styles from './EditImage.styles'
@@ -189,28 +190,13 @@ export default class EditImage extends React.Component {
       leftBoundary = (xShift / this.imageStyles.width) * width
     }
 
-
-    // // if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
-    // //   rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / adjustedWidth) * width
-    // // }
-
-    // console.log('current width: ', this.imageStyles.width)
-    // console.log('current height: ', this.imageStyles.height)
-    // console.log('xShift: ', this.xShift)
-    // console.log('yShift: ', this.yShift)
-
-    // console.log('topBoundary: ', topBoundary)
-    // console.log('rightBoundary: ', rightBoundary)
-    // console.log('bottomBoundary: ', bottomBoundary)
-    // console.log('leftBoundary: ', leftBoundary)
+    // Round boundaries
+    const boundaries = roundBoundaries({
+      topBoundary, rightBoundary, bottomBoundary, leftBoundary,
+    })
 
     try {
-      await queue.updateImageTransformation(_id, {
-        topBoundary: Math.round(topBoundary),
-        rightBoundary: Math.round(rightBoundary),
-        bottomBoundary: Math.round(bottomBoundary),
-        leftBoundary: Math.round(leftBoundary),
-      })
+      await queue.updateImageTransformation(_id, boundaries)
       NavActions.push({ screen: 'ImageQueue' })
     } catch (error) {
       // Handle error
