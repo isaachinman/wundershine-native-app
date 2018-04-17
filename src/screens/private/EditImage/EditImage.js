@@ -353,16 +353,17 @@ export default class EditImage extends React.Component {
 
     }
 
+    // Calculate new panning limits
     this.rightLimit = this.leftOffset - ((newWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
     this.bottomLimit = this.topOffset - ((newHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
 
+    // Set new image dimensions
     this.imageStyles.width = newWidth
     this.imageStyles.height = newHeight
 
+    // Set new image offsets
     this.xShift = xShift
     this.yShift = yShift
-    this.previousLeft = xShift
-    this.previousTop = yShift
 
     return true
 
@@ -378,9 +379,9 @@ export default class EditImage extends React.Component {
     this.updateNativeStyles()
   }
 
-  handleResponderEnd = (e, gestureState) => {
-    this.previousLeft = this.calculateXAxis(this.previousLeft, gestureState.dx)
-    this.previousTop = this.calculateYAxis(this.previousTop, gestureState.dy)
+  handleResponderEnd = () => {
+    this.previousLeft = this.xShift
+    this.previousTop = this.yShift
   }
 
   render() {
