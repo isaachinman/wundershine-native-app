@@ -28,5 +28,6 @@ export default {
     height: SQUARE_FRAME_DIMENSION,
     borderWidth: 0,
     borderColor: whitePrimary,
+    overflow: 'hidden',
   },
 }
