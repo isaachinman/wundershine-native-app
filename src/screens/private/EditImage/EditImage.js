@@ -264,7 +264,7 @@ export default class EditImage extends React.Component {
     let xShift = this.xShift - ((newWidth - oldWidth) / 2)
     let yShift = this.yShift - ((newHeight - oldHeight) / 2)
 
-    // Portrait limit
+    // Portrait limits
     if (this.layout === PORTRAIT && newWidth < SQUARE_FRAME_DIMENSION) {
       xShift = (SQUARE_FRAME_DIMENSION - newWidth) / 2
       if (newHeight <= SQUARE_FRAME_DIMENSION) {
@@ -276,9 +276,27 @@ export default class EditImage extends React.Component {
       if (yShift + newHeight <= SQUARE_FRAME_DIMENSION) {
         yShift = 0
       }
+    } else if (this.layout === PORTRAIT && newWidth > SQUARE_FRAME_DIMENSION) {
+
+      // If zooming out exposes margin on bottom
+      if ((newWidth + xShift) < SQUARE_FRAME_DIMENSION) {
+        xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
+      }
+      if ((newHeight + yShift) < SQUARE_FRAME_DIMENSION) {
+        yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
+      }
+
+      // If zooming out exposes margin on top
+      if (newWidth > SQUARE_FRAME_DIMENSION && xShift > 0) {
+        xShift = 0
+      }
+      if (newHeight > SQUARE_FRAME_DIMENSION && yShift > 0) {
+        yShift = 0
+      }
+
     }
 
-    // Landscape limit
+    // Landscape limits
     if (this.layout === LANDSCAPE && newHeight < SQUARE_FRAME_DIMENSION) {
       yShift = (SQUARE_FRAME_DIMENSION - newHeight) / 2
       if (newWidth <= SQUARE_FRAME_DIMENSION) {
@@ -290,6 +308,49 @@ export default class EditImage extends React.Component {
       if (xShift + newWidth <= SQUARE_FRAME_DIMENSION) {
         xShift = 0
       }
+    } else if (this.layout === LANDSCAPE && newHeight > SQUARE_FRAME_DIMENSION) {
+
+      // If zooming out exposes margin on bottom
+      if ((newHeight + yShift) < SQUARE_FRAME_DIMENSION) {
+        yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
+      }
+      if ((newWidth + xShift) < SQUARE_FRAME_DIMENSION) {
+        xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
+      }
+
+      // If zooming out exposes margin on top
+      if (newHeight > SQUARE_FRAME_DIMENSION && yShift > 0) {
+        yShift = 0
+      }
+      if (newWidth > SQUARE_FRAME_DIMENSION && xShift > 0) {
+        xShift = 0
+      }
+
+    }
+
+    // Square limits
+    if (this.layout === SQUARE && newWidth <= SQUARE_FRAME_DIMENSION) {
+      return false
+    }
+    if (this.layout === SQUARE &&
+      newHeight > SQUARE_FRAME_DIMENSION && newWidth > SQUARE_FRAME_DIMENSION) {
+
+      // If zooming out exposes margin on bottom
+      if ((newHeight + yShift) < SQUARE_FRAME_DIMENSION) {
+        yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
+      }
+      if ((newWidth + xShift) < SQUARE_FRAME_DIMENSION) {
+        xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
+      }
+
+      // If zooming out exposes margin on top
+      if (newHeight > SQUARE_FRAME_DIMENSION && yShift > 0) {
+        yShift = 0
+      }
+      if (newWidth > SQUARE_FRAME_DIMENSION && xShift > 0) {
+        xShift = 0
+      }
+
     }
 
     this.rightLimit = this.leftOffset - ((newWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
