@@ -39,7 +39,7 @@ export default class EditImage extends React.Component {
     const { _id, queue } = this.props
     this.masterImage = queue.data.images.find(i => i._id === _id)
 
-    // Determine aspect ratio and layout
+    // Determine aspect ratio and set layout
     this.aspectRatio = this.masterImage.width / this.masterImage.height
     if (this.aspectRatio < 1) {
       this.layout = PORTRAIT
@@ -52,6 +52,7 @@ export default class EditImage extends React.Component {
     // Apply initial transformation
     this.applyTransformation()
 
+    // Create gesture responder
     this.gestureResponder = createResponder({
       onStartShouldSetResponder: () => true,
       onStartShouldSetResponderCapture: () => true,
@@ -100,6 +101,7 @@ export default class EditImage extends React.Component {
 
     if (aspectRatioOfSelection < 1 && widthOfSelection === width) {
 
+      // Portrait selection
       const heightInFrame = height - (height - (bottomBoundary - topBoundary))
       const heightScale = heightInFrame / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / heightScale
@@ -109,6 +111,7 @@ export default class EditImage extends React.Component {
 
     } else if (aspectRatioOfSelection === 1) {
 
+      // Square selection
       const widthScale = widthOfSelection / SQUARE_FRAME_DIMENSION
       const heightScale = heightOfSelection / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / widthScale
@@ -118,6 +121,7 @@ export default class EditImage extends React.Component {
 
     } else if (aspectRatioOfSelection > 1 && heightOfSelection === height) {
 
+      // Landscape selection
       const widthInFrame = width - (width - (rightBoundary - leftBoundary))
       const widthScale = widthInFrame / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / widthScale
@@ -133,17 +137,17 @@ export default class EditImage extends React.Component {
     this.topOffset = topOffset
     this.previousTop = topOffset
 
-    this.xShift = this.leftOffset
-    this.yShift = this.topOffset
+    this.xShift = leftOffset
+    this.yShift = topOffset
 
-    this.rightLimit = this.leftOffset - ((adjustedWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
-    this.bottomLimit = this.topOffset - ((adjustedHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
+    this.rightLimit = leftOffset - ((adjustedWidth + leftOffset) - SQUARE_FRAME_DIMENSION)
+    this.bottomLimit = topOffset - ((adjustedHeight + topOffset) - SQUARE_FRAME_DIMENSION)
 
     this.imageStyles = {
       width: adjustedWidth,
       height: adjustedHeight,
-      top: this.topOffset,
-      left: this.leftOffset,
+      top: topOffset,
+      left: leftOffset,
     }
 
   }
