@@ -213,7 +213,8 @@ class QueueStore {
       const { data } = res
       this.mergeIntoLocalData(data, true)
     } catch (error) {
-      runInAction(() => this.error = error)
+      // Throw error back to EditImage screen
+      throw error
     }
     this.removeImageLoading(imageID)
   }
