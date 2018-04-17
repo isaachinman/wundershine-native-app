@@ -4,25 +4,12 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { NavActions, screenUtils } from 'utils/nav'
 
-import { Button } from 'components'
 import { Image, View } from 'react-native'
 import { createResponder } from 'react-native-gesture-responder'
 
 import { SQUARE, PORTRAIT, LANDSCAPE } from 'utils/images/aspect-ratios'
-
-const SQUARE_FRAME_DIMENSION = 300
-
-const styles = {
-  frame: {
-    marginTop: 50,
-    alignSelf: 'center',
-    width: SQUARE_FRAME_DIMENSION,
-    height: SQUARE_FRAME_DIMENSION,
-    borderColor: 'black',
-    borderWidth: 1,
-    overflow: 'hidden',
-  },
-}
+import { SQUARE_FRAME_DIMENSION } from './constants'
+import styles from './EditImage.styles'
 
 @inject('queue')
 @screenUtils
@@ -30,6 +17,20 @@ const styles = {
 export default class EditImage extends React.Component {
 
   static screenTitle = 'Edit image'
+
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        id: 'save',
+        title: 'Save',
+      },
+    ],
+  }
+
+  constructor(props) {
+    super(props)
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+  }
 
   componentWillMount = () => {
 
@@ -66,6 +67,14 @@ export default class EditImage extends React.Component {
 
   componentDidMount = () => this.updateNativeStyles()
 
+  onNavigatorEvent = (event) => {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'save') {
+        this.saveTransformation()
+      }
+    }
+  }
+
   applyTransformation = () => {
 
     const { transformation, width, height } = this.masterImage
@@ -79,6 +88,7 @@ export default class EditImage extends React.Component {
 
     const widthOfSelection = rightBoundary - leftBoundary
     const heightOfSelection = bottomBoundary - topBoundary
+
     const aspectRatioOfSelection = widthOfSelection / heightOfSelection
 
     let adjustedWidth
@@ -163,6 +173,7 @@ export default class EditImage extends React.Component {
 
     // Portrait letterbox
     if (this.imageStyles.width < SQUARE_FRAME_DIMENSION) {
+
       topBoundary = (yShift / this.imageStyles.height) * height
       rightBoundary = width
       bottomBoundary = ((yShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.height) * height
@@ -171,6 +182,7 @@ export default class EditImage extends React.Component {
 
     // Landscape letterbox
     if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+
       topBoundary = 0
       rightBoundary = ((xShift + SQUARE_FRAME_DIMENSION) / this.imageStyles.width) * width
       bottomBoundary = height
@@ -327,23 +339,17 @@ export default class EditImage extends React.Component {
   render() {
 
     return (
-      <View>
-        <View style={styles.frame}>
-          <Image
-            {...this.gestureResponder}
-            ref={i => this.image = i}
-            source={{ uri: this.masterImage.uri }}
-            style={this.imageStyles}
-          />
+      <View style={styles.content}>
+        <View style={styles.paper}>
+          <View style={styles.print}>
+            <Image
+              {...this.gestureResponder}
+              ref={i => this.image = i}
+              source={{ uri: this.masterImage.uri }}
+              style={this.imageStyles}
+            />
+          </View>
         </View>
-        <Button
-          text='Save'
-          onPress={this.saveTransformation}
-          block
-          bordered
-          primary
-          style={{ marginTop: 20 }}
-        />
       </View>
     )
   }
@@ -351,6 +357,9 @@ export default class EditImage extends React.Component {
 
 EditImage.wrappedComponent.propTypes = {
   _id: PropTypes.string.isRequired,
+  navigator: PropTypes.shape({
+    setOnNavigatorEvent: PropTypes.func.isRequired,
+  }).isRequired,
   queue: PropTypes.shape({
     updateImageTransformation: PropTypes.func,
   }).isRequired,
