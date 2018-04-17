@@ -96,8 +96,8 @@ export default class EditImage extends React.Component {
     let adjustedWidth
     let adjustedHeight
 
-    let topOffset
-    let leftOffset
+    let yShift
+    let xShift
 
     if (aspectRatioOfSelection < 1 && widthOfSelection === width) {
 
@@ -106,8 +106,8 @@ export default class EditImage extends React.Component {
       const heightScale = heightInFrame / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / heightScale
       adjustedHeight = height / heightScale
-      topOffset = -(topBoundary / heightScale)
-      leftOffset = (SQUARE_FRAME_DIMENSION - adjustedWidth) / 2
+      yShift = -(topBoundary / heightScale)
+      xShift = (SQUARE_FRAME_DIMENSION - adjustedWidth) / 2
 
     } else if (aspectRatioOfSelection === 1) {
 
@@ -116,8 +116,8 @@ export default class EditImage extends React.Component {
       const heightScale = heightOfSelection / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / widthScale
       adjustedHeight = height / heightScale
-      leftOffset = -(transformation.leftBoundary / width) * adjustedWidth
-      topOffset = -(transformation.topBoundary / height) * adjustedHeight
+      yShift = -(transformation.topBoundary / height) * adjustedHeight
+      xShift = -(transformation.leftBoundary / width) * adjustedWidth
 
     } else if (aspectRatioOfSelection > 1 && heightOfSelection === height) {
 
@@ -126,28 +126,25 @@ export default class EditImage extends React.Component {
       const widthScale = widthInFrame / SQUARE_FRAME_DIMENSION
       adjustedWidth = width / widthScale
       adjustedHeight = height / widthScale
-      leftOffset = -(leftBoundary / widthScale)
-      topOffset = (SQUARE_FRAME_DIMENSION - adjustedHeight) / 2
+      yShift = (SQUARE_FRAME_DIMENSION - adjustedHeight) / 2
+      xShift = -(leftBoundary / widthScale)
 
     }
 
-    this.leftOffset = leftOffset
-    this.previousLeft = leftOffset
+    this.previousLeft = xShift
+    this.previousTop = yShift
 
-    this.topOffset = topOffset
-    this.previousTop = topOffset
+    this.xShift = xShift
+    this.yShift = yShift
 
-    this.xShift = leftOffset
-    this.yShift = topOffset
-
-    this.rightLimit = leftOffset - ((adjustedWidth + leftOffset) - SQUARE_FRAME_DIMENSION)
-    this.bottomLimit = topOffset - ((adjustedHeight + topOffset) - SQUARE_FRAME_DIMENSION)
+    this.rightLimit = xShift - ((adjustedWidth + xShift) - SQUARE_FRAME_DIMENSION)
+    this.bottomLimit = yShift - ((adjustedHeight + yShift) - SQUARE_FRAME_DIMENSION)
 
     this.imageStyles = {
       width: adjustedWidth,
       height: adjustedHeight,
-      top: topOffset,
-      left: leftOffset,
+      top: yShift,
+      left: xShift,
     }
 
   }
@@ -358,8 +355,8 @@ export default class EditImage extends React.Component {
     }
 
     // Calculate new panning limits
-    this.rightLimit = this.leftOffset - ((newWidth + this.leftOffset) - SQUARE_FRAME_DIMENSION)
-    this.bottomLimit = this.topOffset - ((newHeight + this.topOffset) - SQUARE_FRAME_DIMENSION)
+    this.rightLimit = this.xShift - ((newWidth + this.xShift) - SQUARE_FRAME_DIMENSION)
+    this.bottomLimit = this.yShift - ((newHeight + this.yShift) - SQUARE_FRAME_DIMENSION)
 
     // Set new image dimensions
     this.imageStyles.width = newWidth
