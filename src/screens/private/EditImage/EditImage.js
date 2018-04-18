@@ -8,6 +8,7 @@ import { Icon } from 'components'
 import { Image, TouchableOpacity, View } from 'react-native'
 import { createResponder } from 'react-native-gesture-responder'
 
+import { fillTransformation, fitTransformation } from 'utils/images/transformation-defaults'
 import { roundBoundaries } from 'utils/images'
 import { SQUARE, PORTRAIT, LANDSCAPE } from 'utils/images/aspect-ratios'
 import { SQUARE_FRAME_DIMENSION } from './constants'
@@ -51,7 +52,7 @@ export default class EditImage extends React.Component {
     }
 
     // Apply initial transformation
-    this.applyTransformation()
+    this.applyTransformation(this.masterImage.transformation)
 
     // Create gesture responder
     this.gestureResponder = createResponder({
@@ -78,9 +79,9 @@ export default class EditImage extends React.Component {
     }
   }
 
-  applyTransformation = () => {
+  applyTransformation = (transformation) => {
 
-    const { transformation, width, height } = this.masterImage
+    const { width, height } = this.masterImage
 
     const {
       topBoundary,
@@ -235,8 +236,23 @@ export default class EditImage extends React.Component {
     }
   }
 
-  toggleExpand = () => {
-    console.log(`Request to toggle expansion of a non-square image.`) // eslint-disable-line
+  toggleFitFill = () => {
+    let newBoundaries = this.masterImage.transformation
+    if (this.layout === PORTRAIT) {
+      if (this.imageStyles.width < SQUARE_FRAME_DIMENSION) {
+        newBoundaries = fillTransformation(this.masterImage)
+      } else {
+        newBoundaries = fitTransformation(this.masterImage)
+      }
+    } else if (this.layout === LANDSCAPE) {
+      if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+        newBoundaries = fillTransformation(this.masterImage)
+      } else {
+        newBoundaries = fitTransformation(this.masterImage)
+      }
+    }
+    this.applyTransformation(newBoundaries)
+    this.updateNativeStyles()
   }
 
   rotate = (degreesToRotate) => {
@@ -439,11 +455,13 @@ export default class EditImage extends React.Component {
             <Icon name='ios-refresh' style={styles.iconRotateClockwise} />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={this.toggleExpand}
-          >
-            <Icon name='md-expand' style={styles.iconExpand} />
-          </TouchableOpacity>
+          {this.layout !== SQUARE &&
+            <TouchableOpacity
+              onPress={this.toggleFitFill}
+            >
+              <Icon name='md-expand' style={styles.iconExpand} />
+            </TouchableOpacity>
+          }
 
           <TouchableOpacity
             onPress={() => this.rotate(-90)}
