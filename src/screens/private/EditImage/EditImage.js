@@ -275,15 +275,15 @@ export default class EditImage extends React.Component {
         yShift = 0
       }
       if (yShift + newHeight <= SQUARE_FRAME_DIMENSION) {
-        yShift = 0
+        yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
       }
     } else if (this.layout === PORTRAIT && newWidth > SQUARE_FRAME_DIMENSION) {
 
       // If zooming out exposes margin on bottom
-      if ((newWidth + xShift) < SQUARE_FRAME_DIMENSION) {
+      if (xShift + newWidth < SQUARE_FRAME_DIMENSION) {
         xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
       }
-      if ((newHeight + yShift) < SQUARE_FRAME_DIMENSION) {
+      if (yShift + newHeight < SQUARE_FRAME_DIMENSION) {
         yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
       }
 
@@ -307,7 +307,7 @@ export default class EditImage extends React.Component {
         xShift = 0
       }
       if (xShift + newWidth <= SQUARE_FRAME_DIMENSION) {
-        xShift = 0
+        xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
       }
     } else if (this.layout === LANDSCAPE && newHeight > SQUARE_FRAME_DIMENSION) {
 
