@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { NavActions, screenUtils } from 'utils/nav'
 
-import { Image, View } from 'react-native'
+import { Icon } from 'components'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { createResponder } from 'react-native-gesture-responder'
 
 import { roundBoundaries } from 'utils/images'
@@ -215,6 +216,33 @@ export default class EditImage extends React.Component {
     }
   }
 
+  activatePrintBorder = () => {
+    if (this.print) {
+      if (!this.printBorderActivated) {
+        this.print.setNativeProps({
+          borderColor: '#eee',
+        })
+        this.printBorderActivated = true
+        setTimeout(() => {
+          if (this.printBorderActivated) {
+            this.print.setNativeProps({
+              borderColor: '#fff',
+            })
+            this.printBorderActivated = false
+          }
+        }, 1000)
+      }
+    }
+  }
+
+  toggleExpand = () => {
+    console.log(`Request to toggle expansion of a non-square image.`) // eslint-disable-line
+  }
+
+  rotate = (degreesToRotate) => {
+    console.log(`Request to rotate the image by ${degreesToRotate} degrees.`) // eslint-disable-line
+  }
+
   calculateXAxis = (previousLeft, dx) => {
     let leftVal = previousLeft + dx
     // Left boundary
@@ -377,6 +405,7 @@ export default class EditImage extends React.Component {
       this.xShift = this.calculateXAxis(this.previousLeft, gestureState.dx)
       this.yShift = this.calculateYAxis(this.previousTop, gestureState.dy)
     }
+    this.activatePrintBorder()
     this.updateNativeStyles()
   }
 
@@ -390,7 +419,10 @@ export default class EditImage extends React.Component {
     return (
       <View style={styles.content}>
         <View style={styles.paper}>
-          <View style={styles.print}>
+          <View
+            ref={p => this.print = p}
+            style={styles.print}
+          >
             <Image
               {...this.gestureResponder}
               ref={i => this.image = i}
@@ -398,6 +430,27 @@ export default class EditImage extends React.Component {
               style={this.imageStyles}
             />
           </View>
+        </View>
+        <View style={styles.iconBar}>
+
+          <TouchableOpacity
+            onPress={() => this.rotate(90)}
+          >
+            <Icon name='ios-refresh' style={styles.iconRotateClockwise} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={this.toggleExpand}
+          >
+            <Icon name='md-expand' style={styles.iconExpand} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => this.rotate(-90)}
+          >
+            <Icon name='ios-refresh' style={styles.iconRotateCounterClockwise} />
+          </TouchableOpacity>
+
         </View>
       </View>
     )
