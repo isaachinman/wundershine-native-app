@@ -29,6 +29,7 @@ export default async (_image, queueType) => {
     rightBoundary,
     bottomBoundary,
     leftBoundary,
+    rotation,
   } = transformation
 
   const options = {
@@ -47,6 +48,7 @@ export default async (_image, queueType) => {
         rightBoundary,
         bottomBoundary,
         leftBoundary,
+        rotation,
       }),
     },
     // Android-only options

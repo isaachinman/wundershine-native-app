@@ -12,5 +12,6 @@ export default {
     rightBoundary: joi.number().required(),
     bottomBoundary: joi.number().required(),
     leftBoundary: joi.number().required(),
+    rotation: joi.number().valid(0, 90, 180, 270).required(),
   },
 }
