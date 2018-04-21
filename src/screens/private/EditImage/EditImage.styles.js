@@ -23,6 +23,7 @@ export default {
     alignSelf: 'center',
   },
   print: {
+    position: 'relative',
     alignSelf: 'center',
     width: SQUARE_FRAME_DIMENSION + 1,
     height: SQUARE_FRAME_DIMENSION + 1,

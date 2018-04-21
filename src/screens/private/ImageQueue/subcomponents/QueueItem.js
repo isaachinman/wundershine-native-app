@@ -142,6 +142,7 @@ export default class QueueItem extends React.Component {
       cloudinary.url(cloudinaryID, {
         transformation: [
           {
+            angle: transformation.rotation,
             width: WIDTH_OF_SELECTION,
             height: HEIGHT_OF_SELECTION,
             crop: 'crop',

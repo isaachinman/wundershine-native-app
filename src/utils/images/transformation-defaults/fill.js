@@ -7,7 +7,12 @@ export default (image) => {
   let bottomBoundary = null
   let leftBoundary = null
 
-  const { width, height } = image
+  let { width, height } = image
+  if (image.transformation.rotation % 180) {
+    width = image.height
+    height = image.width
+  }
+
   const aspectRatio = width / height
 
   if (aspectRatio < 1) {

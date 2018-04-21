@@ -2,7 +2,11 @@ import { roundBoundaries } from 'utils/images'
 
 export default (image) => {
 
-  const { width, height } = image
+  let { width, height } = image
+  if (image.transformation.rotation % 180) {
+    width = image.height
+    height = image.width
+  }
 
   const topBoundary = 0
   const rightBoundary = width
