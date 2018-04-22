@@ -161,7 +161,7 @@ export default class ImageQueue extends React.Component {
                 scrollEventThrottle={1}
                 onLayout={(e) => {
                   const { height } = e.nativeEvent.layout
-                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM) {
+                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM + 100) {
                     ui.setAnimatable('queueHelperUI', 'visible', true)
                   }
                   ui.setDimension('queueLayoutHeight', height)

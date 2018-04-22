@@ -8,7 +8,7 @@ export default (image) => {
   let leftBoundary = null
 
   let { width, height } = image
-  if (image.transformation.rotation % 180) {
+  if (image.transformation && image.transformation.rotation % 180) {
     width = image.height
     height = image.width
   }

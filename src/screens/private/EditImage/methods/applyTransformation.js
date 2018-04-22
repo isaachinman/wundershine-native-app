@@ -93,15 +93,15 @@ export default function (transformation) {
     work.
   */
   if (this.rotation === 90) {
-    transform.concat([
+    transform.push(
       { translateX: -((adjustedWidth - adjustedHeight) / 2) },
       { translateY: -((adjustedWidth - adjustedHeight) / 2) },
-    ])
+    )
   } else if (this.rotation === 270) {
-    transform.concat([
+    transform.push(
       { translateX: ((adjustedWidth - adjustedHeight) / 2) },
       { translateY: ((adjustedWidth - adjustedHeight) / 2) },
-    ])
+    )
   }
 
   this.imageStyles = {
