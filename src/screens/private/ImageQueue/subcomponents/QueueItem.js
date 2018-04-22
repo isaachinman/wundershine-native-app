@@ -50,10 +50,10 @@ const styles = {
   animatedImageContainerStyle: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
-    backgroundColor: greyAccent,
+
   },
   animatedImageStyle: {
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
@@ -104,7 +104,8 @@ export default class QueueItem extends React.Component {
   }
 
   redirectToEditScreen = () => {
-    NavActions.push({ screen: 'EditImage', passProps: { imageID: this.props._id } })
+    NavActions.setDrawerEnabled({ side: 'left', enabled: false })
+    NavActions.push({ screen: 'EditImage', passProps: { _id: this.props._id } })
   }
 
   handleSlideoutAction = (action) => {
@@ -128,10 +129,33 @@ export default class QueueItem extends React.Component {
       selectionActionsAllowed,
       uri,
       uriIsLocal,
+      transformation,
     } = this.props
 
+    const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
+    const HEIGHT_OF_SELECTION = transformation.bottomBoundary - transformation.topBoundary
+    const SCALE = WIDTH_OF_SELECTION / QUEUE_IMAGE_DIMENSION
+    const WIDTH_OF_THUMBNAIL = Math.round(WIDTH_OF_SELECTION / SCALE) * 2
+    const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
+
     const imageSource = notUploadedYet || uriIsLocal ? uri :
-      cloudinary.url(cloudinaryID, { width: 400, crop: 'scale' })
+      cloudinary.url(cloudinaryID, {
+        transformation: [
+          {
+            angle: transformation.rotation,
+            width: WIDTH_OF_SELECTION,
+            height: HEIGHT_OF_SELECTION,
+            crop: 'crop',
+            x: transformation.leftBoundary,
+            y: transformation.topBoundary,
+          },
+          {
+            width: WIDTH_OF_THUMBNAIL,
+            height: HEIGHT_OF_THUMBNAIL,
+            crop: 'thumb',
+          },
+        ],
+      })
 
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
@@ -146,6 +170,11 @@ export default class QueueItem extends React.Component {
       } else {
         origin = `${make} ${model}`
       }
+    }
+
+    const animatedImageStyle = {
+      ...styles.animatedImageStyle,
+      resizeMode: uriIsLocal ? 'cover' : 'contain',
     }
 
     return (
@@ -165,7 +194,7 @@ export default class QueueItem extends React.Component {
             <ListItem.Part left>
               <AnimatedImage
                 containerStyle={styles.animatedImageContainerStyle}
-                imageStyle={styles.animatedImageStyle}
+                imageStyle={animatedImageStyle}
                 imageSource={{ uri: imageSource }}
                 loader={<ActivityIndicator color={whiteSecondary} />}
                 animationDuration={200}
@@ -246,6 +275,12 @@ QueueItem.propTypes = {
   selected: PropTypes.bool.isRequired,
   selectionActionsAllowed: PropTypes.bool.isRequired,
   selectImage: PropTypes.func.isRequired,
+  transformation: PropTypes.shape({
+    topBoundary: PropTypes.number,
+    rightBoundary: PropTypes.number,
+    bottomBoundary: PropTypes.number,
+    leftBoundary: PropTypes.number,
+  }).isRequired,
   uri: PropTypes.string.isRequired,
   uriIsLocal: PropTypes.bool,
 }

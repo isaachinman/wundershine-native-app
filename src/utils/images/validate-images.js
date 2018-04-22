@@ -3,6 +3,7 @@ import config from 'config'
 import { Image } from 'react-native'
 import path from 'react-native-path'
 
+import { applyInitialTransformation } from 'utils/images'
 import { createValidatedImage } from 'models'
 
 export default async (images, queueType) => {
@@ -63,7 +64,7 @@ export default async (images, queueType) => {
       }
 
       if (isValid) {
-        validatedImages.push(createValidatedImage(imageToReturn))
+        validatedImages.push(createValidatedImage(applyInitialTransformation(imageToReturn)))
       } else {
         rejectedImages.push({
           ...image,
@@ -125,7 +126,7 @@ export default async (images, queueType) => {
       })
 
       if (isValid) {
-        validatedImages.push(createValidatedImage(imageToReturn))
+        validatedImages.push(createValidatedImage(applyInitialTransformation(imageToReturn)))
       } else {
         rejectedImages.push({
           ...image,
