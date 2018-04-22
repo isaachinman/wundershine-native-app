@@ -5,13 +5,19 @@ export default function (gestureState) {
 
   const zoomFactor = (gestureState.pinch - gestureState.previousPinch) * 2
 
-  const ratio = (this.imageStyles.width + zoomFactor) / this.imageStyles.width
+  let { width, height } = this.imageStyles
+  if (this.rotation % 180) {
+    width = this.imageStyles.height
+    height = this.imageStyles.width
+  }
 
-  const oldWidth = this.imageStyles.width
-  const oldHeight = this.imageStyles.height
+  const ratio = (width + zoomFactor) / width
 
-  const newWidth = this.imageStyles.width + zoomFactor
-  const newHeight = this.imageStyles.height * ratio
+  const oldWidth = width
+  const oldHeight = height
+
+  const newWidth = width + zoomFactor
+  const newHeight = height * ratio
 
   let xShift = this.xShift - ((newWidth - oldWidth) / 2)
   let yShift = this.yShift - ((newHeight - oldHeight) / 2)
@@ -61,7 +67,6 @@ export default function (gestureState) {
       xShift = -(newWidth - SQUARE_FRAME_DIMENSION)
     }
   } else if (this.layout === LANDSCAPE && newHeight > SQUARE_FRAME_DIMENSION) {
-
     // If zooming out exposes margin on bottom
     if ((newHeight + yShift) < SQUARE_FRAME_DIMENSION) {
       yShift = -(newHeight - SQUARE_FRAME_DIMENSION)
@@ -110,8 +115,10 @@ export default function (gestureState) {
   this.bottomLimit = this.yShift - ((newHeight + this.yShift) - SQUARE_FRAME_DIMENSION)
 
   // Set new image dimensions
-  this.imageStyles.width = newWidth
-  this.imageStyles.height = newHeight
+  this.imageStyles.width = this.rotation % 180 ? newHeight : newWidth
+  this.imageStyles.height = this.rotation % 180 ? newWidth : newHeight
+
+  this.imageStyles.transform = this.calculateRotationOffset(newWidth, newHeight)
 
   // Set new image offsets
   this.xShift = xShift

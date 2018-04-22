@@ -82,34 +82,12 @@ export default function (transformation) {
   this.rightLimit = xShift - ((adjustedWidth + xShift) - SQUARE_FRAME_DIMENSION)
   this.bottomLimit = yShift - ((adjustedHeight + yShift) - SQUARE_FRAME_DIMENSION)
 
-  const transform = [
-    { rotate: `${this.rotation}deg` },
-  ]
-
-  /*
-    RN rotates around centre point, so we need to
-    manually offset the rotation to stick the image
-    to the top left corner so that our offsets will
-    work.
-  */
-  if (this.rotation === 90) {
-    transform.push(
-      { translateX: -((adjustedWidth - adjustedHeight) / 2) },
-      { translateY: -((adjustedWidth - adjustedHeight) / 2) },
-    )
-  } else if (this.rotation === 270) {
-    transform.push(
-      { translateX: ((adjustedWidth - adjustedHeight) / 2) },
-      { translateY: ((adjustedWidth - adjustedHeight) / 2) },
-    )
-  }
-
   this.imageStyles = {
     width: this.rotation % 180 ? adjustedHeight : adjustedWidth,
     height: this.rotation % 180 ? adjustedWidth : adjustedHeight,
     top: yShift,
     left: xShift,
-    transform,
+    transform: this.calculateRotationOffset(adjustedWidth, adjustedHeight),
   }
 
 }
