@@ -48,6 +48,9 @@ export default class EditImage extends React.Component {
     // Apply initial transformation
     this.applyTransformation(this.masterImage.transformation)
 
+    // Unlock UI
+    this.lockUntil = new Date().getTime()
+
     // Create gesture responder
     this.gestureResponder = createResponder({
       onStartShouldSetResponder: () => true,
@@ -98,21 +101,43 @@ export default class EditImage extends React.Component {
     }
   }
 
+  lockUI = (lockLength) => {
+    const lockUntil = new Date()
+    lockUntil.setMilliseconds(lockUntil.getMilliseconds() + lockLength)
+    this.lockUntil = lockUntil.getTime()
+
+  }
+
   handleResponderMove = (e, gestureState) => {
-    if (gestureState.pinch) {
-      this.calculateZoom(gestureState)
-    } else {
-      this.xShift = this.calculateXAxis(this.previousLeft, gestureState.dx)
-      this.yShift = this.calculateYAxis(this.previousTop, gestureState.dy)
+    if (this.lockUntil < new Date().getTime()) {
+      if (gestureState.pinch) {
+        this.pinching = true
+        this.calculateZoom(gestureState)
+      } else if (!this.pinching) {
+        this.xShift = this.calculateXAxis(this.previousLeft, gestureState.dx)
+        this.yShift = this.calculateYAxis(this.previousTop, gestureState.dy)
+      }
+      this.activatePrintBorder()
+      this.updateNativeStyles()
     }
-    this.activatePrintBorder()
-    this.updateNativeStyles()
   }
 
   handleResponderEnd = () => {
+
+    /*
+      Gesture responder will seamlessly transition from
+      pinch to pan if one finger is lifted. This causes
+      unexpected behaviour, so the UI is briefly locked
+      after pinch interactions.
+    */
+    if (this.pinching) {
+      this.pinching = false
+      this.lockUI(100)
+    }
     this.previousLeft = this.xShift
     this.previousTop = this.yShift
     this.transformation = { ...this.getTransformation(), rotation: this.rotation }
+
   }
 
   render() {
