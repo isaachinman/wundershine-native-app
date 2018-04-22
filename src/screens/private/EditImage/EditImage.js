@@ -160,6 +160,7 @@ export default class EditImage extends React.Component {
         <View style={styles.iconBar}>
 
           <TouchableOpacity
+            style={styles.buttonContainer}  
             onPress={() => {
               const newTransformation = this.rotate(this.transformation, 90)
               this.applyTransformation(newTransformation)
@@ -171,6 +172,7 @@ export default class EditImage extends React.Component {
 
           {this.layout !== SQUARE &&
             <TouchableOpacity
+              style={styles.buttonContainer}
               onPress={this.toggleFitFill}
             >
               <Icon name='md-expand' style={styles.iconExpand} />
@@ -178,6 +180,7 @@ export default class EditImage extends React.Component {
           }
 
           <TouchableOpacity
+            style={styles.buttonContainer}  
             onPress={() => {
               const newTransformation = this.rotate(this.transformation, -90)
               this.applyTransformation(newTransformation)

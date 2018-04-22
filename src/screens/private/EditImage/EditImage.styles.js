@@ -34,7 +34,11 @@ export default {
   iconBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
+  },
+  buttonContainer: {
+    padding: 10,
+    height: 50,
   },
   iconExpand: {
     color: blackSecondary,
