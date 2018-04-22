@@ -3,7 +3,7 @@ import { SQUARE_FRAME_DIMENSION } from '../constants'
 
 export default function (gestureState) {
 
-  const zoomFactor = gestureState.pinch - gestureState.previousPinch
+  const zoomFactor = (gestureState.pinch - gestureState.previousPinch) * 2
 
   const ratio = (this.imageStyles.width + zoomFactor) / this.imageStyles.width
 
