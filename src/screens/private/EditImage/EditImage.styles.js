@@ -56,4 +56,36 @@ export default {
     marginTop: -7,
     transform: [{ scaleX: -1 }],
   },
+  borderBox: {
+    opacity: 0,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)',
+  },
+  gridOverlay: {
+    opacity: 0,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 3,
+  },
+  gridBox: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(250,250,250,0.3)',
+    margin: -0.5,
+  },
+  gridBlack: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.1)',
+
+  },
 }

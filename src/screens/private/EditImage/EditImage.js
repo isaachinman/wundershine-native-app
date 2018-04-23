@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { screenUtils } from 'utils/nav'
 
+import * as Animatable from 'react-native-animatable'
+import { Col, Grid, Row } from 'react-native-easy-grid'
+import { createResponder } from 'react-native-gesture-responder'
 import { Icon } from 'components'
 import { Image, TouchableOpacity, View } from 'react-native'
-import { createResponder } from 'react-native-gesture-responder'
 
 import { SQUARE } from 'utils/images/aspect-ratios'
+import { SQUARE_FRAME_DIMENSION } from './constants'
 
 import methods from './methods'
 import styles from './EditImage.styles'
@@ -57,6 +60,7 @@ export default class EditImage extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
+      onResponderGrant: () => this.activatePrintBorder(true),
       onResponderMove: this.handleResponderMove,
       onResponderRelease: this.handleResponderEnd,
       onResponderTerminate: this.handleResponderEnd,
@@ -78,23 +82,49 @@ export default class EditImage extends React.Component {
 
   updateNativeStyles = () => {
     if (this.image) {
-      this.image.setNativeProps({ ...this.imageStyles, top: this.yShift, left: this.xShift })
+      const { width, height, transform } = this.imageStyles
+      this.image.setNativeProps({
+        width,
+        height,
+        transform,
+        top: this.yShift,
+        left: this.xShift,
+      })
+      let gridTop = this.yShift < 0 ? 0 : this.yShift
+      let gridLeft = this.xShift < 0 ? 0 : this.xShift
+      if (this.rotation % 180) {
+        gridTop = this.xShift < 0 ? 0 : this.xShift
+        gridLeft = this.yShift < 0 ? 0 : this.yShift
+      }
+      this.gridOverlay.setNativeProps({
+        width,
+        height,
+        transform: [
+          { rotate: `${this.rotation}deg` },
+        ],
+        maxWidth: SQUARE_FRAME_DIMENSION,
+        maxHeight: SQUARE_FRAME_DIMENSION,
+        top: gridTop,
+        left: gridLeft,
+      })
     }
   }
 
-  activatePrintBorder = () => {
-    if (this.print) {
-      if (!this.printBorderActivated) {
-        this.print.setNativeProps({
-          borderColor: '#eee',
-        })
-        this.printBorderActivated = true
-        setTimeout(() => {
-          if (this.printBorderActivated) {
-            this.print.setNativeProps({
-              borderColor: '#fff',
-            })
-            this.printBorderActivated = false
+  activatePrintBorder = (activeState) => {
+    if (this.borderBox && this.gridOverlay) {
+      if (activeState) {
+        clearTimeout(this.hideGridOverlay)
+        if (!this.gridActivated) {
+          this.borderBox.fadeIn(100)
+          this.gridOverlay.fadeIn(100)
+          this.gridActivated = true
+        }
+      } else if (!activeState && this.gridActivated) {
+        this.hideGridOverlay = setTimeout(() => {
+          if (this.gridActivated) {
+            this.borderBox.fadeOut(700)
+            this.gridOverlay.fadeOut(700)
+            this.gridActivated = false
           }
         }, 1000)
       }
@@ -117,12 +147,13 @@ export default class EditImage extends React.Component {
         this.xShift = this.calculateXAxis(this.previousLeft, gestureState.dx)
         this.yShift = this.calculateYAxis(this.previousTop, gestureState.dy)
       }
-      this.activatePrintBorder()
       this.updateNativeStyles()
     }
   }
 
   handleResponderEnd = () => {
+
+    this.activatePrintBorder(false)
 
     /*
       Gesture responder will seamlessly transition from
@@ -149,6 +180,31 @@ export default class EditImage extends React.Component {
             ref={p => this.print = p}
             style={styles.print}
           >
+            <Animatable.View
+              ref={x => this.borderBox = x}
+              style={styles.borderBox}
+              pointerEvents='none'
+            />
+            <Animatable.View
+              ref={x => this.gridOverlay = x}
+              style={styles.gridOverlay}
+              pointerEvents='none'
+            >
+              <Grid>
+                {[1, 2, 3].map(row => (
+                  <Row key={`grid-overlay-row-${row}`}>
+                    {[1, 2, 3].map(col => (
+                      <Col
+                        key={`grid-overlay-col-${col}`}
+                        style={styles.gridBox}
+                      >
+                        <View style={styles.gridBlack} />
+                      </Col>
+                    ))}
+                  </Row>
+                ))}
+              </Grid>
+            </Animatable.View>
             <Image
               {...this.gestureResponder}
               ref={i => this.image = i}
