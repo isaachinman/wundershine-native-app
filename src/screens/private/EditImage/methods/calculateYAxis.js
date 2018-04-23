@@ -2,6 +2,11 @@ import { SQUARE_FRAME_DIMENSION } from '../constants'
 
 export default function (previousTop, dy) {
 
+  let { height } = this.imageStyles
+  if (this.rotation % 180) {
+    height = this.imageStyles.width
+  }
+
   let topVal = previousTop + dy
 
   // Top boundary
@@ -13,7 +18,7 @@ export default function (previousTop, dy) {
     topVal = this.bottomLimit
   }
 
-  if (this.imageStyles.height < SQUARE_FRAME_DIMENSION) {
+  if (height < SQUARE_FRAME_DIMENSION) {
     topVal = this.yShift
   }
 
