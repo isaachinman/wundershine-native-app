@@ -34,7 +34,7 @@
 		</dict>
 	</array>
   <key>NSPhotoLibraryUsageDescription</key>
-  <string>Users can import photos to order digital prints</string>
+  <string>Import your images and order digital prints!</string>
 	<key>CodePushDeploymentKey</key>
 	<string>__RN_CONFIG_IOS_CODEPUSH_DEPLOYMENT_KEY</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
