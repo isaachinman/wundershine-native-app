@@ -9,4 +9,5 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader',
   'Module RNUeno',
   'Remote debugger',
+  'Class RCTCxxModule was not exported',
 ])

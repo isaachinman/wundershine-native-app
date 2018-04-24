@@ -106,7 +106,6 @@ export default class QueueItem extends React.Component {
   redirectToEditScreen = () => {
     const { loading, notUploadedYet } = this.props
     if (!loading && !notUploadedYet) {
-      NavActions.setDrawerEnabled({ side: 'left', enabled: false })
       NavActions.push({ screen: 'EditImage', passProps: { _id: this.props._id } })
     }
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { inject, observer } from 'mobx-react'
-import { screenUtils } from 'utils/nav'
+import { screenUtils, NavActions } from 'utils/nav'
 
 import * as Animatable from 'react-native-animatable'
 import { Col, Grid, Row } from 'react-native-easy-grid'
@@ -44,6 +44,9 @@ export default class EditImage extends React.Component {
 
   componentWillMount = () => {
 
+    // Disable drawer
+    NavActions.setDrawerEnabled({ side: 'left', enabled: false })
+
     // Find master image from queue
     const { _id, queue } = this.props
     this.masterImage = queue.data.images.find(i => i._id === _id)
@@ -71,6 +74,10 @@ export default class EditImage extends React.Component {
   }
 
   componentDidMount = () => this.updateNativeStyles()
+
+  componentWillUnmount = () => {
+    NavActions.setDrawerEnabled({ side: 'left', enabled: true })
+  }
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
