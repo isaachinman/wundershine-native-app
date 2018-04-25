@@ -195,6 +195,7 @@ export default class QueueItem extends React.Component {
           >
             <ListItem.Part left>
               <AnimatedImage
+                key={`queue-item-thumbnail-${imageSource}`}
                 containerStyle={styles.animatedImageContainerStyle}
                 imageStyle={animatedImageStyle}
                 imageSource={{ uri: imageSource }}

@@ -125,15 +125,12 @@ class QueueStore {
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i.localID !== image.localID)
 
-        // On complete, swap image data for server response,
-        // except for local uri (prevent flicker)
+        // On complete, swap image data for server response
         this.data.images = this.data.images.map((i) => {
           if (i.localID === image.localID) {
             return {
               ...creationData.image,
               selected: creationData.selected,
-              uriIsLocal: true,
-              uri: image.uri,
               localID: image.localID,
             }
           }
