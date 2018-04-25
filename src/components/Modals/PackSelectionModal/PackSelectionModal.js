@@ -51,7 +51,6 @@ export default class PackSelectionModal extends React.Component {
         visible={ui.modals.packSelection.open}
         onRequestClose={this.handleClose}
         animationType='fade'
-        transparent
         hardwareAccelerated
       >
         <Container style={styles.container}>
@@ -77,6 +76,13 @@ export default class PackSelectionModal extends React.Component {
           </Header>
           <Content contentContainerStyle={styles.content}>
             <Grid>
+              <Row>
+                <Col style={{ alignItems: 'center' }}>
+                  <Text style={styles.subheading}>
+                    Packs of large prints you can swap easily into your Wundershine Reframe.
+                  </Text>
+                </Col>
+              </Row>
               {packOptions.map((pack) => {
                 const packIsSelected = queue.data.packSelected === pack.sku
                 return (

@@ -10,7 +10,7 @@ const styles = {
     ...systemWeights.semibold,
   },
   container: {
-    backgroundColor: 'rgba(250,250,250,0.9)',
+    backgroundColor: whitePrimary,
   },
   content: {
     ...material.bodyObject,
@@ -22,7 +22,8 @@ const styles = {
     ...systemWeights.light,
     textAlign: 'center',
     paddingHorizontal: 15,
-    marginBottom: 15,
+    marginBottom: 20,
+    maxWidth: 300,
   },
   touchableOpacity: {
     width: '100%',
