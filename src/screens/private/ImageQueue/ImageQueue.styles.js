@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
@@ -23,6 +23,10 @@ export default {
   headerTitle: {
     ...material.titleObject,
     ...systemWeights.bold,
+  },
+  nextEnabled: {
+    ...systemWeights.semibold,
+    color: blue,
   },
   nextDisabled: {
     color: whiteSecondary,

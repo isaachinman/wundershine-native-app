@@ -102,7 +102,8 @@ export default class ImageQueue extends React.Component {
       if (initialisation.appIsInitialised) { // eslint-disable-line no-lonely-if
         if (images.length > 0) {
           showQueueUI = true
-          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <= images.length
+          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <= images.length &&
+            queue.imagesToUpload.length === 0 && queue.imagesLoading.length === 0
         } else {
           showEmptyUI = true
         }
@@ -148,7 +149,9 @@ export default class ImageQueue extends React.Component {
                 disabled={!queueIsProcessable}
                 transparent
               >
-                <Text style={queueIsProcessable ? {} : styles.nextDisabled}>NEXT</Text>
+                <Text style={queueIsProcessable ? styles.nextEnabled : styles.nextDisabled}>
+                  NEXT
+                </Text>
               </Button>
             </Right>
           </Header>
