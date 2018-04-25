@@ -102,8 +102,8 @@ export default class ImageQueue extends React.Component {
       if (initialisation.appIsInitialised) { // eslint-disable-line no-lonely-if
         if (images.length > 0) {
           showQueueUI = true
-          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <= images.length &&
-            queue.imagesToUpload.length === 0 && queue.imagesLoading.length === 0
+          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <=
+            images.filter(x => !x.notUploadedYet).length
         } else {
           showEmptyUI = true
         }
