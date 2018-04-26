@@ -26,7 +26,7 @@ import styles from './ImageQueue.styles'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_PADDING_BOTTOM } from './constants'
 
-@inject('cart', 'initialisation', 'queue', 'ui')
+@inject('initialisation', 'queue', 'ui')
 @observer
 export default class ImageQueue extends React.Component {
 
@@ -64,7 +64,6 @@ export default class ImageQueue extends React.Component {
         // Handle user cancelled selection
       }
     }
-
   }
 
   render() {
@@ -133,8 +132,8 @@ export default class ImageQueue extends React.Component {
             </Body>
             <Right style={styles.right}>
               <Button
-                transparent
                 onPress={() => ui.toggleModal('packSelection', true)}
+                transparent
               >
                 {showLoadingUI ?
                   <Placeholder style={styles.packnamePlaceholder} />
@@ -146,6 +145,7 @@ export default class ImageQueue extends React.Component {
                 <Text style={styles.packPickerArrow}>&#x25BC;</Text>
               </Button>
               <Button
+                onPress={() => NavActions.push({ screen: 'PackReview' })}
                 disabled={!queueIsProcessable}
                 transparent
               >
@@ -236,9 +236,6 @@ export default class ImageQueue extends React.Component {
 }
 
 ImageQueue.wrappedComponent.propTypes = {
-  cart: PropTypes.shape({
-    sku: PropTypes.string,
-  }).isRequired,
   initialisation: PropTypes.shape({
     appIsInitialised: PropTypes.bool,
   }).isRequired,

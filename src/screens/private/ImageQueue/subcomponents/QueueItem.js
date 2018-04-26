@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
-import { cloudinary } from 'utils/images'
+import { transformedImageURI } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 import { NavActions } from 'utils/nav'
@@ -106,7 +106,7 @@ export default class QueueItem extends React.Component {
   redirectToEditScreen = () => {
     const { loading, notUploadedYet } = this.props
     if (!loading && !notUploadedYet) {
-      NavActions.push({ screen: 'EditImage', passProps: { _id: this.props._id } })
+      NavActions.push({ screen: 'EditImage', passProps: { _id: this.props._id, withinReview: false } })
     }
   }
 
@@ -141,22 +141,10 @@ export default class QueueItem extends React.Component {
     const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
 
     const imageSource = notUploadedYet || uriIsLocal ? uri :
-      cloudinary.url(cloudinaryID, {
-        transformation: [
-          {
-            angle: transformation.rotation,
-            width: WIDTH_OF_SELECTION,
-            height: HEIGHT_OF_SELECTION,
-            crop: 'crop',
-            x: transformation.leftBoundary,
-            y: transformation.topBoundary,
-          },
-          {
-            width: WIDTH_OF_THUMBNAIL,
-            height: HEIGHT_OF_THUMBNAIL,
-            crop: 'thumb',
-          },
-        ],
+      transformedImageURI({ cloudinaryID, transformation }, {
+        thumbnail: true,
+        thumbnailWidth: WIDTH_OF_THUMBNAIL,
+        thumbnailHeight: HEIGHT_OF_THUMBNAIL,
       })
 
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'

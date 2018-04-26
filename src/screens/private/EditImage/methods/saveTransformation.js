@@ -8,7 +8,13 @@ export default async function () {
     await queue.updateImageTransformation(_id, {
       ...this.getTransformation(), rotation: this.rotation,
     })
-    NavActions.push({ screen: 'ImageQueue' })
+
+    if (this.props.withinReview) {
+      NavActions.pop()
+    } else {
+      NavActions.push({ screen: 'ImageQueue' })
+    }
+
   } catch (error) {
     // Handle error
   }

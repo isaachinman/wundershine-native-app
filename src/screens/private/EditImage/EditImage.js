@@ -267,4 +267,5 @@ EditImage.wrappedComponent.propTypes = {
   queue: PropTypes.shape({
     updateImageTransformation: PropTypes.func,
   }).isRequired,
+  withinReview: PropTypes.bool.isRequired,
 }
