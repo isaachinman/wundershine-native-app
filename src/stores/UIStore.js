@@ -34,6 +34,18 @@ class UIStore {
     queueLayoutHeight: null,
   }
 
+  @observable
+  forceRefreshScreens = []
+
+  @action
+  setForceRefreshScreen = (screenName, refreshStatus) => {
+    if (refreshStatus === true) {
+      this.forceRefreshScreens.push(screenName)
+    } else {
+      this.forceRefreshScreens = this.forceRefreshScreens.filter(s => s !== screenName)
+    }
+  }
+
   @action
   triggerToast = (options) => {
     const { message, autoDismiss, type } = options

@@ -16,7 +16,7 @@ import { SQUARE_FRAME_DIMENSION } from './constants'
 import methods from './methods'
 import styles from './EditImage.styles'
 
-@inject('queue')
+@inject('queue', 'ui')
 @screenUtils
 @observer
 export default class EditImage extends React.Component {

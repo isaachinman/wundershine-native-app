@@ -5,10 +5,10 @@ import { inject, observer } from 'mobx-react'
 import { screenUtils, NavActions } from 'utils/nav'
 import { transformedImageURI } from 'utils/images'
 
-import { ActionBar, Carousel, PageControl } from 'react-native-ui-lib'
-import { Image, View } from 'react-native'
+import { ActionBar, AnimatedImage, Carousel, PageControl } from 'react-native-ui-lib'
+import { ActivityIndicator, Image, View } from 'react-native'
 
-import { blackTertiary } from 'styles/colours'
+import { blackTertiary, whiteSecondary } from 'styles/colours'
 // import { SQUARE } from 'utils/images/aspect-ratios'
 // import { SQUARE_FRAME_DIMENSION } from './constants'
 
@@ -16,12 +16,17 @@ import squareFrameReviewImage from 'images/square_frame_review.png'
 
 import styles from './PackReview.styles'
 
-@inject('cart', 'queue')
+@inject('cart', 'queue', 'ui')
 @screenUtils
 @observer
 export default class EditImage extends React.Component {
 
   static screenTitle = 'Review pack'
+
+  constructor(props) {
+    super(props)
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+  }
 
   state = {
     page: 0,
@@ -29,6 +34,14 @@ export default class EditImage extends React.Component {
 
   componentWillMount = () => NavActions.setDrawerEnabled({ side: 'left', enabled: false })
   componentWillUnmount = () => NavActions.setDrawerEnabled({ side: 'left', enabled: true })
+
+  onNavigatorEvent = (event) => {
+    const { ui } = this.props
+    if (event.id === 'willAppear' && ui.forceRefreshScreens.includes('PackReview')) {
+      ui.setForceRefreshScreen('PackReview', false)
+      this.forceUpdate()
+    }
+  }
 
   changePage = page => this.setState({ page })
 
@@ -50,20 +63,27 @@ export default class EditImage extends React.Component {
           <Carousel
             onChangePage={this.changePage}
           >
-            {selectedImages.map(image => (
-              <View key={image._id}>
-                <View style={styles.frameContainer}>
-                  <Image
-                    source={squareFrameReviewImage}
-                    style={styles.frame}
+            {selectedImages.map((image) => {
+              const uri = transformedImageURI(image)
+              return (
+                <View key={image._id}>
+                  <View style={styles.frameContainer}>
+                    <Image
+                      source={squareFrameReviewImage}
+                      style={styles.frame}
+                    />
+                  </View>
+                  <AnimatedImage
+                    key={`pack-review-${uri}`}
+                    containerStyle={styles.print}
+                    imageStyle={{ flex: 1 }}
+                    imageSource={{ uri }}
+                    loader={<ActivityIndicator color={whiteSecondary} />}
+                    animationDuration={200}
                   />
                 </View>
-                <Image
-                  source={{ uri: transformedImageURI(image) }}
-                  style={styles.print}
-                />
-              </View>
-            ))}
+              )
+            })}
           </Carousel>
           <View style={styles.pageControlContainer}>
             <PageControl
@@ -94,9 +114,15 @@ EditImage.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     createPrintPack: PropTypes.func.isRequired,
   }).isRequired,
+  navigator: PropTypes.shape({
+    setOnNavigatorEvent: PropTypes.func.isRequired,
+  }).isRequired,
   queue: PropTypes.shape({
     data: PropTypes.shape({
       queueType: PropTypes.string,
     }),
+  }).isRequired,
+  ui: PropTypes.shape({
+    setForceRefreshScreen: PropTypes.func.isRequired,
   }).isRequired,
 }

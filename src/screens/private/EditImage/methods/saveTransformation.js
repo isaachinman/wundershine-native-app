@@ -10,6 +10,7 @@ export default async function () {
     })
 
     if (this.props.withinReview) {
+      this.props.ui.setForceRefreshScreen('PackReview', true)
       NavActions.pop()
     } else {
       NavActions.push({ screen: 'ImageQueue' })
