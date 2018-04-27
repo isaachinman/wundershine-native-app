@@ -14,7 +14,8 @@ export default {
   },
   content: {
     backgroundColor: greyBg,
-    flex: 1,
+    width: SQUARE_REVIEW_FRAME_DIMENSION + (SQUARE_REVIEW_FRAME_MARGIN * 2),
+    height: SQUARE_REVIEW_FRAME_DIMENSION + (SQUARE_REVIEW_FRAME_MARGIN * 2),
   },
   frame: {
     width: SQUARE_REVIEW_FRAME_DIMENSION,
@@ -53,5 +54,6 @@ export default {
   },
   pageControlContainer: {
     flex: 1,
+    backgroundColor: greyBg,
   },
 }

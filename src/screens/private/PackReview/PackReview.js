@@ -85,13 +85,13 @@ export default class EditImage extends React.Component {
               )
             })}
           </Carousel>
-          <View style={styles.pageControlContainer}>
-            <PageControl
-              numOfPages={selectedImages.length}
-              currentPage={page}
-              color={blackTertiary}
-            />
-          </View>
+        </View>
+        <View style={styles.pageControlContainer}>
+          <PageControl
+            numOfPages={selectedImages.length}
+            currentPage={page}
+            color={blackTertiary}
+          />
         </View>
         <ActionBar
           actions={[
