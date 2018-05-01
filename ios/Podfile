@@ -28,7 +28,6 @@ target 'Wundershine' do
     'RCTPushNotification',
     'DevSupport',
   ]
-  pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
 
   pod 'Interactable', :path => '../node_modules/react-native-interactable'
 

@@ -16,7 +16,6 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactApplication;
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -56,7 +55,6 @@ public class MainApplication extends NavigationApplication {
           new LinearGradientPackage(),
           new SharePackage(),
           new UploaderReactPackage(),
-          new RNFetchBlobPackage(),
           new Interactable(),
           new PickerPackage(),
           new RNFSPackage()

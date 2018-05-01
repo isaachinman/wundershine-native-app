@@ -1,6 +1,7 @@
 import bytes from 'bytes'
 import config from 'config'
 import { Image } from 'react-native'
+import RNFS from 'react-native-fs'
 import path from 'react-native-path'
 
 import { applyInitialTransformation } from 'utils/images'
@@ -86,9 +87,6 @@ export default async (images, queueType) => {
       }
     */
 
-    // https://github.com/wkh237/react-native-fetch-blob/issues/685
-    const RNFetchBlob = require('react-native-fetch-blob').default
-
     await Promise.all(images.map(async (image) => {
 
       let isValid = true
@@ -104,7 +102,7 @@ export default async (images, queueType) => {
       }
 
       // Check filesize
-      const stats = await RNFetchBlob.fs.stat(image.value)
+      const stats = await RNFS.stat(image.value)
       imageToReturn.bytes = stats.size
 
       if (stats.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
