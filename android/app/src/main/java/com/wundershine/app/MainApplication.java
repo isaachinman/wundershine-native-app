@@ -14,6 +14,7 @@ import com.wix.interactable.Interactable;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
@@ -57,7 +58,8 @@ public class MainApplication extends NavigationApplication {
           new UploaderReactPackage(),
           new RNFetchBlobPackage(),
           new Interactable(),
-          new PickerPackage()
+          new PickerPackage(),
+          new RNFSPackage()
         );
     }
 

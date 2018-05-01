@@ -77,6 +77,8 @@
 		6A00166C20650BEA00EAFA0E /* ShareReceiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareReceiver.m; sourceTree = "<group>"; };
 		6A00166E20650C8200EAFA0E /* ReactNativeShareExtension.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeShareExtension.xcodeproj; path = "../node_modules/react-native-share-extension/ios/ReactNativeShareExtension.xcodeproj"; sourceTree = "<group>"; };
 		6A00167520650E2500EAFA0E /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A1000682098595F00993637 /* Wundershine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wundershine.entitlements; sourceTree = "<group>"; };
+		6A100069209859CE00993637 /* ShareReceiver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareReceiver.entitlements; sourceTree = "<group>"; };
 		6A18E35920656AD2005ABDAE /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E35A20656AD2005ABDAE /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCodePush.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E35B20656AD2005ABDAE /* libDoubleConversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libDoubleConversion.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 		6A00165D20650B9500EAFA0E /* ShareReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				6A100069209859CE00993637 /* ShareReceiver.entitlements */,
 				6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */,
 				6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */,
 				6A00166120650B9500EAFA0E /* MainInterface.storyboard */,
@@ -229,6 +232,7 @@
 		E3A2B89D1FEACEE70099C8F8 /* Wundershine */ = {
 			isa = PBXGroup;
 			children = (
+				6A1000682098595F00993637 /* Wundershine.entitlements */,
 				E3A2B89E1FEACEE70099C8F8 /* AppDelegate.h */,
 				E3A2B89F1FEACEE70099C8F8 /* AppDelegate.m */,
 				E3A2B8A01FEACEE70099C8F8 /* LaunchScreen.xib */,
@@ -327,11 +331,21 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FF2ZA34376;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					6A00165B20650B9500EAFA0E = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = FF2ZA34376;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					E3AAD4501F573E3700B7831D = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -611,6 +625,7 @@
 			baseConfigurationReference = F1D3BD74E40F9B230DB4A9F8 /* Pods-Wundershine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wundershine/Wundershine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -640,6 +655,7 @@
 			baseConfigurationReference = DB762D40D55BFAED85929F12 /* Pods-Wundershine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Wundershine/Wundershine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -681,6 +697,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShareReceiver/ShareReceiver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -720,6 +737,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ShareReceiver/ShareReceiver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;

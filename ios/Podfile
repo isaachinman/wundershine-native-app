@@ -34,6 +34,8 @@ target 'Wundershine' do
 
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
 end
 
 target 'ShareReceiver' do
@@ -49,4 +51,5 @@ target 'ShareReceiver' do
     'RCTWebSocket'
     # .. and the rest of submodules you need
   ]
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
 end
