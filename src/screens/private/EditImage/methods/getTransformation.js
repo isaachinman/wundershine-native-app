@@ -4,22 +4,18 @@ import { SQUARE_FRAME_DIMENSION } from '../constants'
 export default function () {
 
   let { width, height } = this.masterImage
+  let currentWidth = this.imageStyles.width
+  let currentHeight = this.imageStyles.height
+
   if (this.rotation % 180) {
     width = this.masterImage.height
     height = this.masterImage.width
-  }
-
-  // const xShift = this.rotation % 180 ? Math.abs(this.yShift) : Math.abs(this.xShift)
-  // const yShift = this.rotation % 180 ? Math.abs(this.xShift) : Math.abs(this.yShift)
-  const xShift = Math.abs(this.xShift)
-  const yShift = Math.abs(this.yShift)
-
-  let currentWidth = this.imageStyles.width
-  let currentHeight = this.imageStyles.height
-  if (this.rotation % 180) {
     currentWidth = this.imageStyles.height
     currentHeight = this.imageStyles.width
   }
+
+  const xShift = Math.abs(this.xShift)
+  const yShift = Math.abs(this.yShift)
 
   let topBoundary
   let rightBoundary
