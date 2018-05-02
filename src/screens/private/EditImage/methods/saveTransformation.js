@@ -5,9 +5,7 @@ export default async function () {
   const { _id, queue } = this.props
 
   try {
-    await queue.updateImageTransformation(_id, {
-      ...this.getTransformation(), rotation: this.rotation,
-    })
+    await queue.updateImageTransformation(_id, this.getTransformation())
 
     if (this.props.withinReview) {
       this.props.ui.setForceRefreshScreen('PackReview', true)

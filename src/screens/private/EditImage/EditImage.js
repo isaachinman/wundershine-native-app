@@ -63,7 +63,7 @@ export default class EditImage extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
-      onResponderGrant: () => this.activatePrintBorder(true),
+      onResponderGrant: () => this.setGridVisibility(true),
       onResponderMove: this.handleResponderMove,
       onResponderRelease: this.handleResponderEnd,
       onResponderTerminate: this.handleResponderEnd,
@@ -83,6 +83,26 @@ export default class EditImage extends React.Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'save') {
         this.saveTransformation()
+      }
+    }
+  }
+
+  setGridVisibility = (visibleState) => {
+    if (this.borderBox && this.gridOverlay) {
+      const animatables = [this.borderBox, this.gridOverlay]
+      if (visibleState === true) {
+        clearTimeout(this.hideGridOverlay)
+        if (!this.gridActivated) {
+          animatables.forEach(x => x.fadeIn(100))
+          this.gridActivated = true
+        }
+      } else if (visibleState === false && this.gridActivated) {
+        this.hideGridOverlay = setTimeout(() => {
+          if (this.gridActivated) {
+            animatables.forEach(x => x.fadeOut(700))
+            this.gridActivated = false
+          }
+        }, 1000)
       }
     }
   }
@@ -117,32 +137,10 @@ export default class EditImage extends React.Component {
     }
   }
 
-  activatePrintBorder = (activeState) => {
-    if (this.borderBox && this.gridOverlay) {
-      if (activeState) {
-        clearTimeout(this.hideGridOverlay)
-        if (!this.gridActivated) {
-          this.borderBox.fadeIn(100)
-          this.gridOverlay.fadeIn(100)
-          this.gridActivated = true
-        }
-      } else if (!activeState && this.gridActivated) {
-        this.hideGridOverlay = setTimeout(() => {
-          if (this.gridActivated) {
-            this.borderBox.fadeOut(700)
-            this.gridOverlay.fadeOut(700)
-            this.gridActivated = false
-          }
-        }, 1000)
-      }
-    }
-  }
-
   lockUI = (lockLength) => {
     const lockUntil = new Date()
     lockUntil.setMilliseconds(lockUntil.getMilliseconds() + lockLength)
     this.lockUntil = lockUntil.getTime()
-
   }
 
   handleResponderMove = (e, gestureState) => {
@@ -160,7 +158,7 @@ export default class EditImage extends React.Component {
 
   handleResponderEnd = () => {
 
-    this.activatePrintBorder(false)
+    this.setGridVisibility(false)
 
     /*
       Gesture responder will seamlessly transition from
@@ -174,8 +172,7 @@ export default class EditImage extends React.Component {
     }
     this.previousLeft = this.xShift
     this.previousTop = this.yShift
-    this.transformation = { ...this.getTransformation(), rotation: this.rotation }
-
+    this.transformation = this.getTransformation()
   }
 
   render() {

@@ -52,9 +52,11 @@ export default function () {
     leftBoundary = (xShift / currentWidth) * width
   }
 
-  // Round boundaries
-  return roundBoundaries({
-    topBoundary, rightBoundary, bottomBoundary, leftBoundary,
-  })
+  return {
+    rotation: this.rotation,
+    ...roundBoundaries({
+      topBoundary, rightBoundary, bottomBoundary, leftBoundary,
+    }),
+  }
 
 }
