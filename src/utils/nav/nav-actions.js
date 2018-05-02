@@ -12,6 +12,7 @@ class NavigationActionsClass {
 
   push = params => this.navigator && this.navigator.push(params)
   pop = params => this.navigator && this.navigator.pop(params)
+  popToRoot = params => this.navigator && this.navigator.popToRoot(params)
   resetTo = params => this.navigator && (() => {
     this.onNavigateExtras()
     this.navigator.resetTo(params)

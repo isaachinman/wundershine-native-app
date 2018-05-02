@@ -13,7 +13,7 @@ export default async function () {
       this.props.ui.setForceRefreshScreen('PackReview', true)
       NavActions.pop()
     } else {
-      NavActions.push({ screen: 'ImageQueue' })
+      NavActions.popToRoot()
     }
 
   } catch (error) {
