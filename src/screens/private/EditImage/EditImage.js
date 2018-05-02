@@ -7,7 +7,7 @@ import { screenUtils, NavActions } from 'utils/nav'
 import * as Animatable from 'react-native-animatable'
 import { Col, Grid, Row } from 'react-native-easy-grid'
 import { createResponder } from 'react-native-gesture-responder'
-import { Icon } from 'components'
+import { Icon, Loader } from 'components'
 import { Image, TouchableOpacity, View } from 'react-native'
 
 import { SQUARE } from 'utils/images/aspect-ratios'
@@ -42,7 +42,7 @@ export default class EditImage extends React.Component {
     })
   }
 
-  componentWillMount = () => {
+  componentWillMount() {
 
     // Disable drawer
     NavActions.setDrawerEnabled({ side: 'left', enabled: false })
@@ -180,8 +180,11 @@ export default class EditImage extends React.Component {
 
   render() {
 
+    const { _id, queue } = this.props
+
     return (
       <View style={styles.content}>
+        <Loader active={queue.imagesLoading.includes(_id)} />
         <View style={styles.paper}>
           <View
             ref={p => this.print = p}
