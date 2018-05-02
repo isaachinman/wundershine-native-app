@@ -4,6 +4,11 @@ export default function (previousLeft, dx) {
 
   let leftVal = previousLeft + dx
 
+  let { width } = this.imageStyles
+  if (this.rotation % 180) {
+    width = this.imageStyles.height
+  }
+
   // Left boundary
   if (leftVal >= 0) {
     leftVal = 0
@@ -14,7 +19,7 @@ export default function (previousLeft, dx) {
     leftVal = this.rightLimit
   }
 
-  if (this.imageStyles.width < SQUARE_FRAME_DIMENSION) {
+  if (width < SQUARE_FRAME_DIMENSION) {
     leftVal = this.xShift
   }
 
