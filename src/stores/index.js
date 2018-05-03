@@ -53,6 +53,7 @@ class Stores {
   async loggedInSetup() {
     this.initialisation.setStatus(false)
     await pMinDelay(Promise.all([
+      this.cart.setup(),
       this.user.setup(),
       this.queue.setup(),
     ]), 1500)

@@ -14,6 +14,7 @@ import wundershineProducts from 'wundershine-data/products.json'
 import { whiteSecondary } from 'styles/colours'
 
 import {
+  CartNotification,
   EmptyUI,
   ErrorUI,
   LoadingUI,
@@ -26,7 +27,7 @@ import styles from './ImageQueue.styles'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_PADDING_BOTTOM } from './constants'
 
-@inject('initialisation', 'queue', 'ui')
+@inject('cart', 'initialisation', 'queue', 'ui')
 @observer
 export default class ImageQueue extends React.Component {
 
@@ -69,6 +70,7 @@ export default class ImageQueue extends React.Component {
   render() {
 
     const {
+      cart,
       initialisation,
       queue,
       ui,
@@ -92,6 +94,13 @@ export default class ImageQueue extends React.Component {
       _id: item._id || item.localID,
       loading: queue.imagesLoading.includes(item._id),
     }))
+
+    // Add cart notification UI to top of queue
+    if (cart.data.items.length > 0) {
+      queueItems.unshift({ key: 'cart-ui' })
+    }
+
+    // Add helper UI to end of queue
     queueItems.push({ key: 'helper-ui' })
     const queueHelperUIVisible = ui.animatables.queueHelperUI.visible
 
@@ -196,7 +205,9 @@ export default class ImageQueue extends React.Component {
                 contentContainerStyle={styles.flatlist}
                 data={queueItems}
                 renderItem={({ item }) => {
-                  if (item.key === 'helper-ui') {
+                  if (item.key === 'cart-ui') {
+                      return <CartNotification key={item.key} />
+                  } else if (item.key === 'helper-ui') {
                     return (
                       <HelperUI
                         key={item.key}
@@ -236,6 +247,11 @@ export default class ImageQueue extends React.Component {
 }
 
 ImageQueue.wrappedComponent.propTypes = {
+  cart: PropTypes.shape({
+    data: PropTypes.shape({
+      items: PropTypes.array,
+    }),
+  }).isRequired,
   initialisation: PropTypes.shape({
     appIsInitialised: PropTypes.bool,
   }).isRequired,

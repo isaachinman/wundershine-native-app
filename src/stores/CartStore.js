@@ -1,12 +1,37 @@
-import { action, observable } from 'mobx'
+import { action, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
 
 import QueueStore from './QueueStore'
 
 class CartStore {
 
+  @action
+  async setup() {
+    await this.getCart()
+  }
+
   @observable
-  cart = []
+  data = {
+    items: [],
+  }
+
+  @observable
+  loading = false
+
+  @action
+  setLoading = bool => this.loading = bool
+
+  @action
+  getCart = async () => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/cart' })
+      runInAction(() => this.data = res.data)
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.setLoading(false)
+  }
 
   @action
   createPrintPack = async () => {
