@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Alert, Platform, Text, View } from 'react-native'
 import { Col, Grid, Row } from 'react-native-easy-grid'
-import { Icon } from 'components'
-import { inject, observer } from 'mobx-react'
-import { Platform, Text, View } from 'react-native'
+import { Icon, Loader } from 'components'
+import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 
 import { blackPrimary, blackTertiary, greyAccent, whitePrimary, whiteTertiary } from 'styles/colours'
 import { material, systemWeights } from 'react-native-typography'
@@ -69,24 +69,52 @@ const styles = {
 @inject('cart')
 @observer
 export default class CartNotification extends React.Component {
+
+  componentWillMount() {
+    this.printpackSKUs = Object.values(wundershineProducts).filter(p => p.type === 'printpack').map(p => p.sku)
+  }
+
+  deletePrintpacks = async () => {
+    Alert.alert(
+      'Restore images to queue',
+      'Are you sure you want to restore all printpacks in your cart to your queue?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'OK',
+          onPress: async () => {
+            const { cart } = this.props
+            const printpackIDs = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
+              .map(i => i.printpack._id)
+            await cart.deletePrintpacks(printpackIDs)
+          },
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
   render() {
 
     const { cart } = this.props
-    const printpackSKUs = Object.values(wundershineProducts).filter(p => p.type === 'printpack').map(p => p.sku)
-    const printpacks = cart.data.items.filter(i => printpackSKUs.includes(i.sku))
+    const printpacks = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
 
     const totalImagesInCart = printpacks.reduce((acc, pack) =>
       acc + wundershineProducts[pack.sku].imageQuantity, 0)
 
     return (
       <Grid>
+        <Loader active={cart.loading} />
         <Row style={styles.container}>
           <Col style={styles.textCol}>
             <Text style={styles.title}>
               You have {totalImagesInCart} images in {printpacks.length}&nbsp;
               Reframe print pack(s) in your shopping cart.
             </Text>
-            <Text style={styles.restoreText}>
+            <Text
+              onPress={this.deletePrintpacks}
+              style={styles.restoreText}
+            >
               Restore to Queue
             </Text>
           </Col>
@@ -105,10 +133,11 @@ export default class CartNotification extends React.Component {
   }
 }
 
-CartNotification.propTypes = {
+/* eslint-disable react/no-typos */
+CartNotification.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     data: PropTypes.shape({
-      items: PropTypes.array,
+      items: mobxPropTypes.observableArray,
     }),
   }).isRequired,
 }

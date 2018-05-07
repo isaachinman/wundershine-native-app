@@ -38,7 +38,7 @@ export default {
         shadowRadius: 2,
       },
       android: {
-        elevation: 1,
+        elevation: 4,
       },
     }),
   },
@@ -47,7 +47,15 @@ export default {
     height: SQUARE_REVIEW_PRINT_DIMENSION,
     top: SQUARE_REVIEW_PRINT_MARGIN,
     left: SQUARE_REVIEW_PRINT_MARGIN,
-    zIndex: 1,
+    ...Platform.select({
+      ios: {
+        zIndex: 1,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+
     // top: 0,
     // left: 0,
     position: 'absolute',

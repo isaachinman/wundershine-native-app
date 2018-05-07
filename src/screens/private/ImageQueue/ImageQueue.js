@@ -112,7 +112,7 @@ export default class ImageQueue extends React.Component {
           showQueueUI = true
           queueIsProcessable = wundershineProducts[packSelected].imageQuantity <=
             images.filter(x => !x.notUploadedYet).length
-        } else {
+        } else if (cart.data.items.length === 0) {
           showEmptyUI = true
         }
       } else {
@@ -173,7 +173,7 @@ export default class ImageQueue extends React.Component {
                 scrollEventThrottle={1}
                 onLayout={(e) => {
                   const { height } = e.nativeEvent.layout
-                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM + 100) {
+                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM + 200) {
                     ui.setAnimatable('queueHelperUI', 'visible', true)
                   }
                   ui.setDimension('queueLayoutHeight', height)
@@ -188,7 +188,7 @@ export default class ImageQueue extends React.Component {
                 onScroll={(e) => {
                   const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent
                   const atBottom = layoutMeasurement.height + contentOffset.y >=
-                    (contentSize.height - QUEUE_PADDING_BOTTOM)
+                    (contentSize.height - (QUEUE_PADDING_BOTTOM - 100))
                   if (atBottom) {
                     ui.setAnimatable('queueHelperUI', 'visible', true)
                   } else if (ui.animatables.queueHelperUI.visible) {
@@ -246,10 +246,11 @@ export default class ImageQueue extends React.Component {
   }
 }
 
+/* eslint-disable react/no-typos */
 ImageQueue.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     data: PropTypes.shape({
-      items: PropTypes.array,
+      items: mobxPropTypes.observableArray,
     }),
   }).isRequired,
   initialisation: PropTypes.shape({
@@ -261,7 +262,7 @@ ImageQueue.wrappedComponent.propTypes = {
     data: PropTypes.shape({
       square: PropTypes.shape({
         packSelected: PropTypes.string,
-        images: mobxPropTypes.observableArray, // eslint-disable-line react/no-typos
+        images: mobxPropTypes.observableArray,
       }),
     }),
   }).isRequired,

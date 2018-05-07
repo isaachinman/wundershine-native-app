@@ -35,21 +35,39 @@ class CartStore {
 
   @action
   createPrintPack = async () => {
-
+    this.setLoading(true)
     const { queueType, data } = QueueStore
     const images = data.images.filter(i => i.selected).map(i => i._id)
 
     try {
-      const res = await apiRequest({ // eslint-disable-line
+      const res = await apiRequest({
         url: '/pv/printpack/create',
         data: { queueType, images },
       })
+      runInAction(() => this.data = res.data.cart)
     } catch (error) {
       // Throw error back to EditImage screen
       throw error
     }
+    this.setLoading(false)
   }
 
+  @action
+  deletePrintpacks = async (printpackIDs) => {
+    this.setLoading(true)
+    try {
+
+      // Delete pack
+      const res = await apiRequest({ url: '/pv/printpack/delete', data: { printpackIDs } })
+      runInAction(() => this.data = res.data.cart)
+      QueueStore.mergeIntoLocalData(res.data.queues[QueueStore.queueType], true)
+
+    } catch (error) {
+      // Throw error back to EditImage screen
+      throw error
+    }
+    this.setLoading(false)
+  }
 }
 
 export default new CartStore()
