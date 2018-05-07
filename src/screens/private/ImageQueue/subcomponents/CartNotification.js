@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Alert, Platform, Text, View } from 'react-native'
+import { Alert, Platform, Text, TouchableOpacity, View } from 'react-native'
 import { Col, Grid, Row } from 'react-native-easy-grid'
 import { Icon, Loader } from 'components'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
+import { NavActions } from 'utils/nav'
 
 import { blackPrimary, blackTertiary, greyAccent, whitePrimary, whiteTertiary } from 'styles/colours'
 import { material, systemWeights } from 'react-native-typography'
@@ -74,6 +75,8 @@ export default class CartNotification extends React.Component {
     this.printpackSKUs = Object.values(wundershineProducts).filter(p => p.type === 'printpack').map(p => p.sku)
   }
 
+  goToCart = () => NavActions.push({ screen: 'Cart' })
+
   deletePrintpacks = async () => {
     Alert.alert(
       'Restore images to queue',
@@ -118,14 +121,18 @@ export default class CartNotification extends React.Component {
               Restore to Queue
             </Text>
           </Col>
-          <Col style={styles.iconCol}>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{printpacks.length}</Text>
-            </View>
-            <Icon
-              name='ios-cart'
-              style={styles.iconCart}
-            />
+          <Col
+            style={styles.iconCol}
+          >
+            <TouchableOpacity onPress={this.goToCart}>
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{printpacks.length}</Text>
+              </View>
+              <Icon
+                name='ios-cart'
+                style={styles.iconCart}
+              />
+            </TouchableOpacity>
           </Col>
         </Row>
       </Grid>
