@@ -50,7 +50,6 @@ const styles = {
   animatedImageContainerStyle: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
-
   },
   animatedImageStyle: {
     resizeMode: 'contain',
