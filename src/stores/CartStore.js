@@ -68,6 +68,22 @@ class CartStore {
     }
     this.setLoading(false)
   }
+
+  @action
+  changeItemQuantity = async (itemID, quantity) => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({
+        url: `/pv/cart/change-quantity/${itemID}`,
+        data: { quantity },
+      })
+      runInAction(() => this.data = res.data)
+    } catch (error) {
+      // Handle error
+    }
+    this.setLoading(false)
+  }
+
 }
 
 export default new CartStore()

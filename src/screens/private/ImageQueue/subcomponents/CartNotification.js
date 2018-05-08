@@ -103,7 +103,7 @@ export default class CartNotification extends React.Component {
     const printpacks = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
 
     const totalImagesInCart = printpacks.reduce((acc, pack) =>
-      acc + wundershineProducts[pack.sku].imageQuantity, 0)
+      acc + (wundershineProducts[pack.sku].imageQuantity * pack.quantity), 0)
 
     return (
       <Grid>

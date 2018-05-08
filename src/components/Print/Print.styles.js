@@ -1,7 +1,7 @@
 import { greyAccent, whitePrimary } from 'styles/colours'
 import createDimensions from './constants'
 
-const dimensions = createDimensions(100)
+const dimensions = createDimensions(68)
 
 export default {
   paper: {

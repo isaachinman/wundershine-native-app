@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { inject, observer } from 'mobx-react'
+import { Loader } from 'components'
 import { screenUtils, NavActions } from 'utils/nav'
 import { transformedImageURI } from 'utils/images'
 
@@ -9,11 +10,8 @@ import { ActionBar, AnimatedImage, Carousel, PageControl } from 'react-native-ui
 import { ActivityIndicator, Image, View } from 'react-native'
 
 import { blackTertiary, whiteSecondary } from 'styles/colours'
-// import { SQUARE } from 'utils/images/aspect-ratios'
-// import { SQUARE_FRAME_DIMENSION } from './constants'
 
 import squareFrameReviewImage from 'images/square_frame_review.png'
-
 import styles from './PackReview.styles'
 
 @inject('cart', 'queue', 'ui')
@@ -32,8 +30,8 @@ export default class EditImage extends React.Component {
     page: 0,
   }
 
-  componentWillMount = () => NavActions.setDrawerEnabled({ side: 'left', enabled: false })
-  componentWillUnmount = () => NavActions.setDrawerEnabled({ side: 'left', enabled: true })
+  componentWillMount() { NavActions.setDrawerEnabled({ side: 'left', enabled: false }) }
+  componentWillUnmount() { NavActions.setDrawerEnabled({ side: 'left', enabled: true }) }
 
   onNavigatorEvent = (event) => {
     const { ui } = this.props
@@ -57,6 +55,7 @@ export default class EditImage extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Loader active={cart.loading} />
         <View
           style={styles.content}
         >
@@ -101,7 +100,10 @@ export default class EditImage extends React.Component {
             },
             {
               label: 'Confirm all',
-              onPress: cart.createPrintPack,
+              onPress: async () => {
+                await cart.createPrintPack()
+                NavActions.resetTo({ screen: 'Cart' })
+              },
             },
           ]}
         />
