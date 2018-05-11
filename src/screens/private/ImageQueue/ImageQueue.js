@@ -9,7 +9,6 @@ import ImagePicker from 'react-native-image-crop-picker'
 import { ImageRejectedModal, PackSelectionModal } from 'components/Modals'
 import { NavActions } from 'utils/nav'
 import { Placeholder } from 'react-native-loading-placeholder'
-import wundershineProducts from 'wundershine-data/products.json'
 
 import { whiteSecondary } from 'styles/colours'
 
@@ -27,7 +26,7 @@ import styles from './ImageQueue.styles'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_PADDING_BOTTOM } from './constants'
 
-@inject('cart', 'initialisation', 'queue', 'ui')
+@inject('cart', 'coreData', 'initialisation', 'queue', 'ui')
 @observer
 export default class ImageQueue extends React.Component {
 
@@ -71,6 +70,7 @@ export default class ImageQueue extends React.Component {
 
     const {
       cart,
+      coreData,
       initialisation,
       queue,
       ui,
@@ -101,18 +101,20 @@ export default class ImageQueue extends React.Component {
     }
 
     // Add helper UI to end of queue
-    queueItems.push({ key: 'helper-ui' })
+    if (images.length > 0) {
+      queueItems.push({ key: 'helper-ui' })
+    }
     const queueHelperUIVisible = ui.animatables.queueHelperUI.visible
 
     if (queue.error) {
       showErrorUI = true
     } else {
       if (initialisation.appIsInitialised) { // eslint-disable-line no-lonely-if
-        if (images.length > 0) {
+        if (images.length > 0 || cart.data.items.length > 0) {
           showQueueUI = true
-          queueIsProcessable = wundershineProducts[packSelected].imageQuantity <=
+          queueIsProcessable = coreData.products[packSelected].imageQuantity <=
             images.filter(x => !x.notUploadedYet).length
-        } else if (cart.data.items.length === 0) {
+        } else if (images.length === 0 && cart.data.items.length === 0) {
           showEmptyUI = true
         }
       } else {
@@ -148,7 +150,7 @@ export default class ImageQueue extends React.Component {
                   <Placeholder style={styles.packnamePlaceholder} />
                 :
                   <Text style={styles.packPickerSelectionText}>
-                    {wundershineProducts[packSelected].name}
+                    {coreData.products[packSelected].name}
                   </Text>
                 }
                 <Text style={styles.packPickerArrow}>&#x25BC;</Text>
@@ -252,6 +254,9 @@ ImageQueue.wrappedComponent.propTypes = {
     data: PropTypes.shape({
       items: mobxPropTypes.observableArray,
     }),
+  }).isRequired,
+  coreData: PropTypes.shape({
+    products: PropTypes.shape(),
   }).isRequired,
   initialisation: PropTypes.shape({
     appIsInitialised: PropTypes.bool,

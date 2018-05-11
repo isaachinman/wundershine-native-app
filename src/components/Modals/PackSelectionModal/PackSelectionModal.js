@@ -8,7 +8,6 @@ import { Col, Grid, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 import { Image, Text, TouchableOpacity } from 'react-native'
 import { Modal } from 'react-native-ui-lib'
-import wundershineProducts from 'wundershine-data/products.json'
 
 import SQPK05Image from 'images/SQPK05.png'
 import SQPK15Image from 'images/SQPK15.png'
@@ -26,12 +25,7 @@ const productSupplementaryContent = {
   },
 }
 
-const packOptions = [
-  wundershineProducts.SQPK05,
-  wundershineProducts.SQPK15,
-]
-
-@inject('queue', 'ui')
+@inject('coreData', 'queue', 'ui')
 @observer
 export default class PackSelectionModal extends React.Component {
 
@@ -44,7 +38,12 @@ export default class PackSelectionModal extends React.Component {
 
   render() {
 
-    const { queue, ui } = this.props
+    const { coreData, queue, ui } = this.props
+
+    const packOptions = [
+      coreData.products.SQPK05,
+      coreData.products.SQPK15,
+    ]
 
     return (
       <Modal
@@ -116,7 +115,9 @@ export default class PackSelectionModal extends React.Component {
                               null
                             }
                           </Row>
-                          <Text style={styles.packPrice}>€{pack.price}</Text>
+                          <Text style={styles.packPrice}>
+                            €{parseInt(pack.shopifyData.price, 0)}
+                          </Text>
                           <Text style={styles.packShipping}>
                             {productSupplementaryContent[pack.sku].shippingText}
                           </Text>
@@ -135,6 +136,9 @@ export default class PackSelectionModal extends React.Component {
 }
 
 PackSelectionModal.wrappedComponent.propTypes = {
+  coreData: PropTypes.shape({
+    products: PropTypes.shape(),
+  }).isRequired,
   queue: PropTypes.shape({
     changePack: PropTypes.func,
     sku: PropTypes.string,

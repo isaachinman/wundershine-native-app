@@ -3,8 +3,8 @@ import { apiRequest, uploadImage } from 'utils/api'
 import { LayoutAnimation } from 'react-native'
 import uuid from 'uuid/v1'
 import { validateImages } from 'utils/images'
-import wundershineProducts from 'wundershine-data/products.json'
 
+import CoreDataStore from './CoreDataStore'
 import UIStore from './UIStore'
 
 class QueueStore {
@@ -40,7 +40,7 @@ class QueueStore {
   @computed
   get selectionActionsAllowed() {
     if (this.data.packSelected) {
-      const packMinimum = wundershineProducts[this.data.packSelected].imageQuantity
+      const packMinimum = CoreDataStore.products[this.data.packSelected].imageQuantity
       return this.data.images.length > packMinimum
     }
     return false

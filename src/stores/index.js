@@ -16,6 +16,7 @@ import xhr from 'utils/xhr'
 // Stores
 import AuthStore from './AuthStore'
 import CartStore from './CartStore'
+import CoreDataStore from './CoreDataStore'
 import InitialisationStore from './InitialisationStore'
 import NetworkingStore from './NetworkingStore'
 import QueueStore from './QueueStore'
@@ -37,6 +38,7 @@ class Stores {
 
   auth = AuthStore
   cart = CartStore
+  coreData = CoreDataStore
   initialisation = InitialisationStore
   networking = NetworkingStore
   queue = QueueStore
@@ -47,7 +49,7 @@ class Stores {
   async generalSetup() {
     // Hydrate store
     // await hydrate('store', this)
-    return this
+    await this.coreData.setup()
   }
 
   async loggedInSetup() {

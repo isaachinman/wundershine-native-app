@@ -1,5 +1,4 @@
 import bytes from 'bytes'
-import config from 'config'
 import { Image } from 'react-native'
 import RNFS from 'react-native-fs'
 import path from 'react-native-path'
@@ -7,14 +6,13 @@ import path from 'react-native-path'
 import { applyInitialTransformation } from 'utils/images'
 import { createValidatedImage } from 'models'
 
-export default async (images, queueType) => {
+const MAX_IMAGE_SIZE_MB = 55
+
+export default async (images) => {
 
   if (images.length === 0) {
     throw new Error('No images provided to validate-images.')
   }
-
-  /* Settings */
-  const { MAX_IMAGE_SIZE_MB, MIN_IMAGE_WIDTH, MIN_IMAGE_HEIGHT } = config.imageSettings[queueType]
 
   /* Arrays to return */
   const rejectedImages = []
@@ -57,11 +55,6 @@ export default async (images, queueType) => {
       if (image.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
         isValid = false
         error = 'FILE_SIZE_TOO_BIG'
-      }
-
-      if (image.width < MIN_IMAGE_WIDTH || image.height < MIN_IMAGE_HEIGHT) {
-        isValid = false
-        error = 'RESOLUTION_TOO_SMALL'
       }
 
       if (isValid) {
@@ -115,10 +108,6 @@ export default async (images, queueType) => {
         Image.getSize(image.value, (width, height) => {
           imageToReturn.width = width
           imageToReturn.height = height
-          if (width < MIN_IMAGE_WIDTH || height < MIN_IMAGE_HEIGHT) {
-            isValid = false
-            error = 'RESOLUTION_TOO_SMALL'
-          }
           resolve()
         })
       })

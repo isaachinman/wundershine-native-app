@@ -4,14 +4,11 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
 import { Body, Button, Container, Content, Header, Left, Right } from 'native-base'
-import config from 'config'
 import { Icon } from 'components'
 import { Text, View } from 'react-native'
 import { Modal } from 'react-native-ui-lib'
 
 import styles from './ImageRejectedModal.styles'
-
-const { MAX_IMAGE_SIZE_MB } = config.imageSettings.square
 
 @inject('ui')
 @observer
@@ -64,10 +61,7 @@ export default class ImageRejectedModal extends React.Component {
               as possible:
             </Text>
             <Text style={styles.bulletPoint}>
-              (1) At least 1500px by 1500px
-            </Text>
-            <Text style={styles.bulletPoint}>
-              (2) Smaller than {MAX_IMAGE_SIZE_MB}mb (filesize)
+              (1) Smaller than 55mb (filesize)
             </Text>
           </Content>
         </Container>

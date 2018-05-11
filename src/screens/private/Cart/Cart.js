@@ -8,11 +8,9 @@ import { Col, Row } from 'react-native-easy-grid'
 import { Icon, Loader, PrintStack } from 'components'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
-import wundershineProducts from 'wundershine-data/products.json'
-
 import styles from './Cart.styles'
 
-@inject('cart')
+@inject('cart', 'coreData')
 @screenUtils
 @observer
 export default class Cart extends React.Component {
@@ -41,7 +39,7 @@ export default class Cart extends React.Component {
 
   render() {
 
-    const { cart } = this.props
+    const { cart, coreData } = this.props
 
     return (
       <View style={styles.container}>
@@ -52,7 +50,7 @@ export default class Cart extends React.Component {
         >
           <View style={styles.itemContainer}>
             {cart.data.items.map((item) => {
-              const product = wundershineProducts[item.sku]
+              const product = coreData.products[item.sku]
               return (
                 <Row key={item.printpack._id}>
                   <Col style={styles.col1}>
@@ -68,7 +66,7 @@ export default class Cart extends React.Component {
                       For Reframe
                     </Text>
                     <Text style={styles.productPrice}>
-                      €{(product.price * item.quantity).toFixed(2)}
+                      €{(parseFloat(product.shopifyData.price) * item.quantity).toFixed(2)}
                     </Text>
                   </Col>
                   <Col style={styles.col3}>
@@ -131,9 +129,10 @@ export default class Cart extends React.Component {
 }
 
 Cart.wrappedComponent.propTypes = {
-  cart: PropTypes.shape({
-
+  coreData: PropTypes.shape({
+    products: PropTypes.shape(),
   }).isRequired,
+  cart: PropTypes.shape().isRequired,
   navigator: PropTypes.shape({
     setOnNavigatorEvent: PropTypes.func.isRequired,
   }).isRequired,

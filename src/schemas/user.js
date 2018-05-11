@@ -6,4 +6,5 @@ export default {
   firstName: joi.string().required(),
   lastName: joi.string().required(),
   _id: joi.string().required(),
+  shopifyCustomerID: joi.string().required(),
 }

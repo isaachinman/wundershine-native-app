@@ -10,8 +10,6 @@ import { NavActions } from 'utils/nav'
 import { blackPrimary, blackTertiary, greyAccent, whitePrimary, whiteTertiary } from 'styles/colours'
 import { material, systemWeights } from 'react-native-typography'
 
-import wundershineProducts from 'wundershine-data/products.json'
-
 const styles = {
   container: {
     backgroundColor: greyAccent,
@@ -67,12 +65,12 @@ const styles = {
   },
 }
 
-@inject('cart')
+@inject('cart', 'coreData')
 @observer
 export default class CartNotification extends React.Component {
 
   componentWillMount() {
-    this.printpackSKUs = Object.values(wundershineProducts).filter(p => p.type === 'printpack').map(p => p.sku)
+    this.printpackSKUs = Object.values(this.props.coreData.products).filter(p => p.type === 'printpack').map(p => p.sku)
   }
 
   goToCart = () => NavActions.push({ screen: 'Cart' })
@@ -99,11 +97,11 @@ export default class CartNotification extends React.Component {
 
   render() {
 
-    const { cart } = this.props
+    const { cart, coreData } = this.props
     const printpacks = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
 
     const totalImagesInCart = printpacks.reduce((acc, pack) =>
-      acc + (wundershineProducts[pack.sku].imageQuantity * pack.quantity), 0)
+      acc + (coreData.products[pack.sku].imageQuantity * pack.quantity), 0)
 
     return (
       <Grid>
@@ -146,5 +144,8 @@ CartNotification.wrappedComponent.propTypes = {
     data: PropTypes.shape({
       items: mobxPropTypes.observableArray,
     }),
+  }).isRequired,
+  coreData: PropTypes.shape({
+    products: PropTypes.shape(),
   }).isRequired,
 }

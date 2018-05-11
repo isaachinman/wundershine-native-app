@@ -70,6 +70,3 @@ google-services.json
 
 # Android emulator logs
 *_API_*.log
-
-# Wundershine data
-src/wundershine-data
