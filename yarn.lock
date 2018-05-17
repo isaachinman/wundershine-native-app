@@ -6252,6 +6252,10 @@ react-native-path@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/react-native-path/-/react-native-path-0.0.5.tgz#a04e4b73a535a8a7cf15c6e760e27db7789afb13"
 
+react-native-popup-menu@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.13.1.tgz#24977beab0247eccab0e10abcd259aadf06e6a22"
+
 react-native-rename@2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-native-rename/-/react-native-rename-2.2.2.tgz#edbe16eea9d2d0e61b7b2c62ec4c2da585384f24"

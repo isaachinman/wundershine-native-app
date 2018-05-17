@@ -7,6 +7,7 @@ import codePush from 'react-native-code-push'
 import config from 'config'
 import { configure } from 'mobx'
 // import { create, persist } from 'mobx-persist'
+import { MenuProvider } from 'react-native-popup-menu'
 import pMinDelay from 'p-min-delay'
 import { Provider } from 'mobx-react'
 import { Sentry } from 'react-native-sentry'
@@ -91,10 +92,10 @@ class StoreProvider extends PureComponent {
     const { store, children } = this.props
     return (
       <Provider {...store}>
-        <React.Fragment>
+        <MenuProvider>
           <Toast />
           {children}
-        </React.Fragment>
+        </MenuProvider>
       </Provider>
     )
   }
