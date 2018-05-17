@@ -47,6 +47,7 @@ export default {
     height: SQUARE_REVIEW_PRINT_DIMENSION,
     top: SQUARE_REVIEW_PRINT_MARGIN,
     left: SQUARE_REVIEW_PRINT_MARGIN,
+    backgroundColor: 'rgba(250,250,250,0.95)',
     ...Platform.select({
       ios: {
         zIndex: 1,
@@ -59,6 +60,10 @@ export default {
     // top: 0,
     // left: 0,
     position: 'absolute',
+  },
+  ink: {
+    flex: 1,
+    resizeMode: 'center',
   },
   pageControlContainer: {
     flex: 1,

@@ -75,7 +75,7 @@ export default class EditImage extends React.Component {
                   <AnimatedImage
                     key={`pack-review-${uri}`}
                     containerStyle={styles.print}
-                    imageStyle={{ flex: 1 }}
+                    imageStyle={styles.ink}
                     imageSource={{ uri }}
                     loader={<ActivityIndicator color={whiteSecondary} />}
                     animationDuration={200}
