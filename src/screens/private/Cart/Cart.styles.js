@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, greyAccent, green, whitePrimary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, greyAccent, green, red, whitePrimary, greyBg } from 'styles/colours'
 import { systemWeights } from 'react-native-typography'
 
 const ROW_HEIGHT = 60
@@ -61,6 +61,7 @@ export default {
     fontSize: 28,
     color: blackTertiary,
     marginTop: 15,
+    paddingLeft: 30,
   },
   pricingRow: {
     height: ROW_HEIGHT,
@@ -108,5 +109,16 @@ export default {
     fontSize: 16,
     color: whitePrimary,
     paddingHorizontal: 10,
+  },
+  editPackText: {
+    fontSize: 18,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  deletePackText: {
+    fontSize: 18,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    color: red,
   },
 }

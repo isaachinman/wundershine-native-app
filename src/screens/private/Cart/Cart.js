@@ -6,6 +6,7 @@ import { screenUtils, NavActions } from 'utils/nav'
 
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon, Loader, PrintStack } from 'components'
+import { Menu, MenuTrigger, MenuOptions, MenuOption } from 'react-native-popup-menu'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import styles from './Cart.styles'
@@ -31,9 +32,15 @@ export default class Cart extends React.Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
   }
 
+  componentDidUpdate() {
+    if (this.props.cart.data.items.length <= 0) {
+      NavActions.popToRoot()
+    }
+  }
+
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress' && event.id === 'back') {
-      NavActions.popToRoot()
+      NavActions.resetTo({ screen: 'ImageQueue' })
     }
   }
 
@@ -85,7 +92,20 @@ export default class Cart extends React.Component {
                       </TouchableOpacity>
                     </View>
 
-                    <Icon style={styles.iconMore} name='md-more' />
+                    <Menu>
+                      <MenuTrigger>
+                        <Icon style={styles.iconMore} name='md-more' />
+                      </MenuTrigger>
+                      <MenuOptions>
+                        <MenuOption onSelect={() => cart.dissolvePrintpacks([item.printpack._id])}>
+                          <Text style={styles.editPackText}>Edit pack</Text>
+                        </MenuOption>
+                        <MenuOption onSelect={() => {}}>
+                          <Text style={styles.deletePackText}>Delete pack and images</Text>
+                        </MenuOption>
+                      </MenuOptions>
+                    </Menu>
+
                   </Col>
                 </Row>
               )

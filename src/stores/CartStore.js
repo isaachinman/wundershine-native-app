@@ -53,7 +53,7 @@ class CartStore {
   }
 
   @action
-  deletePrintpacks = async (printpackIDs) => {
+  dissolvePrintpacks = async (printpackIDs) => {
     this.setLoading(true)
     try {
 

@@ -102,6 +102,7 @@ export default class EditImage extends React.Component {
               label: 'Confirm all',
               onPress: async () => {
                 await cart.createPrintPack()
+                await queue.getQueue()
                 NavActions.resetTo({ screen: 'Cart' })
               },
             },

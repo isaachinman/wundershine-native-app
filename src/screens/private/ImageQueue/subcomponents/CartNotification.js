@@ -75,7 +75,7 @@ export default class CartNotification extends React.Component {
 
   goToCart = () => NavActions.push({ screen: 'Cart' })
 
-  deletePrintpacks = async () => {
+  dissolvePrintpacks = async () => {
     Alert.alert(
       'Restore images to queue',
       'Are you sure you want to restore all printpacks in your cart to your queue?',
@@ -87,7 +87,7 @@ export default class CartNotification extends React.Component {
             const { cart } = this.props
             const printpackIDs = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
               .map(i => i.printpack._id)
-            await cart.deletePrintpacks(printpackIDs)
+            await cart.dissolvePrintpacks(printpackIDs)
           },
         },
       ],
@@ -113,7 +113,7 @@ export default class CartNotification extends React.Component {
               Reframe print pack(s) in your shopping cart.
             </Text>
             <Text
-              onPress={this.deletePrintpacks}
+              onPress={this.dissolvePrintpacks}
               style={styles.restoreText}
             >
               Restore to Queue
