@@ -16,6 +16,9 @@ class CartStore {
   }
 
   @observable
+  checkoutURL = null
+
+  @observable
   loading = false
 
   @action
@@ -78,6 +81,18 @@ class CartStore {
         data: { quantity },
       })
       runInAction(() => this.data = res.data)
+    } catch (error) {
+      // Handle error
+    }
+    this.setLoading(false)
+  }
+
+  @action
+  getCheckoutLink = async () => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/cart/checkout' })
+      runInAction(() => this.checkoutURL = res.data)
     } catch (error) {
       // Handle error
     }

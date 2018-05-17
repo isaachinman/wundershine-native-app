@@ -44,6 +44,12 @@ export default class Cart extends React.Component {
     }
   }
 
+  redirectToCheckout = async () => {
+    const { cart } = this.props
+    await cart.getCheckoutLink()
+    NavActions.push({ screen: 'Checkout' })
+  }
+
   render() {
 
     const { cart, coreData } = this.props
@@ -139,7 +145,10 @@ export default class Cart extends React.Component {
           <TouchableOpacity style={styles.actionBarAddPack}>
             <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBarCheckout}>
+          <TouchableOpacity
+            onPress={this.redirectToCheckout}
+            style={styles.actionBarCheckout}
+          >
             <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>
           </TouchableOpacity>
         </View>
