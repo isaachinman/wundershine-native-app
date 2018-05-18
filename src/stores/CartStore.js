@@ -1,7 +1,9 @@
 import { action, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
+import { createShopifyCheckout } from 'utils/shopify'
 
 import QueueStore from './QueueStore'
+import UserStore from './UserStore'
 
 class CartStore {
 
@@ -91,8 +93,8 @@ class CartStore {
   getCheckoutLink = async () => {
     this.setLoading(true)
     try {
-      const res = await apiRequest({ url: '/pv/cart/checkout' })
-      runInAction(() => this.checkoutURL = res.data)
+      const checkout = await createShopifyCheckout(UserStore.data, this.data)
+      runInAction(() => this.checkoutURL = checkout.webUrl)
     } catch (error) {
       // Handle error
     }
