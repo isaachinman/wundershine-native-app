@@ -27,7 +27,6 @@
 		"bytes": "^3.0.0",
 		"cloudinary-core": "^2.5.0",
 		"dotenv": "^5.0.1",
-		"js-base64": "^2.4.5",
 		"mobx": "4.0.2",
 		"mobx-persist": "0.4.1",
 		"mobx-react": "5.0.0",

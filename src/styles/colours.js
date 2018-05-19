@@ -1,4 +1,4 @@
-export const green = 'rgb(136,197,83)'
+export const green = '#88c553'
 export const blue = '#267DCA'
 export const red = '#DE0000'
 

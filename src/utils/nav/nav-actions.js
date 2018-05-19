@@ -20,6 +20,7 @@ class NavigationActionsClass {
   toggleDrawer = params => this.navigator && this.navigator.toggleDrawer(params)
   toggleNavBar = params => this.navigator && this.navigator.toggleNavBar(params)
   setTitle = params => this.navigator && this.navigator.setTitle(params)
+  setButtons = params => this.navigator && this.navigator.setButtons(params)
   setDrawerEnabled = params => this.navigator && this.navigator.setDrawerEnabled(params)
 
   showModal = params => this.navigator && this.navigator.showModal(params)

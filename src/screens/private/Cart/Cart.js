@@ -44,12 +44,6 @@ export default class Cart extends React.Component {
     }
   }
 
-  redirectToCheckout = async () => {
-    const { cart } = this.props
-    await cart.getCheckoutLink()
-    NavActions.push({ screen: 'Checkout' })
-  }
-
   render() {
 
     const { cart, coreData } = this.props
@@ -65,7 +59,7 @@ export default class Cart extends React.Component {
             {cart.data.items.map((item) => {
               const product = coreData.products[item.sku]
               return (
-                <Row key={item.printpack._id}>
+                <Row key={item.printpack._id} style={styles.itemRow}>
                   <Col style={styles.col1}>
                     <PrintStack
                       images={item.printpack.images}
@@ -124,6 +118,11 @@ export default class Cart extends React.Component {
                 SUBTOTAL
               </Text>
             </Col>
+            <Col style={styles.alignRight}>
+              <Text style={styles.pricingTextNormal}>
+                €{cart.data.subtotalPrice.toFixed(2)}
+              </Text>
+            </Col>
           </Row>
           <Row style={styles.pricingRow}>
             <Col>
@@ -131,11 +130,21 @@ export default class Cart extends React.Component {
                 SHIPPING
               </Text>
             </Col>
+            <Col style={styles.alignRight}>
+              <Text style={styles.pricingTextNormal}>
+                €{cart.data.totalShippingPrice.toFixed(2)}
+              </Text>
+            </Col>
           </Row>
           <Row style={styles.pricingRow}>
             <Col>
               <Text style={styles.pricingTextBold}>
                 TOTAL
+              </Text>
+            </Col>
+            <Col style={styles.alignRight}>
+              <Text style={styles.pricingTextBold}>
+                €{cart.data.totalPrice.toFixed(2)}
               </Text>
             </Col>
           </Row>
@@ -146,7 +155,7 @@ export default class Cart extends React.Component {
             <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={this.redirectToCheckout}
+            onPress={() => NavActions.push({ screen: 'Checkout' })}
             style={styles.actionBarCheckout}
           >
             <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>

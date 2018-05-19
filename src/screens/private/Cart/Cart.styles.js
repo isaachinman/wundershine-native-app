@@ -17,6 +17,10 @@ export default {
     padding: 20,
     flex: 1,
   },
+  itemRow: {
+    flex: 0,
+    marginBottom: 30,
+  },
   col1: {
     flex: 0,
   },
@@ -120,5 +124,8 @@ export default {
     paddingHorizontal: 10,
     paddingVertical: 5,
     color: red,
+  },
+  alignRight: {
+    alignItems: 'flex-end',
   },
 }
