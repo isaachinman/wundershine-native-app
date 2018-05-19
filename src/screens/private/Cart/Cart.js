@@ -34,7 +34,7 @@ export default class Cart extends React.Component {
 
   componentDidUpdate() {
     if (this.props.cart.data.items.length <= 0) {
-      NavActions.popToRoot()
+      NavActions.resetTo({ screen: 'ImageQueue' })
     }
   }
 
