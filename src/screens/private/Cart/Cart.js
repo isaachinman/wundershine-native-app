@@ -155,7 +155,7 @@ export default class Cart extends React.Component {
             <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => NavActions.push({ screen: 'Checkout' })}
+            onPress={() => NavActions.push({ screen: 'CheckoutDelivery' })}
             style={styles.actionBarCheckout}
           >
             <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>
