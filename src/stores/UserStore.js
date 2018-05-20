@@ -1,6 +1,6 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
-import equal from 'deep-equal'
+// import equal from 'deep-equal'
 import toast from 'utils/toast'
 
 import {
@@ -106,9 +106,10 @@ class UserStore {
   @action
   updateAddresses = async (options) => {
 
-    if (equal(this.data.addresses.toJS(), [this.addressForm])) {
-      return
-    }
+    // if (equal(this.data.addresses.toJS(), [this.addressForm])) {
+    //   console.log('inside equals')
+    //   return
+    // }
 
     this.setLoading(true)
     try {

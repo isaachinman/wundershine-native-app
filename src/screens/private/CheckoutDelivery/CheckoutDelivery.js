@@ -130,11 +130,7 @@ CheckoutDelivery.wrappedComponent.propTypes = {
     }),
   }).isRequired,
   user: PropTypes.shape({
-    data: PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }),
+    data: PropTypes.shape(),
     updateAddresses: PropTypes.func.isRequired,
   }).isRequired,
 }

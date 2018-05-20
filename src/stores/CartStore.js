@@ -1,4 +1,4 @@
-import { action, runInAction, observable } from 'mobx'
+import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
 
 import QueueStore from './QueueStore'
@@ -16,13 +16,26 @@ class CartStore {
   }
 
   @observable
-  checkoutURL = null
+  paymentMethodChosen = {
+    type: null,
+    id: null,
+  }
 
   @observable
   loading = false
 
   @action
   setLoading = bool => this.loading = bool
+
+  @computed
+  get paymentMethodIsValid() {
+    if (this.paymentMethodChosen.type === 'ideal') {
+      return true
+    } else if (this.paymentMethodChosen.type === 'cc' && typeof this.paymentMethodChosen.id === 'string') {
+      return true
+    }
+    return false
+  }
 
   @action
   getCart = async () => {

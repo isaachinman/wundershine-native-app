@@ -1,11 +1,14 @@
 // import { AppRegistry } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 
-// import App from 'App'
+import config from 'config'
 import { Screens, startApp } from 'screens'
 import stores, { getProvider } from 'stores'
+import stripe from 'tipsi-stripe'
 
 import 'utils/react-native/yellowbox'
+
+stripe.setOptions({ publishableKey: config.STRIPE_PUBLISHABLE_KEY });
 
 (async () => {
 

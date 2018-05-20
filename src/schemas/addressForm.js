@@ -12,5 +12,5 @@ export default {
   line2: joi.string().allow(null).optional(),
   state: joi.string().allow(null).optional(),
   phone: joi.string().allow(null).optional(),
-  _id: joi.string().optional(),
+  _id: joi.string().allow(null).optional(),
 }
