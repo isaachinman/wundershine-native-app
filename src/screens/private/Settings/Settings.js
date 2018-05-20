@@ -20,8 +20,8 @@ const routes = [
     icon: 'ios-contact-outline',
   },
   {
-    screenName: 'ShippingDetails',
-    key: 'ShippingDetails',
+    screenName: 'ShippingAddress',
+    key: 'ShippingAddress',
     displayName: 'Shipping address',
     icon: 'ios-cube-outline',
   },

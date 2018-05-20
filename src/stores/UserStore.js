@@ -1,5 +1,6 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
+import equal from 'deep-equal'
 import toast from 'utils/toast'
 
 import {
@@ -70,9 +71,8 @@ class UserStore {
 
         const [defaultAddress] = addresses
         if (defaultAddress) {
-          this.addressForm = defaultAddress
+          this.addressForm = Object.assign({}, defaultAddress)
         }
-
 
       })
     } catch (error) {
@@ -104,15 +104,26 @@ class UserStore {
   }
 
   @action
-  updateAddresses = async () => {
+  updateAddresses = async (options) => {
+
+    if (equal(this.data.addresses.toJS(), [this.addressForm])) {
+      return
+    }
+
     this.setLoading(true)
     try {
       const res = await apiRequest({ url: '/pv/user', data: { addresses: [this.addressForm] } })
       const { data } = res
       runInAction(() => {
-        this.addresses = data.addresses
+        this.data = createUser(data)
+        const [defaultAddress] = this.data.addresses
+        if (defaultAddress) {
+          this.addressForm = Object.assign({}, defaultAddress)
+        }
       })
-      toast({ message: 'Your address has been saved.' })
+      if (options.toast) {
+        toast({ message: 'Your address has been saved.' })
+      }
     } catch (error) {
       runInAction(() => this.error = error)
       this.getUser()

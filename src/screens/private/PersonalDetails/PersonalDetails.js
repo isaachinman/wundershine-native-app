@@ -35,17 +35,17 @@ export default class PersonalDetails extends React.Component {
         <Loader active={user.loading} />
         <Content contentContainerStyle={styles.content}>
           <Input
-            title='First name'
+            title='First name*'
             onChangeText={t => updateForm('personalDetails', 'firstName', t)}
             value={personalDetailsForm.firstName}
           />
           <Input
-            title='Last name'
+            title='Last name*'
             onChangeText={t => updateForm('personalDetails', 'lastName', t)}
             value={personalDetailsForm.lastName}
           />
           <Input
-            title='Email address'
+            title='Email address*'
             onChangeText={t => updateForm('personalDetails', 'email', t)}
             value={personalDetailsForm.email}
             maxLength={100}

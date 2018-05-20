@@ -9,7 +9,7 @@ import getCountries from 'country-list'
 
 import { screenUtils, NavActions } from 'utils/nav'
 
-import styles from './ShippingDetails.styles'
+import styles from './ShippingAddress.styles'
 
 const countries = getCountries()
 
@@ -18,7 +18,7 @@ const countries = getCountries()
 @observer
 export default class ShippingDetails extends React.Component {
 
-  static screenTitle = 'Shipping details'
+  static screenTitle = 'Shipping address'
 
   handleSave = async () => {
     const { user } = this.props

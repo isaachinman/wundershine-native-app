@@ -1,4 +1,4 @@
-import { blackPrimary, greyBg, whitePrimary } from 'styles/colours'
+import { blackPrimary, whitePrimary } from 'styles/colours'
 
 export default {
   header: {
@@ -8,8 +8,7 @@ export default {
     color: blackPrimary,
   },
   content: {
-    backgroundColor: greyBg,
-    padding: 20,
+    paddingHorizontal: 20,
     flex: 1,
   },
   row: {

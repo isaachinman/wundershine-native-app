@@ -1,4 +1,4 @@
-import { blackPrimary, greyBg, whitePrimary } from 'styles/colours'
+import { blackPrimary, whitePrimary } from 'styles/colours'
 
 export default {
   header: {
@@ -12,7 +12,6 @@ export default {
     marginTop: 20,
   },
   content: {
-    backgroundColor: greyBg,
     padding: 20,
     flex: 1,
   },
