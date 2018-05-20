@@ -7,13 +7,15 @@ export default {
   headerTitle: {
     color: blackPrimary,
   },
-  button: {
-    height: 40,
-    marginTop: 20,
-  },
   content: {
     backgroundColor: greyBg,
     padding: 20,
     flex: 1,
+  },
+  row: {
+    flex: 0,
+  },
+  col: {
+    padding: 10,
   },
 }

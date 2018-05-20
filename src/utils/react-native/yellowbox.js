@@ -9,4 +9,5 @@ YellowBox.ignoreWarnings([
   'Module RNUeno',
   'Remote debugger',
   'Class RCTCxxModule was not exported',
+  'Warning: isMounted(...) is deprecated in plain JavaScript React classes',
 ])

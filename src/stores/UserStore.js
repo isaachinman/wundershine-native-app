@@ -2,13 +2,26 @@ import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
 import toast from 'utils/toast'
 
-import { createUser, createPersonalDetailsForm, validatePersonalDetailsForm } from 'models'
+import {
+  createUser,
+  createPersonalDetailsForm,
+  validatePersonalDetailsForm,
+  createAddressForm,
+  validateAddressForm,
+} from 'models'
 
 class UserStore {
 
   @action
   async setup() {
     await this.getUser()
+  }
+
+  @action
+  teardown() {
+    this.data = {}
+    this.personalDetailsForm = createPersonalDetailsForm()
+    this.addressForm = createAddressForm()
   }
 
   @observable
@@ -26,6 +39,12 @@ class UserStore {
   @computed
   get personalDetailsFormIsValid() { return validatePersonalDetailsForm(this.personalDetailsForm) }
 
+  @observable
+  addressForm = createAddressForm()
+
+  @computed
+  get addressFormIsValid() { return validateAddressForm(this.addressForm) }
+
   @action
   setLoading = bool => this.loading = bool
 
@@ -40,8 +59,21 @@ class UserStore {
       const { data } = res
       runInAction(() => {
         this.data = createUser(data)
-        const { email, firstName, lastName } = this.data
+        const {
+          email,
+          firstName,
+          lastName,
+          addresses,
+        } = this.data
+
         this.personalDetailsForm = { email, firstName, lastName }
+
+        const [defaultAddress] = addresses
+        if (defaultAddress) {
+          this.addressForm = defaultAddress
+        }
+
+
       })
     } catch (error) {
       runInAction(() => this.error = error)
@@ -50,7 +82,7 @@ class UserStore {
   }
 
   @action
-  updateUser = async () => {
+  updatePersonalDetails = async () => {
     this.setLoading(true)
     try {
       const res = await apiRequest({ url: '/pv/user', data: this.personalDetailsForm })
@@ -63,9 +95,27 @@ class UserStore {
           lastName: data.lastName,
         }
       })
-      toast('Your details have been saved.')
+      toast({ message: 'Your details have been saved.' })
     } catch (error) {
       runInAction(() => this.error = error)
+      this.getUser()
+    }
+    this.setLoading(false)
+  }
+
+  @action
+  updateAddresses = async () => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/user', data: { addresses: [this.addressForm] } })
+      const { data } = res
+      runInAction(() => {
+        this.addresses = data.addresses
+      })
+      toast({ message: 'Your address has been saved.' })
+    } catch (error) {
+      runInAction(() => this.error = error)
+      this.getUser()
     }
     this.setLoading(false)
   }

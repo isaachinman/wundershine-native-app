@@ -1,55 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
+import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
+
+import { Button, Dropdown, Input, Loader } from 'components'
 import { Container, Content } from 'native-base'
-import { Loader } from 'components'
-import { Text } from 'react-native'
+import { Col, Row } from 'react-native-easy-grid'
+import getCountries from 'country-list'
+
 import { screenUtils, NavActions } from 'utils/nav'
 
 import styles from './ShippingDetails.styles'
 
-@inject('user')
+const countries = getCountries()
+
+@inject('coreData', 'user')
 @screenUtils
 @observer
 export default class ShippingDetails extends React.Component {
 
   static screenTitle = 'Shipping details'
 
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        id: 'cancel',
-        title: 'Cancel',
-      },
-    ],
-    rightButtons: [
-      {
-        id: 'save',
-        title: 'Save',
-      },
-    ],
-  }
-
-  constructor(props) {
-    super(props)
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
-  }
-
-  onNavigatorEvent = (event) => {
-    if (event.type === 'NavBarButtonPress') {
-      if (event.id === 'cancel') {
-        NavActions.pop()
-      }
-      if (event.id === 'save') {
-        this.handleSave()
-      }
-    }
-  }
-
   handleSave = async () => {
     const { user } = this.props
     try {
-      await user.updateUser()
+      await user.updateAddresses()
       NavActions.pop()
     } catch (error) {
       // Handle update error here
@@ -58,22 +32,102 @@ export default class ShippingDetails extends React.Component {
 
   render() {
 
-    const { user } = this.props
+    const { coreData, user } = this.props
+    const { addressForm, addressFormIsValid, updateForm } = user
 
     return (
       <Container>
         <Loader active={user.loading} />
         <Content contentContainerStyle={styles.content}>
-          <Text>Shipping details page</Text>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Dropdown
+                label='Country*'
+                data={coreData.settings.shippableCountries
+                  .map(c => ({ value: c, label: countries.getName(c) }))}
+                value={addressForm.country}
+                onChangeText={t => updateForm('address', 'country', t)}
+              />
+            </Col>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Input
+                title='First name*'
+                onChangeText={t => updateForm('address', 'firstName', t)}
+                value={addressForm.firstName}
+              />
+            </Col>
+            <Col style={styles.col}>
+              <Input
+                title='Last name*'
+                onChangeText={t => updateForm('address', 'lastName', t)}
+                value={addressForm.lastName}
+              />
+            </Col>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Input
+                title='Street address line 1*'
+                onChangeText={t => updateForm('address', 'line1', t)}
+                value={addressForm.line1}
+              />
+            </Col>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Input
+                title='Street address line 2'
+                onChangeText={t => updateForm('address', 'line2', t)}
+                value={addressForm.line2}
+              />
+            </Col>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Input
+                title='Postal code*'
+                onChangeText={t => updateForm('address', 'postalCode', t)}
+                value={addressForm.postalCode}
+              />
+            </Col>
+            <Col style={styles.col}>
+              <Input
+                title='City*'
+                onChangeText={t => updateForm('address', 'city', t)}
+                value={addressForm.city}
+              />
+            </Col>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Input
+                title='Phone number (for delivery)'
+                onChangeText={t => updateForm('address', 'phone', t)}
+                value={addressForm.phone}
+              />
+            </Col>
+          </Row>
         </Content>
+        <Button
+          onPress={this.handleSave}
+          text='Save'
+          disabled={!addressFormIsValid}
+          primary
+          full
+        />
       </Container>
     )
   }
 }
 
+/* eslint-disable react/no-typos */
 ShippingDetails.wrappedComponent.propTypes = {
-  navigator: PropTypes.shape({
-    setOnNavigatorEvent: PropTypes.func.isRequired,
+  coreData: PropTypes.shape({
+    settings: PropTypes.shape({
+      shippableCountries: mobxPropTypes.observableArray.isRequired,
+    }),
   }).isRequired,
   user: PropTypes.shape({
     data: PropTypes.shape({
@@ -81,6 +135,6 @@ ShippingDetails.wrappedComponent.propTypes = {
       lastName: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
     }),
-    updateUser: PropTypes.func.isRequired,
+    updateAddresses: PropTypes.func.isRequired,
   }).isRequired,
 }

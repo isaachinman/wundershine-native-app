@@ -2,7 +2,7 @@ import stores from 'stores'
 
 export default (options) => {
 
-  const transformedOptions = { ...options }
+  const transformedOptions = Object.assign({}, options)
 
   if (typeof options.autoDismiss === 'undefined') {
     transformedOptions.autoDismiss = true

@@ -7,6 +7,8 @@ import { NavActions } from 'utils/nav'
 
 import * as modelActions from 'models'
 
+import UserStore from './UserStore'
+
 const storeKey = '@AuthStore'
 
 class AuthStore {
@@ -125,6 +127,7 @@ class AuthStore {
     await AsyncStorage.removeItem(`${storeKey}:${this.LOGIN_TOKEN_STORAGE_KEY}`)
     runInAction(() => this.loggedIn = false)
     this.redirectToLoggedOutUI()
+    UserStore.teardown()
   }
 
   /* ---------- Signup ---------- */
