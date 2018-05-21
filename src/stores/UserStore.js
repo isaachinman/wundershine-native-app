@@ -1,6 +1,6 @@
 import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
-// import equal from 'deep-equal'
+import equal from 'deep-equal'
 import toast from 'utils/toast'
 
 import {
@@ -106,10 +106,9 @@ class UserStore {
   @action
   updateAddresses = async (options) => {
 
-    // if (equal(this.data.addresses.toJS(), [this.addressForm])) {
-    //   console.log('inside equals')
-    //   return
-    // }
+    if (equal(this.data.addresses.toJS(), [this.addressForm])) {
+      return
+    }
 
     this.setLoading(true)
     try {
@@ -125,6 +124,38 @@ class UserStore {
       if (options.toast) {
         toast({ message: 'Your address has been saved.' })
       }
+    } catch (error) {
+      runInAction(() => this.error = error)
+      this.getUser()
+    }
+    this.setLoading(false)
+  }
+
+  @action
+  addCreditCard = async (tokenId) => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/payment-methods/cc', data: { tokenId } })
+      const { data } = res
+      runInAction(() => {
+        this.data.paymentMethods = data
+      })
+    } catch (error) {
+      runInAction(() => this.error = error)
+      this.getUser()
+    }
+    this.setLoading(false)
+  }
+
+  @action
+  deleteCreditCard = async (ccID) => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: `/pv/payment-methods/cc/${ccID}`, method: 'DELETE' })
+      const { data } = res
+      runInAction(() => {
+        this.data.paymentMethods = data
+      })
     } catch (error) {
       runInAction(() => this.error = error)
       this.getUser()

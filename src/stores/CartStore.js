@@ -2,6 +2,7 @@ import { action, computed, runInAction, observable } from 'mobx'
 import { apiRequest } from 'utils/api'
 
 import QueueStore from './QueueStore'
+import UserStore from './UserStore'
 
 class CartStore {
 
@@ -36,6 +37,24 @@ class CartStore {
     }
     return false
   }
+
+  @action
+  setDefaultPaymentMethod = () => {
+    const { paymentMethods } = UserStore.data
+
+    // Only set default payment method if user has not made a selection
+    if (this.paymentMethodChosen.type === null) {
+      if (paymentMethods.creditCards.length > 0) {
+        this.paymentMethodChosen = {
+          type: 'cc',
+          id: paymentMethods.creditCards[0]._id,
+        }
+      }
+    }
+  }
+
+  @action
+  setPaymentMethod = (type, id = null) => this.paymentMethodChosen = { type, id }
 
   @action
   getCart = async () => {

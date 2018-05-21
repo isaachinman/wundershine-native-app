@@ -1,4 +1,5 @@
-import { greyAccent, whitePrimary } from 'styles/colours'
+import { material } from 'react-native-typography'
+import { green, greyAccent, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
@@ -17,13 +18,21 @@ export default {
     alignItems: 'center',
     // justifyContent: 'center',
   },
-  iconRadioButton: {
+  iconRadioButtonOff: {
+    flex: 0,
+    fontSize: 30,
+    paddingHorizontal: 20,
+    marginRight: 10,
+  },
+  iconRadioButtonOn: {
+    color: green,
     flex: 0,
     fontSize: 30,
     paddingHorizontal: 20,
     marginRight: 10,
   },
   radioButtonLabel: {
+    ...material.body2Object,
     flex: 0,
     fontSize: 20,
   },

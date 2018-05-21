@@ -32,15 +32,39 @@ export default class Cart extends React.Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
   }
 
-  componentDidUpdate() {
-    if (this.props.cart.data.items.length <= 0) {
-      NavActions.resetTo({ screen: 'ImageQueue' })
+  componentWillMount() {
+    if (this.props.inModal) {
+      this.props.navigator.setButtons({ leftButtons: [] })
     }
   }
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress' && event.id === 'back') {
       NavActions.resetTo({ screen: 'ImageQueue' })
+    }
+  }
+
+  returnToImageQueue = () => {
+    NavActions.resetTo({ screen: 'ImageQueue' })
+    if (this.props.inModal) {
+      NavActions.dismissModal()
+    }
+  }
+
+  dissolvePrintpacks = async (printpacks) => {
+    const { cart } = this.props
+    const totalPrintpacks = cart.data.items.filter(i => i.type === 'printpack').length
+    if (totalPrintpacks - printpacks.length <= 0) {
+      this.returnToImageQueue()
+    }
+    await cart.dissolvePrintpacks(printpacks)
+  }
+
+  goToCheckout = () => {
+    if (this.props.inModal) {
+      NavActions.dismissModal()
+    } else {
+      NavActions.push({ screen: 'CheckoutDelivery' })
     }
   }
 
@@ -97,7 +121,7 @@ export default class Cart extends React.Component {
                         <Icon style={styles.iconMore} name='md-more' />
                       </MenuTrigger>
                       <MenuOptions>
-                        <MenuOption onSelect={() => cart.dissolvePrintpacks([item.printpack._id])}>
+                        <MenuOption onSelect={() => this.dissolvePrintpacks([item.printpack._id])}>
                           <Text style={styles.editPackText}>Edit pack</Text>
                         </MenuOption>
                         <MenuOption onSelect={() => {}}>
@@ -105,7 +129,6 @@ export default class Cart extends React.Component {
                         </MenuOption>
                       </MenuOptions>
                     </Menu>
-
                   </Col>
                 </Row>
               )
@@ -151,11 +174,14 @@ export default class Cart extends React.Component {
 
         </ScrollView>
         <View style={styles.actionBar}>
-          <TouchableOpacity style={styles.actionBarAddPack}>
+          <TouchableOpacity
+            onPress={this.returnToImageQueue}
+            style={styles.actionBarAddPack}
+          >
             <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => NavActions.push({ screen: 'CheckoutDelivery' })}
+            onPress={this.goToCheckout}
             style={styles.actionBarCheckout}
           >
             <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>
@@ -166,12 +192,18 @@ export default class Cart extends React.Component {
   }
 }
 
+Cart.defaultProps = {
+  inModal: false,
+}
+
 Cart.wrappedComponent.propTypes = {
   coreData: PropTypes.shape({
     products: PropTypes.shape(),
   }).isRequired,
   cart: PropTypes.shape().isRequired,
+  inModal: PropTypes.bool,
   navigator: PropTypes.shape({
+    setButtons: PropTypes.func.isRequired,
     setOnNavigatorEvent: PropTypes.func.isRequired,
   }).isRequired,
 }

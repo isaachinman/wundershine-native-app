@@ -6,6 +6,7 @@ const ROW_HEIGHT = 60
 export default {
   container: {
     flex: 1,
+    backgroundColor: whitePrimary,
   },
   contentContainer: {
     flex: 1,

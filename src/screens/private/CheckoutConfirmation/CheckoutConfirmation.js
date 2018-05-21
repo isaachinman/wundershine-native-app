@@ -1,10 +1,14 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
-
+import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
-import { screenUtils } from 'utils/nav'
 
-import { Text, View } from 'react-native'
+import { Button } from 'components'
+import { Col, Row } from 'react-native-easy-grid'
+import { Container, Content } from 'native-base'
+
+import { screenUtils, NavActions } from 'utils/nav'
+
+import { Text, TouchableOpacity } from 'react-native'
 
 import styles from './CheckoutConfirmation.styles'
 
@@ -15,14 +19,152 @@ export default class CheckoutConfirmation extends React.Component {
 
   static screenTitle = 'Confirm order'
 
+  launchPreviousStepAsModal = (screen) => {
+    NavActions.showModal({ screen, passProps: { inModal: true } })
+  }
+
   render() {
 
+    const { user, cart } = this.props
+
+    const numberOfItemsInCart = cart.data.items.reduce((acc, i) => acc + i.quantity, 0)
+    const shippingAddress = user.data.addresses[0]
+
+    let paymentLabel = null
+    if (cart.paymentMethodChosen.type === 'ideal') {
+      paymentLabel = 'iDEAL'
+    } else if (cart.paymentMethodChosen.type === 'cc') {
+      const chosenCreditCard = user.data.paymentMethods.creditCards
+        .find(c => c._id === cart.paymentMethodChosen.id)
+      paymentLabel = `•••• •••• •••• ${chosenCreditCard.last4}`
+    }
+
     return (
-      <View style={styles.container}>
-        <Text>Confirmation screen</Text>
-      </View>
+      <Container>
+        <Content contentContainerStyle={styles.content}>
+          <Row style={styles.row}>
+            <Col style={styles.titleCol}>
+              <Text
+                style={styles.sectionTitle}
+              >
+                Cart
+              </Text>
+            </Col>
+            <Col style={styles.contentCol}>
+              <Text
+                style={styles.sectionBody}
+              >
+                {numberOfItemsInCart} {numberOfItemsInCart < 2 ? 'item' : 'items'}
+                &nbsp;
+                (€{cart.data.subtotalPrice.toFixed(2)})
+              </Text>
+            </Col>
+            <TouchableOpacity
+              onPress={() => this.launchPreviousStepAsModal('Cart')}
+            >
+              <Col style={styles.editCol}>
+                <Text
+                  style={styles.editText}
+                >
+                  Edit
+                </Text>
+              </Col>
+            </TouchableOpacity>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.titleCol}>
+              <Text
+                style={styles.sectionTitle}
+              >
+                Address
+              </Text>
+            </Col>
+            <Col style={styles.contentCol}>
+              <Text
+                style={styles.sectionBody}
+              >
+                {shippingAddress.firstName} {shippingAddress.lastName}
+              </Text>
+              <Text
+                style={styles.sectionBody}
+              >
+                {shippingAddress.line1}
+              </Text>
+              <Text
+                style={styles.sectionBody}
+              >
+                {shippingAddress.postalCode}, {shippingAddress.city}, {shippingAddress.country}
+              </Text>
+              <Text
+                style={styles.sectionBody}
+              >
+                {shippingAddress.phone}
+              </Text>
+            </Col>
+            <TouchableOpacity onPress={() => this.launchPreviousStepAsModal('CheckoutDelivery')}>
+              <Col style={styles.editCol}>
+                <Text
+                  style={styles.editText}
+                >
+                  Edit
+                </Text>
+              </Col>
+            </TouchableOpacity>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.titleCol}>
+              <Text
+                style={styles.sectionTitle}
+              >
+                Payment
+              </Text>
+            </Col>
+            <Col style={styles.contentCol}>
+              <Text
+                style={styles.sectionBody}
+              >
+                {paymentLabel}
+              </Text>
+            </Col>
+            <TouchableOpacity onPress={() => this.launchPreviousStepAsModal('CheckoutPayment')}>
+              <Col style={styles.editCol}>
+                <Text
+                  style={styles.editText}
+                >
+                  Edit
+                </Text>
+              </Col>
+            </TouchableOpacity>
+          </Row>
+          <Row style={{ flex: 1 }}>
+            <Row style={styles.endRow}>
+              <Col style={styles.col}>
+                <Text>Total</Text>
+                <Text>
+                  Total amount
+                </Text>
+              </Col>
+            </Row>
+          </Row>
+        </Content>
+        <Button
+          onPress={() => {}}
+          text='Complete order'
+          disabled={!cart.paymentMethodIsValid}
+          primary
+          full
+        />
+      </Container>
     )
   }
 }
 
-CheckoutConfirmation.wrappedComponent.propTypes = {}
+CheckoutConfirmation.wrappedComponent.propTypes = {
+  cart: PropTypes.shape({
+    setDefaultPaymentMethod: PropTypes.func.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    addCreditCard: PropTypes.func.isRequired,
+    deleteCreditCard: PropTypes.func.isRequired,
+  }).isRequired,
+}
