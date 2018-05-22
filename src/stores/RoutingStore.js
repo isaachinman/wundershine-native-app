@@ -24,8 +24,11 @@ class RoutingStore {
     const data = url.replace(config.DEEP_LINK_ROOT, '').split('?')
     const urlBase = data[0].split('/')[0]
     const urlQuery = data[1]
+
+    let params = {}
+
     if (urlQuery) {
-      const params = qs.parse(urlQuery, { ignoreQueryPrefix: true })
+      params = qs.parse(urlQuery, { ignoreQueryPrefix: true })
 
       // If inside a share-receiving redirect, set images to upload
       if (params.shareReceivingImages) {
@@ -47,7 +50,15 @@ class RoutingStore {
 
       // If screen is private, check auth
       } else if (PrivateScreens.get(urlBase) && AuthStore.loggedIn) {
-        NavActions.push({ screen: urlBase, animated: false })
+
+        if (params.openAsModal) {
+          NavActions.showModal({
+            screen: urlBase,
+            overrideBackPress: true,
+          })
+        } else {
+          NavActions.push({ screen: urlBase, animated: false })
+        }
 
       // If screen is private and user is logged out, redirect to login and show feedback
       } else if (PrivateScreens.get(urlBase) && !AuthStore.loggedIn) {

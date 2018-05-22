@@ -112,7 +112,9 @@ class UserStore {
 
     this.setLoading(true)
     try {
-      const res = await apiRequest({ url: '/pv/user', data: { addresses: [this.addressForm] } })
+      const address = Object.assign({}, this.addressForm)
+      delete address._id
+      const res = await apiRequest({ url: '/pv/user', data: { addresses: [address] } })
       const { data } = res
       runInAction(() => {
         this.data = createUser(data)
@@ -126,7 +128,10 @@ class UserStore {
       }
     } catch (error) {
       runInAction(() => this.error = error)
-      this.getUser()
+      this.setLoading(false)
+      const message = error.toString()
+      toast({ message, type: 'error' })
+      throw error
     }
     this.setLoading(false)
   }

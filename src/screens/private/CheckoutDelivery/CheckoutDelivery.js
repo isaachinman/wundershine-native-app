@@ -45,6 +45,7 @@ export default class CheckoutDelivery extends React.Component {
         <KeyboardAwareScrollView
           extraScrollHeight={140}
           keyboardShouldPersistTaps='handled'
+          contentContainerStyle={{ flex: 1 }}
         >
           <Content contentContainerStyle={styles.content}>
             <Row style={styles.row}>

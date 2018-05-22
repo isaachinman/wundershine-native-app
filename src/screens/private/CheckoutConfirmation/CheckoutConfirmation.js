@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
-import { Button } from 'components'
+import { Button, Loader } from 'components'
 import { Col, Row } from 'react-native-easy-grid'
 import { Container, Content } from 'native-base'
 
 import { screenUtils, NavActions } from 'utils/nav'
 
-import { Text, TouchableOpacity } from 'react-native'
+import { Linking, Text, TouchableOpacity } from 'react-native'
 
 import styles from './CheckoutConfirmation.styles'
 
-@inject('cart', 'user')
+@inject('cart', 'orders', 'user')
 @screenUtils
 @observer
 export default class CheckoutConfirmation extends React.Component {
@@ -23,9 +23,20 @@ export default class CheckoutConfirmation extends React.Component {
     NavActions.showModal({ screen, passProps: { inModal: true } })
   }
 
+  processOrder = async () => {
+    const { cart, orders, user } = this.props
+    const pendingOrder = await orders
+      .createOrder(cart.data._id, user.data.addresses[0]._id, cart.paymentMethodChosen)
+    if (pendingOrder.paymentType === 'cc') {
+      NavActions.showModal({ screen: 'OrderProcessing', passProps: { pendingOrderID: pendingOrder._id } })
+    } else if (pendingOrder.paymentType === 'ideal') {
+      Linking.openURL(pendingOrder.paymentMethodInfo.ideal.redirectURL)
+    }
+  }
+
   render() {
 
-    const { user, cart } = this.props
+    const { cart, orders, user } = this.props
 
     const numberOfItemsInCart = cart.data.items.reduce((acc, i) => acc + i.quantity, 0)
     const shippingAddress = user.data.addresses[0]
@@ -41,6 +52,7 @@ export default class CheckoutConfirmation extends React.Component {
 
     return (
       <Container>
+        <Loader active={orders.loading} />
         <Content contentContainerStyle={styles.content}>
           <Row style={styles.row}>
             <Col style={styles.titleCol}>
@@ -138,17 +150,26 @@ export default class CheckoutConfirmation extends React.Component {
           </Row>
           <Row style={{ flex: 1 }}>
             <Row style={styles.endRow}>
-              <Col style={styles.col}>
-                <Text>Total</Text>
-                <Text>
-                  Total amount
+              <Col style={styles.contentCol}>
+                <Text
+                  style={styles.sectionTitle}
+                >
+                  TOTAL
+                </Text>
+              </Col>
+              <Col style={styles.editCol}>
+                <Text
+                  style={styles.sectionTitle}
+                >
+                  €{cart.data.totalPrice.toFixed(2)}
                 </Text>
               </Col>
             </Row>
           </Row>
         </Content>
         <Button
-          onPress={() => {}}
+          onPress={this.processOrder}
+          icon='md-lock'
           text='Complete order'
           disabled={!cart.paymentMethodIsValid}
           primary
@@ -162,6 +183,9 @@ export default class CheckoutConfirmation extends React.Component {
 CheckoutConfirmation.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     setDefaultPaymentMethod: PropTypes.func.isRequired,
+  }).isRequired,
+  orders: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
   }).isRequired,
   user: PropTypes.shape({
     addCreditCard: PropTypes.func.isRequired,

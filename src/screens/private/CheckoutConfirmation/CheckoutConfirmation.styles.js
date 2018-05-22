@@ -1,5 +1,5 @@
 import { systemWeights } from 'react-native-typography'
-import { blackPrimary, blue, greyAccent, whitePrimary } from 'styles/colours'
+import { blackPrimary, blue, greyBg, greyAccent, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
@@ -18,6 +18,8 @@ export default {
     backgroundColor: whitePrimary,
     padding: 20,
     alignSelf: 'flex-end',
+    borderTopWidth: 1,
+    borderTopColor: greyBg,
   },
   titleCol: {
     flex: 0,

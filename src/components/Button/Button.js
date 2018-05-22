@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button as NativeBaseButton, Text as NativeBaseButtonText, Spinner } from 'native-base'
+import { Icon } from 'components'
 import { green, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
 
 /*
@@ -27,6 +28,7 @@ export default class Button extends React.Component {
     const {
       bordered,
       text,
+      icon,
       info,
       primary,
       danger,
@@ -37,6 +39,7 @@ export default class Button extends React.Component {
     /* Primary */
     if (primary) {
       buttonStyles.backgroundColor = green
+      textStyles.color = whitePrimary
       if (bordered) {
         buttonStyles.backgroundColor = 'transparent'
         buttonStyles.borderColor = green
@@ -69,6 +72,16 @@ export default class Button extends React.Component {
         {...buttonProps}
         style={buttonStyles}
       >
+        {icon ?
+          <Icon
+            name={icon}
+            style={{
+            ...textStyles,
+            fontSize: 20,
+            }}
+          />
+          : null
+        }
         <NativeBaseButtonText style={textStyles}>
           {text.toUpperCase()}
         </NativeBaseButtonText>
@@ -86,6 +99,7 @@ Button.defaultProps = {
   bordered: false,
   danger: false,
   disabled: false,
+  icon: null,
   info: false,
   loading: false,
   primary: false,
@@ -96,6 +110,7 @@ Button.propTypes = {
   bordered: PropTypes.bool,
   danger: PropTypes.bool,
   disabled: PropTypes.bool,
+  icon: PropTypes.string,
   info: PropTypes.bool,
   loading: PropTypes.bool,
   primary: PropTypes.bool,

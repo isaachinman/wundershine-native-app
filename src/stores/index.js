@@ -20,6 +20,7 @@ import CartStore from './CartStore'
 import CoreDataStore from './CoreDataStore'
 import InitialisationStore from './InitialisationStore'
 import NetworkingStore from './NetworkingStore'
+import OrdersStore from './OrdersStore'
 import QueueStore from './QueueStore'
 import RoutingStore from './RoutingStore'
 import UserStore from './UserStore'
@@ -42,6 +43,7 @@ class Stores {
   coreData = CoreDataStore
   initialisation = InitialisationStore
   networking = NetworkingStore
+  orders = OrdersStore
   queue = QueueStore
   routing = RoutingStore
   user = UserStore

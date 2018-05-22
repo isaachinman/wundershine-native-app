@@ -23,8 +23,12 @@ class NavigationActionsClass {
   setButtons = params => this.navigator && this.navigator.setButtons(params)
   setDrawerEnabled = params => this.navigator && this.navigator.setDrawerEnabled(params)
 
-  showModal = params => this.navigator && this.navigator.showModal(params)
-  dismissModal = () => this.navigator && this.navigator.dismissModal()
+  showModal = params => this.navigator && this.navigator.showModal({
+    ...params,
+    inModal: true,
+  })
+  dismissModal = params => this.navigator && this.navigator.dismissModal(params)
+  dismissAllModals = params => this.navigator && this.navigator.dismissAllModals(params)
 
   setOnNavigatorEvent = func => this.navigator && this.navigator.setOnNavigatorEvent(func)
 }
