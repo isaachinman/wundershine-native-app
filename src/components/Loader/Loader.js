@@ -8,7 +8,22 @@ import styles from './Loader.styles'
 export default class Loader extends React.Component {
   render() {
 
-    const { active } = this.props
+    const {
+      active,
+      contentOnly,
+    } = this.props
+
+    if (contentOnly) {
+
+      return (
+        <View style={styles.absoluteContainer}>
+          <View style={styles.container}>
+            <ActivityIndicator size='large' color={whitePrimary} />
+          </View>
+        </View>
+      )
+
+    }
 
     return (
       <Modal
@@ -26,6 +41,11 @@ export default class Loader extends React.Component {
   }
 }
 
+Loader.defaultProps = {
+  contentOnly: false,
+}
+
 Loader.propTypes = {
   active: PropTypes.bool.isRequired,
+  contentOnly: PropTypes.bool,
 }

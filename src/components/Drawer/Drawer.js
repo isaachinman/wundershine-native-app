@@ -17,6 +17,12 @@ const routes = [
     redirect: () => NavActions.push({ screen: 'ImageQueue' }),
   },
   {
+    key: 'YourOrders',
+    displayName: 'Your Orders',
+    icon: 'ios-cube-outline',
+    redirect: () => NavActions.push({ screen: 'YourOrders' }),
+  },
+  {
     key: 'Settings',
     displayName: 'Settings',
     icon: 'ios-contact-outline',

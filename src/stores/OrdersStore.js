@@ -24,6 +24,18 @@ class OrdersStore {
   setLoading = bool => this.loading = bool
 
   @action
+  getOrders = async () => {
+    this.setLoading(true)
+    try {
+      const res = await apiRequest({ url: '/pv/orders/' })
+      this.mergeIntoLocalData(res.data)
+    } catch (error) {
+      runInAction(() => this.error = error)
+    }
+    this.setLoading(false)
+  }
+
+  @action
   createOrder = async (cartID, addressID, paymentMethodChosen) => {
     this.setLoading(true)
     try {
@@ -39,16 +51,6 @@ class OrdersStore {
       // Handle error
       this.setLoading(false)
       throw error
-    }
-  }
-
-  @action
-  getOrders = async () => {
-    try {
-      const res = await apiRequest({ url: '/pv/orders' })
-      this.mergeIntoLocalData(res.data)
-    } catch (error) {
-      runInAction(() => this.error = error)
     }
   }
 

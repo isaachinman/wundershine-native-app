@@ -56,6 +56,8 @@ class Stores {
   }
 
   async loggedInSetup() {
+
+    /* Critical (blocking) dependencies */
     this.initialisation.setStatus(false)
     await pMinDelay(Promise.all([
       this.cart.setup(),
@@ -63,6 +65,10 @@ class Stores {
       this.queue.setup(),
     ]), 1500)
     this.initialisation.setStatus(true)
+
+    /* Non-critical dependencies */
+    await this.orders.getOrders()
+
   }
 
 }
