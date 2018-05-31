@@ -4,14 +4,15 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { screenUtils, NavActions } from 'utils/nav'
 
+import { AddDiscountModal } from 'components/Modals'
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon, Loader, PrintStack } from 'components'
 import { Menu, MenuTrigger, MenuOptions, MenuOption } from 'react-native-popup-menu'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import styles from './Cart.styles'
 
-@inject('cart', 'coreData')
+@inject('cart', 'coreData', 'ui')
 @screenUtils
 @observer
 export default class Cart extends React.Component {
@@ -42,6 +43,21 @@ export default class Cart extends React.Component {
     await cart.dissolvePrintpacks(printpacks)
   }
 
+  removeDiscount = async () => {
+    Alert.alert(
+      'Remove discount code',
+      'Are you sure you want to remove the current discount code?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Remove discount',
+          onPress: async () => this.props.cart.removeDiscount(),
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
   goToCheckout = () => {
     if (this.props.inModal) {
       NavActions.dismissModal()
@@ -57,6 +73,7 @@ export default class Cart extends React.Component {
     return (
       <View style={styles.container}>
         <Loader active={cart.loading} />
+        <AddDiscountModal />
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           style={styles.content}
@@ -142,6 +159,36 @@ export default class Cart extends React.Component {
             </Col>
           </Row>
           <Row style={styles.pricingRow}>
+            {cart.data.discount ?
+              <React.Fragment>
+                <Col style={{ flexDirection: 'row' }}>
+                  <Text style={styles.pricingTextNormal}>
+                    {cart.data.discount.code}
+                  </Text>
+                  <TouchableOpacity onPress={this.removeDiscount}>
+                    <Icon
+                      name='ios-close'
+                      style={styles.iconClose}
+                    />
+                  </TouchableOpacity>
+                </Col>
+                <Col style={styles.alignRight}>
+                  <Text style={styles.pricingTextNormal}>
+                    - €{cart.data.totalDiscount.toFixed(2)}
+                  </Text>
+                </Col>
+              </React.Fragment>
+              :
+              <Col style={styles.alignRight}>
+                <TouchableOpacity onPress={() => this.props.ui.toggleModal('addDiscount', true)}>
+                  <Text style={styles.addDiscountCode}>
+                    Add a discount code
+                  </Text>
+                </TouchableOpacity>
+              </Col>
+            }
+          </Row>
+          <Row style={styles.pricingRow}>
             <Col>
               <Text style={styles.pricingTextBold}>
                 TOTAL
@@ -187,5 +234,9 @@ Cart.wrappedComponent.propTypes = {
   navigator: PropTypes.shape({
     setButtons: PropTypes.func.isRequired,
     setOnNavigatorEvent: PropTypes.func.isRequired,
+  }).isRequired,
+  ui: PropTypes.shape({
+    data: PropTypes.shape(),
+    toggleModal: PropTypes.func.isRequired,
   }).isRequired,
 }

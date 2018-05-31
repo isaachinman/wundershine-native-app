@@ -11,6 +11,9 @@ class UIStore {
     imageRejected: {
       open: false,
     },
+    addDiscount: {
+      open: false,
+    },
   }
 
   @observable

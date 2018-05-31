@@ -58,6 +58,10 @@ export default class Input extends React.Component {
 
 }
 
+Input.defaultProps = {
+  title: null,
+}
+
 Input.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }

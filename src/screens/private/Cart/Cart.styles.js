@@ -1,4 +1,5 @@
-import { blackPrimary, blackSecondary, blackTertiary, greyAccent, green, red, whitePrimary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, green, red, whitePrimary, greyBg } from 'styles/colours'
+import { Dimensions } from 'react-native'
 import { systemWeights } from 'react-native-typography'
 
 const ROW_HEIGHT = 60
@@ -10,6 +11,7 @@ export default {
   },
   contentContainer: {
     flex: 1,
+    minHeight: Dimensions.get('window').height - ROW_HEIGHT - 100,
   },
   content: {
     marginBottom: ROW_HEIGHT,
@@ -68,6 +70,11 @@ export default {
     marginTop: 15,
     paddingLeft: 30,
   },
+  iconClose: {
+    fontSize: 24,
+    color: red,
+    marginLeft: 5,
+  },
   pricingRow: {
     height: ROW_HEIGHT,
     borderTopWidth: 1,
@@ -77,6 +84,10 @@ export default {
   pricingTextNormal: {
     fontSize: 16,
     color: blackPrimary,
+  },
+  addDiscountCode: {
+    fontSize: 16,
+    color: blue,
   },
   pricingTextBold: {
     ...systemWeights.bold,

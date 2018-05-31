@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
+import { AddDiscountModal } from 'components/Modals'
 import { Button, Loader } from 'components'
 import { Col, Row } from 'react-native-easy-grid'
 import { Container, Content } from 'native-base'
@@ -12,7 +13,7 @@ import { Linking, Text, TouchableOpacity } from 'react-native'
 
 import styles from './CheckoutConfirmation.styles'
 
-@inject('cart', 'orders', 'user')
+@inject('cart', 'orders', 'ui', 'user')
 @screenUtils
 @observer
 export default class CheckoutConfirmation extends React.Component {
@@ -53,6 +54,7 @@ export default class CheckoutConfirmation extends React.Component {
     return (
       <Container>
         <Loader active={orders.loading} />
+        <AddDiscountModal />
         <Content contentContainerStyle={styles.content}>
           <Row style={styles.row}>
             <Col style={styles.titleCol}>
@@ -73,6 +75,37 @@ export default class CheckoutConfirmation extends React.Component {
             </Col>
             <TouchableOpacity
               onPress={() => this.launchPreviousStepAsModal('Cart')}
+            >
+              <Col style={styles.editCol}>
+                <Text
+                  style={styles.editText}
+                >
+                  Edit
+                </Text>
+              </Col>
+            </TouchableOpacity>
+          </Row>
+          <Row style={styles.row}>
+            <Col style={styles.titleCol}>
+              <Text
+                style={styles.sectionTitle}
+              >
+                Discount
+              </Text>
+            </Col>
+            <Col style={styles.contentCol}>
+              <Text
+                style={styles.sectionBody}
+              >
+                {cart.data.discount ?
+                  <Text>{cart.data.discount.code} (-€{cart.data.totalDiscount.toFixed(2)})</Text>
+                  :
+                  <Text>-</Text>
+                }
+              </Text>
+            </Col>
+            <TouchableOpacity
+              onPress={() => this.props.ui.toggleModal('addDiscount', true)}
             >
               <Col style={styles.editCol}>
                 <Text
@@ -190,5 +223,8 @@ CheckoutConfirmation.wrappedComponent.propTypes = {
   user: PropTypes.shape({
     addCreditCard: PropTypes.func.isRequired,
     deleteCreditCard: PropTypes.func.isRequired,
+  }).isRequired,
+  ui: PropTypes.shape({
+    toggleModal: PropTypes.func.isRequired,
   }).isRequired,
 }
