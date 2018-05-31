@@ -8,8 +8,12 @@ export default async function () {
     await queue.updateImageTransformation(_id, this.getTransformation())
 
     if (this.props.withinReview) {
-      this.props.ui.setForceRefreshScreen('PackReview', true)
-      NavActions.pop()
+      // Unfortunate hack for the time being
+      // https://github.com/wix/react-native-navigation/issues/2815
+      setTimeout(() => {
+        // this.props.ui.setForceRefreshScreen('PackReview', true)
+        NavActions.dismissModal()
+      }, 10)
     } else {
       NavActions.popToRoot()
     }

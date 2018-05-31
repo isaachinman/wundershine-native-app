@@ -18,36 +18,18 @@ export default class Cart extends React.Component {
 
   static screenTitle = 'Cart'
 
-  static navigatorButtons = {
-    leftButtons: [
-      {
-        id: 'back',
-        title: 'Back',
-      },
-    ],
-  }
-
-  constructor(props) {
-    super(props)
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
-  }
-
   componentWillMount() {
     if (this.props.inModal) {
       this.props.navigator.setButtons({ leftButtons: [] })
     }
   }
 
-  onNavigatorEvent = (event) => {
-    if (event.type === 'NavBarButtonPress' && event.id === 'back') {
-      NavActions.resetTo({ screen: 'ImageQueue' })
-    }
-  }
-
   returnToImageQueue = () => {
-    NavActions.resetTo({ screen: 'ImageQueue' })
     if (this.props.inModal) {
+      NavActions.popToRoot()
       NavActions.dismissModal()
+    } else {
+      NavActions.pop()
     }
   }
 

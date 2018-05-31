@@ -21,6 +21,15 @@ export default class EditImage extends React.Component {
 
   static screenTitle = 'Review pack'
 
+  static navigatorButtons = {
+    leftButtons: [
+      {
+        id: 'back',
+        title: 'Back',
+      },
+    ],
+  }
+
   constructor(props) {
     super(props)
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
@@ -39,12 +48,35 @@ export default class EditImage extends React.Component {
       ui.setForceRefreshScreen('PackReview', false)
       this.forceUpdate()
     }
+    if (event.type === 'NavBarButtonPress' && event.id === 'back') {
+      NavActions.dismissModal()
+    }
   }
 
   changePage = page => this.setState({ page })
 
   redirectToEditScreen = (imageID) => {
-    NavActions.push({ screen: 'EditImage', passProps: { _id: imageID, withinReview: true } })
+    NavActions.showModal({
+      screen: 'EditImage',
+      passProps: { _id: imageID, withinReview: true },
+      navigatorButtons: {
+        leftButtons: [{
+          id: 'back',
+          title: 'Back',
+        }],
+        rightButtons: [{
+          id: 'save',
+          title: 'Save',
+        }],
+      },
+    })
+  }
+
+  goToCart = () => {
+    setTimeout(() => {
+      NavActions.push({ screen: 'Cart' })
+      NavActions.dismissModal()
+    }, 10)
   }
 
   render() {
@@ -103,7 +135,7 @@ export default class EditImage extends React.Component {
               onPress: async () => {
                 await cart.createPrintPack()
                 await queue.getQueue()
-                NavActions.resetTo({ screen: 'Cart' })
+                this.goToCart()
               },
             },
           ]}
@@ -119,6 +151,7 @@ EditImage.wrappedComponent.propTypes = {
   }).isRequired,
   navigator: PropTypes.shape({
     setOnNavigatorEvent: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
   }).isRequired,
   queue: PropTypes.shape({
     data: PropTypes.shape({

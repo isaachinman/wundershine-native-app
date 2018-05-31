@@ -156,7 +156,7 @@ export default class ImageQueue extends React.Component {
                 <Text style={styles.packPickerArrow}>&#x25BC;</Text>
               </Button>
               <Button
-                onPress={() => NavActions.push({ screen: 'PackReview' })}
+                onPress={() => NavActions.showModal({ screen: 'PackReview' })}
                 disabled={!queueIsProcessable}
                 transparent
               >

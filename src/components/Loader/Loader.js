@@ -29,7 +29,7 @@ export default class Loader extends React.Component {
       <Modal
         visible={active}
         transparent
-        animationType='fade'
+        animationType='none'
         hardwareAccelerated
         onRequestClose={() => {}}
       >

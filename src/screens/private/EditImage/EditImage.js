@@ -83,6 +83,8 @@ export default class EditImage extends React.Component {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'save') {
         this.saveTransformation()
+      } else if (event.id === 'back') {
+        NavActions.dismissModal()
       }
     }
   }
