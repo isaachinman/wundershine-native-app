@@ -15,32 +15,22 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-## Android
-### android build
+## iOS
+### ios certificates
 ```
-fastlane android build
+fastlane ios certificates
 ```
-Build Release
-### android bump_version
+Fetch certificates and provisioning profiles
+### ios build
 ```
-fastlane android bump_version
+fastlane ios build
 ```
-Bump version number
-### android tag_version
+Build the iOS application
+### ios beta
 ```
-fastlane android tag_version
+fastlane ios beta
 ```
-Tag current version and push to GitHub
-### android bitrise
-```
-fastlane android bitrise
-```
-Bitrise build to Google Play
-### android travis
-```
-fastlane android travis
-```
-Travis build to Google Play
+Ship to Testflight
 
 ----
 
