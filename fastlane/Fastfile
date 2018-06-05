@@ -16,6 +16,7 @@ platform :ios do
   lane :build do
     certificates
     increment_build_number(xcodeproj: './ios/Wundershine.xcodeproj')
+    increment_version_number(xcodeproj: './ios/Wundershine.xcodeproj')
     gym(
       scheme: 'Wundershine',
       workspace: './ios/Wundershine.xcworkspace'
