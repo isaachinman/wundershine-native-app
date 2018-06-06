@@ -37,6 +37,26 @@ platform :android do
 
   # Android Lanes
 
+  desc "Push to GitHub"
+  lane :push_to_github do |options|
+    version = android_get_version_name
+    build = android_get_version_code
+    sh "git checkout master"
+    git_pull
+    git_commit(
+      path: "./app/build.gradle",
+      message: "Version #{version} (build #{build}) [#{options[:ci]}-android]"
+    )
+    add_git_tag(
+      tag: "v#{version}-#{build}-android"
+    )
+    push_to_git_remote(
+      remote_branch: "master",
+      tags: true,
+      force: true
+    )
+  end
+
   desc 'Build the Android application'
   private_lane :build do
     android_set_version_code(
@@ -54,8 +74,7 @@ platform :android do
       track: 'beta',
       track_promote_to: 'beta'
     )
-    git_commit(path: ['./android/gradle.properties'], message: 'Version bump (Android)')
-    push_to_git_remote
+    push_to_github(ci: "bitrise")
   end
 
 end
