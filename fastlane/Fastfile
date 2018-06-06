@@ -49,7 +49,11 @@ platform :android do
   desc 'Ship to Playstore Internal'
   lane :beta do
     build
-    supply(track: 'beta', track_promote_to: 'beta')
+    supply(
+      package_name: 'com.wundershine.app',
+      track: 'beta',
+      track_promote_to: 'beta'
+    )
     git_commit(path: ['./android/gradle.properties'], message: 'Version bump (Android)')
     push_to_git_remote
   end
