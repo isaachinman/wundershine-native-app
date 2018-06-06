@@ -39,8 +39,12 @@ platform :android do
 
   desc "Push to GitHub"
   lane :push_to_github do |options|
-    version = android_get_version_name
-    build = android_get_version_code
+    version = android_get_version_name(
+      gradle_file: 'android/app/build.gradle'
+    )
+    build = android_get_version_code(
+      gradle_file: 'android/app/build.gradle'
+    )
     sh "git checkout master"
     git_pull
     git_commit(
