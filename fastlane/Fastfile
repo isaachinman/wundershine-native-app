@@ -48,7 +48,7 @@ platform :android do
     sh "git checkout master"
     git_pull
     git_commit(
-      path: "./app/build.gradle",
+      path: "android/app/build.gradle",
       message: "Version #{version} (build #{build}) [#{options[:ci]}-android]"
     )
     add_git_tag(
