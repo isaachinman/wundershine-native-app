@@ -1,5 +1,9 @@
 fastlane_version '2.97.0'
 
+project_name = 'Wundershine'
+scheme = project_name'
+path = 'ios/#{project_name}.xcodeproj'
+
 platform :ios do
 
   # iOS Lanes
@@ -10,6 +14,32 @@ platform :ios do
     match(app_identifier: 'com.wundershine.app', type: 'appstore', readonly: true)
     match(app_identifier: 'com.wundershine.app.ShareReceiver', type: 'development', readonly: true)
     match(app_identifier: 'com.wundershine.app.ShareReceiver', type: 'appstore', readonly: true)
+  end
+
+  desc "Push to GitHub"
+  lane :push_to_github do |options|
+    version = get_version_number(
+      xcodeproj: path,
+      target: project_name
+    )
+    build = get_build_number(
+      xcodeproj: path
+    )
+    sh "git checkout master"
+    git_pull
+    commit_version_bump(
+      force: true,
+      xcodeproj: path,
+      message: "Version #{version} (build #{build}) [#{options[:ci]}-ios]"
+    )
+    add_git_tag(
+      tag: "v#{version}-#{build}-ios"
+    )
+    push_to_git_remote(
+      remote_branch: "master",
+      tags: true,
+      force: true
+    )
   end
 
   desc 'Build the iOS application'
@@ -27,8 +57,7 @@ platform :ios do
   lane :beta do
     build
     pilot
-    commit_version_bump(message: 'Version bump (iOS)', xcodeproj: './ios/Wundershine.xcodeproj')
-    push_to_git_remote
+    push_to_github(ci: "bitrise")
   end
 
 end
