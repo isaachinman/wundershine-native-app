@@ -1,19 +1,19 @@
-fastlane_version '2.97.0'
+fastlane_version "2.97.0"
 
-project_name = 'Wundershine'
-scheme = project_name'
-path = 'ios/#{project_name}.xcodeproj'
+project_name = "Wundershine"
+scheme = project_name
+path = "ios/#{project_name}.xcodeproj"
 
 platform :ios do
 
   # iOS Lanes
 
-  desc 'Fetch certificates and provisioning profiles'
+  desc "Fetch certificates and provisioning profiles"
   lane :certificates do
-    match(app_identifier: 'com.wundershine.app', type: 'development', readonly: true)
-    match(app_identifier: 'com.wundershine.app', type: 'appstore', readonly: true)
-    match(app_identifier: 'com.wundershine.app.ShareReceiver', type: 'development', readonly: true)
-    match(app_identifier: 'com.wundershine.app.ShareReceiver', type: 'appstore', readonly: true)
+    match(app_identifier: "com.wundershine.app", type: "development", readonly: true)
+    match(app_identifier: "com.wundershine.app", type: "appstore", readonly: true)
+    match(app_identifier: "com.wundershine.app.ShareReceiver", type: "development", readonly: true)
+    match(app_identifier: "com.wundershine.app.ShareReceiver", type: "appstore", readonly: true)
   end
 
   desc "Push to GitHub"
@@ -42,18 +42,18 @@ platform :ios do
     )
   end
 
-  desc 'Build the iOS application'
+  desc "Build the iOS application"
   lane :build do
     certificates
-    increment_build_number(xcodeproj: './ios/Wundershine.xcodeproj')
-    increment_version_number(xcodeproj: './ios/Wundershine.xcodeproj')
+    increment_build_number(xcodeproj: "./ios/Wundershine.xcodeproj")
+    increment_version_number(xcodeproj: "./ios/Wundershine.xcodeproj")
     gym(
-      scheme: 'Wundershine',
-      workspace: './ios/Wundershine.xcworkspace'
+      scheme: "Wundershine",
+      workspace: "./ios/Wundershine.xcworkspace"
     )
   end
 
-  desc 'Ship to Testflight'
+  desc "Ship to Testflight"
   lane :beta do
     build
     pilot
@@ -69,10 +69,10 @@ platform :android do
   desc "Push to GitHub"
   lane :push_to_github do |options|
     version = android_get_version_name(
-      gradle_file: 'android/app/build.gradle'
+      gradle_file: "android/app/build.gradle"
     )
     build = android_get_version_code(
-      gradle_file: 'android/app/build.gradle'
+      gradle_file: "android/app/build.gradle"
     )
     sh "git checkout master"
     git_pull
@@ -90,22 +90,22 @@ platform :android do
     )
   end
 
-  desc 'Build the Android application'
+  desc "Build the Android application"
   private_lane :build do
     android_set_version_code(
-      gradle_file: 'android/app/build.gradle'
+      gradle_file: "android/app/build.gradle"
     )
-    gradle(task: 'clean', project_dir: 'android/')
-    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+    gradle(task: "clean", project_dir: "android/")
+    gradle(task: "assemble", build_type: "Release", project_dir: "android/")
   end
 
-  desc 'Ship to Playstore Internal'
+  desc "Ship to Playstore Internal"
   lane :beta do
     build
     supply(
-      package_name: 'com.wundershine.app',
-      track: 'beta',
-      track_promote_to: 'beta'
+      package_name: "com.wundershine.app",
+      track: "beta",
+      track_promote_to: "beta"
     )
     push_to_github(ci: "bitrise")
   end
