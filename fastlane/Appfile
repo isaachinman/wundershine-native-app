@@ -1,1 +1,4 @@
 json_key_file "./android/playstore.json"
+app_identifier "com.wundershine.app"
+apple_id "isaac@isaachinman.com"
+team_id "FF2ZA34376"
