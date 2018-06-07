@@ -313,7 +313,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FF2ZA34376;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -323,7 +323,7 @@
 					6A00165B20650B9500EAFA0E = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = FF2ZA34376;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -602,7 +602,7 @@
 				CODE_SIGN_ENTITLEMENTS = Wundershine/Wundershine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = FF2ZA34376;
@@ -618,8 +618,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app;
 				PRODUCT_NAME = Wundershine;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "f37db1a3-8fa9-48c9-93c1-a5a4ff779e23";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wundershine.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -632,7 +632,7 @@
 				CODE_SIGN_ENTITLEMENTS = Wundershine/Wundershine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = FF2ZA34376;
 				INFOPLIST_FILE = Wundershine/Info.plist;
@@ -647,8 +647,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app;
 				PRODUCT_NAME = Wundershine;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "f37db1a3-8fa9-48c9-93c1-a5a4ff779e23";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wundershine.app";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -673,7 +673,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = ShareReceiver/ShareReceiver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FF2ZA34376;
 				ENABLE_TESTABILITY = YES;
@@ -688,6 +688,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app.ShareReceiver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "106ac272-ed6f-4baf-896d-354c59f3aab8";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wundershine.app.ShareReceiver";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -713,7 +715,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = ShareReceiver/ShareReceiver.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FF2ZA34376;
@@ -728,6 +730,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wundershine.app.ShareReceiver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "106ac272-ed6f-4baf-896d-354c59f3aab8";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.wundershine.app.ShareReceiver";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
