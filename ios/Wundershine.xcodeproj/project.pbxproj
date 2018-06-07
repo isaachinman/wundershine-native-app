@@ -269,7 +269,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				6A00166B20650B9600EAFA0E /* Embed App Extensions */,
-				9E222883F3F00ECB311CD258 /* [CP] Embed Pods Frameworks */,
 				86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -290,7 +289,6 @@
 				6A00165820650B9500EAFA0E /* Sources */,
 				6A00165920650B9500EAFA0E /* Frameworks */,
 				6A00165A20650B9500EAFA0E /* Resources */,
-				D50DC879C2B37A593399AE34 /* [CP] Copy Pods Resources */,
 				6A8CC46E2097387E00D75CFF /* ShellScript */,
 			);
 			buildRules = (
@@ -494,36 +492,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9E222883F3F00ECB311CD258 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D50DC879C2B37A593399AE34 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		EA946592A73B595038C3A0DB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -603,7 +571,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 22;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = FF2ZA34376;
 				INFOPLIST_FILE = Wundershine/Info.plist;
@@ -633,7 +601,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = FF2ZA34376;
 				INFOPLIST_FILE = Wundershine/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
