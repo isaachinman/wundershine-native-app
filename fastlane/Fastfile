@@ -55,7 +55,9 @@ platform :ios do
   desc "Ship to Testflight"
   lane :beta do
     build
-    pilot
+    pilot(
+      skip_waiting_for_build_processing: true
+    )
     push_to_github(ci: "bitrise")
   end
 
