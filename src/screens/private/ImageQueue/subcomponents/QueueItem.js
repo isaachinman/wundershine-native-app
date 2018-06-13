@@ -6,6 +6,7 @@ import { AnimatedImage, ListItem } from 'react-native-ui-lib'
 import { pixelScore, transformedImageURI } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
+import { Menu, MenuTrigger, MenuOptions, renderers } from 'react-native-popup-menu'
 import { NavActions } from 'utils/nav'
 
 import Interactable from 'react-native-interactable'
@@ -93,6 +94,17 @@ const styles = {
     marginRight: 5,
     fontSize: 28,
     alignSelf: 'flex-end',
+  },
+  pixelScoreTitle: {
+    ...material.captionObject,
+  },
+  iconPixelScoreLimited: {
+    fontSize: 16,
+    marginLeft: 3,
+    color: blackSecondary,
+  },
+  pixelScoreLimitedText: {
+    padding: 15,
   },
 }
 
@@ -193,7 +205,38 @@ export default class QueueItem extends React.Component {
                     <Text style={styles.importText}>Import in progress...</Text>
                     :
                     <View>
-                      <Text style={material.caption}>{pixelScoreData.title}</Text>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Text style={styles.pixelScoreTitle}>
+                          {pixelScoreData.title}
+                        </Text>
+                        {pixelScoreData.value === 'LIMITED' &&
+                          <Menu
+                            renderer={renderers.Popover}
+                            rendererProps={{
+                              preferredPlacement: 'bottom',
+                              anchorStyle: { backgroundColor: '#ddd' },
+                            }}
+                          >
+                            <MenuTrigger>
+                              <Icon
+                                name='ios-information-circle-outline'
+                                style={styles.iconPixelScoreLimited}
+                              />
+                            </MenuTrigger>
+                            <MenuOptions>
+                              <Text style={styles.pixelScoreLimitedText}>
+                                This is a low resolution image.
+                                Be aware that the image may appear pixelated when printed.
+                                If the image is zoomed into a larger picture, try zooming out
+                                to get more pixels in the selection. If you have received this
+                                image from a friend via a messaging app like Whatsapp, you can ask
+                                your friend to share the original resolution picture as a document
+                                in the messaging app, or via email, or photo cloud service.
+                              </Text>
+                            </MenuOptions>
+                          </Menu>
+                        }
+                      </View>
                       <Text style={material.caption}>
                         {pixelScoreData.width} x {pixelScoreData.height}
                       </Text>

@@ -4,16 +4,19 @@ const PIXEL_SCORES = {
     min: 2000,
     max: Infinity,
     title: 'Plenty of pixels',
+    value: 'PLENTY',
   },
   SUFFICIENT: {
     min: 1000,
     max: 1999,
     title: 'Sufficient pixels',
+    value: 'SUFFICIENT',
   },
   LIMITED: {
     min: -Infinity,
     max: 999,
     title: 'Limited pixels',
+    value: 'LIMITED',
   },
 }
 
