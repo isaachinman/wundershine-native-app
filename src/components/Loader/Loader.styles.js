@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export default {
   absoluteContainer: {
     position: 'absolute',
@@ -5,6 +7,14 @@ export default {
     right: 0,
     bottom: 0,
     left: 0,
+    ...Platform.select({
+      ios: {
+        zIndex: 99999,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
   container: {
     flex: 1,

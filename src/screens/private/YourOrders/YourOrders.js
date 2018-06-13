@@ -36,7 +36,7 @@ export default class YourOrders extends React.Component {
       <Container style={styles.content}>
         <Loader
           contentOnly
-          active
+          active={orders.loading}
         />
         <Content>
           <FlatList

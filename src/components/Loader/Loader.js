@@ -15,13 +15,17 @@ export default class Loader extends React.Component {
 
     if (contentOnly) {
 
-      return (
-        <View style={styles.absoluteContainer}>
-          <View style={styles.container}>
-            <ActivityIndicator size='large' color={whitePrimary} />
+      if (active) {
+        return (
+          <View style={styles.absoluteContainer}>
+            <View style={styles.container}>
+              <ActivityIndicator size='large' color={whitePrimary} />
+            </View>
           </View>
-        </View>
-      )
+        )
+      }
+
+      return null
 
     }
 
