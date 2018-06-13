@@ -29,7 +29,9 @@ export default class CheckoutConfirmation extends React.Component {
     const pendingOrder = await orders
       .createOrder(cart.data._id, user.data.addresses[0]._id, cart.paymentMethodChosen)
     if (pendingOrder.paymentType === 'cc') {
-      NavActions.showModal({ screen: 'OrderProcessing', passProps: { pendingOrderID: pendingOrder._id } })
+      setTimeout(() => {
+        NavActions.showModal({ screen: 'OrderProcessing', passProps: { pendingOrderID: pendingOrder._id } })
+      }, 10)
     } else if (pendingOrder.paymentType === 'ideal') {
       Linking.openURL(pendingOrder.paymentMethodInfo.ideal.redirectURL)
     }
