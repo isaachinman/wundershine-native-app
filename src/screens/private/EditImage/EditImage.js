@@ -8,7 +8,9 @@ import * as Animatable from 'react-native-animatable'
 import { Col, Grid, Row } from 'react-native-easy-grid'
 import { createResponder } from 'react-native-gesture-responder'
 import { Icon, Loader } from 'components'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
+
+import { pixelScore } from 'utils/images'
 
 import { SQUARE } from 'utils/images/aspect-ratios'
 import { SQUARE_FRAME_DIMENSION } from './constants'
@@ -40,6 +42,11 @@ export default class EditImage extends React.Component {
         this[method] = methods[method].bind(this)
       }
     })
+  }
+
+  state = {
+    pixelScoreData: pixelScore(this.props.queue.data.images
+      .find(i => i._id === this.props._id).transformation),
   }
 
   componentWillMount() {
@@ -91,7 +98,7 @@ export default class EditImage extends React.Component {
 
   setGridVisibility = (visibleState) => {
     if (this.borderBox && this.gridOverlay) {
-      const animatables = [this.borderBox, this.gridOverlay]
+      const animatables = [this.borderBox, this.gridOverlay, this.pixelScore]
       if (visibleState === true) {
         clearTimeout(this.hideGridOverlay)
         if (!this.gridActivated) {
@@ -175,11 +182,15 @@ export default class EditImage extends React.Component {
     this.previousLeft = this.xShift
     this.previousTop = this.yShift
     this.transformation = this.getTransformation()
+    this.setState({
+      pixelScoreData: pixelScore(this.transformation),
+    })
   }
 
   render() {
 
     const { _id, queue } = this.props
+    const { pixelScoreData } = this.state
 
     return (
       <View style={styles.content}>
@@ -221,6 +232,22 @@ export default class EditImage extends React.Component {
               style={{ position: 'relative' }}
             />
           </View>
+          <Animatable.View
+            ref={x => this.pixelScore = x}
+            style={styles.pixelScore}
+            pointerEvents='none'
+          >
+            <Text
+              style={styles.pixelScoreDimensions}
+            >
+              {pixelScoreData.width} x {pixelScoreData.height}
+            </Text>
+            <Text
+              style={styles.pixelScoreTitle}
+            >
+              {pixelScoreData.title}
+            </Text>
+          </Animatable.View>
         </View>
         <View style={styles.iconBar}>
 
@@ -267,6 +294,9 @@ EditImage.wrappedComponent.propTypes = {
     setOnNavigatorEvent: PropTypes.func.isRequired,
   }).isRequired,
   queue: PropTypes.shape({
+    data: PropTypes.shape({
+      images: PropTypes.object,
+    }),
     updateImageTransformation: PropTypes.func,
   }).isRequired,
   withinReview: PropTypes.bool.isRequired,

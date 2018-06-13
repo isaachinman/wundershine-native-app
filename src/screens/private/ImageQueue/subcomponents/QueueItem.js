@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
-import { transformedImageURI } from 'utils/images'
+import { pixelScore, transformedImageURI } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 import { NavActions } from 'utils/nav'
@@ -124,7 +124,6 @@ export default class QueueItem extends React.Component {
       loading,
       name,
       notUploadedYet,
-      metaData,
       selected,
       selectImage,
       selectionActionsAllowed,
@@ -150,21 +149,12 @@ export default class QueueItem extends React.Component {
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
     const selectionIconAction = selected ? deselectImage : selectImage
 
-    // Determine origin text
-    let origin = null
-    const { make, model } = metaData
-    if (make && model) {
-      if (new RegExp(`\\b${make.replace(/\s+/g, '|')}\\b`, 'i').test(model)) {
-        origin = model
-      } else {
-        origin = `${make} ${model}`
-      }
-    }
-
     const animatedImageStyle = {
       ...styles.animatedImageStyle,
       resizeMode: uriIsLocal ? 'cover' : 'contain',
     }
+
+    const pixelScoreData = pixelScore(transformation)
 
     return (
       <View>
@@ -203,7 +193,10 @@ export default class QueueItem extends React.Component {
                     <Text style={styles.importText}>Import in progress...</Text>
                     :
                     <View>
-                      <Text style={material.caption}>{origin || 'iPhone X'}</Text>
+                      <Text style={material.caption}>{pixelScoreData.title}</Text>
+                      <Text style={material.caption}>
+                        {pixelScoreData.width} x {pixelScoreData.height}
+                      </Text>
                     </View>
                   }
                 </Col>
@@ -257,11 +250,6 @@ QueueItem.propTypes = {
   loading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
-  metaData: PropTypes.shape({
-    dpi: PropTypes.number,
-    make: PropTypes.string,
-    model: PropTypes.string,
-  }).isRequired,
   selected: PropTypes.bool.isRequired,
   selectionActionsAllowed: PropTypes.bool.isRequired,
   selectImage: PropTypes.func.isRequired,

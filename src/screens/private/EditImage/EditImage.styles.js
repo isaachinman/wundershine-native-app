@@ -1,4 +1,5 @@
-import { blackSecondary, blackTertiary, greyBg, whitePrimary } from 'styles/colours'
+import { blackSecondary, blackTertiary, greyBg, whitePrimary, whiteSecondary } from 'styles/colours'
+import { material } from 'react-native-typography'
 import { SQUARE_FRAME_MARGIN, SQUARE_FRAME_DIMENSION, SQUARE_FRAME_PADDING, SQUARE_FRAME_CHIN } from './constants'
 
 export default {
@@ -86,6 +87,27 @@ export default {
     flex: 1,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.1)',
-
+  },
+  pixelScore: {
+    opacity: 0,
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: (SQUARE_FRAME_CHIN / 2) - 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  pixelScoreDimensions: {
+    ...material.captionObject,
+    color: whiteSecondary,
+    fontSize: 18,
+    lineHeight: 18,
+    marginVertical: 7,
+  },
+  pixelScoreTitle: {
+    ...material.captionObject,
+    color: whiteSecondary,
+    fontSize: 15,
   },
 }
