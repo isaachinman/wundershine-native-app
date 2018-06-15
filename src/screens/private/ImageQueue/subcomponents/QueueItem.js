@@ -200,7 +200,13 @@ export default class QueueItem extends React.Component {
             <ListItem.Part middle column containerStyle={styles.textContainer}>
               <Row>
                 <Col style={styles.titleContainer}>
-                  <Text style={styles.imageTitle}>{name}</Text>
+                  <Text
+                    style={styles.imageTitle}
+                    numberOfLines={2}
+                    ellipsizeMode='middle'
+                  >
+                    {name}
+                  </Text>
                   {notUploadedYet ?
                     <Text style={styles.importText}>Import in progress...</Text>
                     :
