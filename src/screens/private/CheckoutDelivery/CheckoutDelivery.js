@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 
+import { KeyboardAvoidingView, View } from 'react-native'
+
 import { Button, Dropdown, Input } from 'components'
-import { Container, Content } from 'native-base'
+import { Content } from 'native-base'
 import { Col, Row } from 'react-native-easy-grid'
 import getCountries from 'country-list'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { screenUtils, NavActions } from 'utils/nav'
 
@@ -41,11 +42,9 @@ export default class CheckoutDelivery extends React.Component {
     const { addressForm, addressFormIsValid, updateForm } = user
 
     return (
-      <Container>
-        <KeyboardAwareScrollView
-          extraScrollHeight={140}
-          keyboardShouldPersistTaps='handled'
-          contentContainerStyle={{ flex: 1 }}
+      <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
         >
           <Content contentContainerStyle={styles.content}>
             <Row style={styles.row}>
@@ -119,16 +118,16 @@ export default class CheckoutDelivery extends React.Component {
               </Col>
             </Row>
           </Content>
-          <Button
-            onPress={this.handleSave}
-            text={inModal ? 'Update' : 'Next'}
-            disabled={!addressFormIsValid}
-            loading={user.loading}
-            primary
-            full
-          />
-        </KeyboardAwareScrollView>
-      </Container>
+        </KeyboardAvoidingView>
+        <Button
+          onPress={this.handleSave}
+          text={inModal ? 'Update' : 'Next'}
+          disabled={!addressFormIsValid}
+          loading={user.loading}
+          primary
+          full
+        />
+      </View>
     )
   }
 }

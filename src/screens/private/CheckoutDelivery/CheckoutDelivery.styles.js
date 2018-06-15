@@ -3,7 +3,6 @@ import { whitePrimary } from 'styles/colours'
 export default {
   content: {
     paddingHorizontal: 20,
-    flex: 1,
     backgroundColor: whitePrimary,
   },
   row: {
