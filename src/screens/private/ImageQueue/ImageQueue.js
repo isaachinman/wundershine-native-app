@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Body, Button, Container, Header, Left, Right } from 'native-base'
-import { FlatList, RefreshControl, Text, View } from 'react-native'
+import { Dimensions, FlatList, RefreshControl, Text, View } from 'react-native'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { Icon } from 'components'
 import ImagePicker from 'react-native-image-crop-picker'
@@ -34,11 +34,27 @@ export default class ImageQueue extends React.Component {
     navBarHidden: true,
   }
 
-  componentDidUpdate = () => {
+  /*
+    Temporary work around due to difficulty comparing props
+    across renders with MobX:
+    https://stackoverflow.com/questions/37185889/comparing-this-props-prop-and-nextprops-prop-with-mobx
+  */
+  state = { previousLength: this.props.queue.data.images.length }
+
+  componentDidUpdate() {
     /* Upload images automatically */
     const { queue } = this.props
     if (queue.imagesToUpload.length > 0 && !queue.currentlyUploading) {
       queue.uploadImage()
+    }
+    /* Scroll to bottom when new items are added */
+    if (this.state.previousLength < queue.data.images.length) {
+      const queueLength = queue.data.images.length
+      const screenHeight = Dimensions.get('window').height
+      if ((queueLength * QUEUE_ITEM_HEIGHT) + 100 >= screenHeight && this.flatlist) {
+        this.flatlist.scrollToEnd()
+      }
+      this.setState({ previousLength: queue.data.images.length }) // eslint-disable-line
     }
   }
 
@@ -172,6 +188,7 @@ export default class ImageQueue extends React.Component {
             {showErrorUI && <ErrorUI />}
             {showQueueUI &&
               <FlatList
+                ref={x => this.flatlist = x}
                 scrollEventThrottle={1}
                 onLayout={(e) => {
                   const { height } = e.nativeEvent.layout
@@ -265,6 +282,7 @@ ImageQueue.wrappedComponent.propTypes = {
     addImagesToUpload: PropTypes.func,
     currentlyUploading: PropTypes.bool,
     data: PropTypes.shape({
+      images: mobxPropTypes.observableArray,
       square: PropTypes.shape({
         packSelected: PropTypes.string,
         images: mobxPropTypes.observableArray,
