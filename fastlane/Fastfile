@@ -30,7 +30,7 @@ platform :ios do
     commit_version_bump(
       force: true,
       xcodeproj: path,
-      message: "Version #{version} (build #{build}) [#{options[:ci]}-ios]"
+      message: "Version #{version} (build #{build}) [#{options[:ci]}-ios] [skip ci]"
     )
     add_git_tag(
       tag: "v#{version}-#{build}-ios"
@@ -79,7 +79,7 @@ platform :android do
     git_pull
     git_commit(
       path: "android/app/build.gradle",
-      message: "Version #{version} (build #{build}) [#{options[:ci]}-android]"
+      message: "Version #{version} (build #{build}) [#{options[:ci]}-android] [skip ci]"
     )
     add_git_tag(
       tag: "v#{version}-#{build}-android"
