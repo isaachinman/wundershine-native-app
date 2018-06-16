@@ -9,13 +9,12 @@ export default async (_image, queueType) => {
 
   if (Platform.OS === 'ios' && !image.uri.includes('file://')) {
     image.uri = `file://${image.uri}`
+    image.uri = encodeURI(image.uri)
   }
 
   if (Platform.OS === 'android') {
     image.uri = image.uri.replace('file://', '')
   }
-
-  image.uri = encodeURI(image.uri)
 
   const {
     name,
