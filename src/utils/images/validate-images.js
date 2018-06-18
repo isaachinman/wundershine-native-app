@@ -8,6 +8,15 @@ import { createValidatedImage } from 'models'
 
 const MAX_IMAGE_SIZE_MB = 55
 
+export const validationErrors = {
+  FILE_SIZE_TOO_BIG: {
+    value: 'FILE_SIZE_TOO_BIG',
+  },
+  UNSUPPORTED_FORMAT: {
+    value: 'UNSUPPORTED_FORMAT',
+  },
+}
+
 export default async (images) => {
 
   if (images.length === 0) {
@@ -52,9 +61,14 @@ export default async (images) => {
         height: image.height,
       }
 
+      if (image.mime !== 'image/jpeg') {
+        isValid = false
+        error = validationErrors.UNSUPPORTED_FORMAT
+      }
+
       if (image.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
         isValid = false
-        error = 'FILE_SIZE_TOO_BIG'
+        error = validationErrors.FILE_SIZE_TOO_BIG
       }
 
       if (isValid) {
@@ -101,6 +115,11 @@ export default async (images) => {
       if (stats.size > bytes.parse(bytes.parse(`${MAX_IMAGE_SIZE_MB}mb`))) {
         isValid = false
         error = 'FILE_SIZE_TOO_BIG'
+      }
+
+      if (image.type !== 'image/jpeg') {
+        isValid = false
+        error = validationErrors.UNSUPPORTED_FORMAT
       }
 
       // Check image dimensions
