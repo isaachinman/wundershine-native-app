@@ -7,18 +7,15 @@ const ROW_HEIGHT = 60
 export default {
   container: {
     flex: 1,
-    backgroundColor: whitePrimary,
-  },
-  contentContainer: {
-    flex: 1,
-    minHeight: Dimensions.get('window').height - ROW_HEIGHT - 100,
+    backgroundColor: '#fafafa',
   },
   content: {
+    flex: 1,
+    minHeight: Dimensions.get('window').height - ROW_HEIGHT - 100,
     marginBottom: ROW_HEIGHT,
   },
   itemContainer: {
     padding: 20,
-    flex: 1,
   },
   itemRow: {
     flex: 0,

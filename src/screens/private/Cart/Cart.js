@@ -74,11 +74,10 @@ export default class Cart extends React.Component {
       <View style={styles.container}>
         <Loader active={cart.loading} />
         <AddDiscountModal />
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
+        <View
           style={styles.content}
         >
-          <View style={styles.itemContainer}>
+          <ScrollView contentContainerStyle={styles.itemContainer}>
             {cart.data.items.map((item) => {
               const product = coreData.products[item.sku]
               return (
@@ -132,7 +131,7 @@ export default class Cart extends React.Component {
                 </Row>
               )
             })}
-          </View>
+          </ScrollView>
 
           <Row style={styles.pricingRow}>
             <Col>
@@ -201,7 +200,7 @@ export default class Cart extends React.Component {
             </Col>
           </Row>
 
-        </ScrollView>
+        </View>
         <View style={styles.actionBar}>
           <TouchableOpacity
             onPress={this.returnToImageQueue}
