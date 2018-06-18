@@ -56,14 +56,11 @@ export default {
         elevation: 5,
       },
     }),
-
-    // top: 0,
-    // left: 0,
     position: 'absolute',
   },
   ink: {
     flex: 1,
-    resizeMode: 'center',
+    resizeMode: 'contain',
   },
   pageControlContainer: {
     flex: 1,
