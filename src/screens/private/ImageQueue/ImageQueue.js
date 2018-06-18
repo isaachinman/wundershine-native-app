@@ -39,22 +39,26 @@ export default class ImageQueue extends React.Component {
     across renders with MobX:
     https://stackoverflow.com/questions/37185889/comparing-this-props-prop-and-nextprops-prop-with-mobx
   */
-  state = { previousLength: this.props.queue.data.images.length }
+  state = { didScrollToBottom: false }
 
   componentDidUpdate() {
     /* Upload images automatically */
     const { queue } = this.props
+    const { didScrollToBottom } = this.state
     if (queue.imagesToUpload.length > 0 && !queue.currentlyUploading) {
       queue.uploadImage()
-    }
-    /* Scroll to bottom when new items are added */
-    if (this.state.previousLength < queue.data.images.length) {
-      const queueLength = queue.data.images.length
-      const screenHeight = Dimensions.get('window').height
-      if ((queueLength * QUEUE_ITEM_HEIGHT) + 100 >= screenHeight && this.flatlist) {
-        this.flatlist.scrollToEnd()
+
+      /* Scroll to bottom when new items are added */
+      if (!didScrollToBottom) {
+        const queueLength = queue.data.images.length
+        const screenHeight = Dimensions.get('window').height
+        if ((queueLength * QUEUE_ITEM_HEIGHT) + 100 >= screenHeight && this.flatlist) {
+          this.flatlist.scrollToEnd()
+        }
+        this.setState({ didScrollToBottom: true }) // eslint-disable-line
       }
-      this.setState({ previousLength: queue.data.images.length }) // eslint-disable-line
+    } else if (queue.imagesToUpload.length === 0 && didScrollToBottom) {
+      this.setState({ didScrollToBottom: false }) // eslint-disable-line
     }
   }
 
