@@ -7,7 +7,7 @@ import { screenUtils, NavActions } from 'utils/nav'
 import { transformedImageURI } from 'utils/images'
 
 import { ActionBar, AnimatedImage, Carousel, PageControl } from 'react-native-ui-lib'
-import { ActivityIndicator, Image, View } from 'react-native'
+import { ActivityIndicator, Image, TouchableWithoutFeedback, View } from 'react-native'
 
 import { blackTertiary, whiteSecondary } from 'styles/colours'
 
@@ -98,20 +98,26 @@ export default class EditImage extends React.Component {
               const uri = transformedImageURI(image)
               return (
                 <View key={image._id}>
-                  <View style={styles.frameContainer}>
-                    <Image
-                      source={squareFrameReviewImage}
-                      style={styles.frame}
-                    />
-                  </View>
-                  <AnimatedImage
-                    key={`pack-review-${uri}`}
-                    containerStyle={styles.print}
-                    imageStyle={styles.ink}
-                    imageSource={{ uri }}
-                    loader={<ActivityIndicator color={whiteSecondary} />}
-                    animationDuration={200}
-                  />
+                  <TouchableWithoutFeedback
+                    onPress={() => this.redirectToEditScreen(image._id)}
+                  >
+                    <View>
+                      <View style={styles.frameContainer}>
+                        <Image
+                          source={squareFrameReviewImage}
+                          style={styles.frame}
+                        />
+                      </View>
+                      <AnimatedImage
+                        key={`pack-review-${uri}`}
+                        containerStyle={styles.print}
+                        imageStyle={styles.ink}
+                        imageSource={{ uri }}
+                        loader={<ActivityIndicator color={whiteSecondary} />}
+                        animationDuration={200}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
                 </View>
               )
             })}
