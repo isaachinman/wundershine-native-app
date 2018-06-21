@@ -57,6 +57,16 @@ class CartStore {
     return false
   }
 
+  @computed
+  get cartIsProcessable() {
+    const validAddress = UserStore.addressFormIsValid
+    let validPayment = this.paymentMethodIsValid
+    if (this.data.totalPrice === 0) {
+      validPayment = true
+    }
+    return validAddress && validPayment
+  }
+
   @action
   setDefaultPaymentMethod = () => {
     const { paymentMethods } = UserStore.data

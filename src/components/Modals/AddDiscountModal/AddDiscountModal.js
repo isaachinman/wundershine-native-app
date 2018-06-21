@@ -99,7 +99,7 @@ export default class AddDiscountModal extends React.Component {
 /* eslint-disable react/no-typos */
 AddDiscountModal.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
-    data: mobxPropTypes.observableMap,
+    data: PropTypes.shape(),
   }).isRequired,
   ui: PropTypes.shape({
     data: mobxPropTypes.observableMap,

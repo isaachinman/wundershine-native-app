@@ -51,6 +51,8 @@ export default class CheckoutConfirmation extends React.Component {
       const chosenCreditCard = user.data.paymentMethods.creditCards
         .find(c => c._id === cart.paymentMethodChosen.id)
       paymentLabel = `•••• •••• •••• ${chosenCreditCard.last4}`
+    } else if (cart.data.totalPrice === 0) {
+      paymentLabel = 'N/A'
     }
 
     return (
@@ -206,7 +208,7 @@ export default class CheckoutConfirmation extends React.Component {
           onPress={this.processOrder}
           icon='md-lock'
           text='Complete order'
-          disabled={!cart.paymentMethodIsValid}
+          disabled={!cart.cartIsProcessable}
           primary
           full
         />

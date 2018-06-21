@@ -15,7 +15,7 @@ import styles from './CheckoutDelivery.styles'
 
 const countries = getCountries()
 
-@inject('coreData', 'user')
+@inject('cart', 'coreData', 'user')
 @screenUtils
 @observer
 export default class CheckoutDelivery extends React.Component {
@@ -23,11 +23,13 @@ export default class CheckoutDelivery extends React.Component {
   static screenTitle = 'Delivery address'
 
   handleSave = async () => {
-    const { inModal, user } = this.props
+    const { cart, inModal, user } = this.props
     try {
       await user.updateAddresses({ toast: false })
       if (inModal) {
         NavActions.dismissModal()
+      } else if (cart.data.totalPrice === 0) {
+        NavActions.push({ screen: 'CheckoutConfirmation' })
       } else {
         NavActions.push({ screen: 'CheckoutPayment' })
       }
@@ -138,6 +140,9 @@ CheckoutDelivery.defaultProps = {
 
 /* eslint-disable react/no-typos */
 CheckoutDelivery.wrappedComponent.propTypes = {
+  cart: PropTypes.shape({
+    data: PropTypes.shape(),
+  }).isRequired,
   coreData: PropTypes.shape({
     settings: PropTypes.shape({
       shippableCountries: mobxPropTypes.observableArray.isRequired,
