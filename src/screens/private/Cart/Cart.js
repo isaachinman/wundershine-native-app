@@ -199,21 +199,20 @@ export default class Cart extends React.Component {
               </Text>
             </Col>
           </Row>
-
-        </View>
-        <View style={styles.actionBar}>
-          <TouchableOpacity
-            onPress={this.returnToImageQueue}
-            style={styles.actionBarAddPack}
-          >
-            <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.goToCheckout}
-            style={styles.actionBarCheckout}
-          >
-            <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>
-          </TouchableOpacity>
+          <View style={styles.actionBar}>
+            <TouchableOpacity
+              onPress={this.returnToImageQueue}
+              style={styles.actionBarAddPack}
+            >
+              <Text style={styles.actionBarAddPackText}>ADD A PACK</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.goToCheckout}
+              style={styles.actionBarCheckout}
+            >
+              <Text style={styles.actionBarCheckoutText}>CHECKOUT</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     )

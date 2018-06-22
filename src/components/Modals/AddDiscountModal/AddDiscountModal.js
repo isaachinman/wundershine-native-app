@@ -5,7 +5,8 @@ import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { screenUtils } from 'utils/nav'
 
 import { Button, Input } from 'components'
-import { Text, TouchableWithoutFeedback, Modal, View } from 'react-native'
+import { Text, View } from 'react-native'
+import Modal from 'react-native-modal'
 
 import styles from './AddDiscountModal.styles'
 
@@ -44,53 +45,47 @@ export default class AddDiscountModal extends React.Component {
 
     return (
       <Modal
-        visible={ui.modals.addDiscount.open}
-        onRequestClose={this.handleClose}
-        animationType='fade'
-        hardwareAccelerated
-        transparent
+        isVisible={ui.modals.addDiscount.open}
+        onBackButtonPress={this.handleClose}
+        onBackdropPress={this.handleClose}
+        avoidKeyboard
+        useNativeDriver
       >
-        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={this.handleClose}>
-          <View
-            style={styles.bg}
-          >
-            <TouchableWithoutFeedback>
-              <View style={styles.container}>
-                <View style={styles.contentContainer}>
-                  <Text style={styles.title}>
-                    Discount code
-                  </Text>
-                  <View style={{ height: 50 }}>
-                    <Input
-                      placeholder='Enter discount code'
-                      onChangeText={t => updateForm('discountCode', 'discountCode', t)}
-                      value={discountCodeForm.discountCode}
-                    />
-                  </View>
-                  {cart.discountCodeError ?
-                    <Text style={styles.errorText}>
-                      {cart.discountCodeError}
-                    </Text>
-                    :
-                    <Text style={styles.description}>
-                      All Reframe purchases come with a coupon for a free
-                      5-Pack of prints, including worldwide shipping.
-                    </Text>
-                  }
-                </View>
-                <Button
-                  onPress={this.applyDiscount}
-                  text='Redeem'
-                  full
-                  primary
-                  loading={cart.loading}
-                  disabled={!discountCodeFormIsValid}
-                  style={styles.button}
+        <View style={styles.modalContentContainer}>
+          <View style={styles.container}>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>
+                Discount code
+              </Text>
+              <View style={{ height: 50 }}>
+                <Input
+                  placeholder='Enter discount code'
+                  onChangeText={t => updateForm('discountCode', 'discountCode', t)}
+                  value={discountCodeForm.discountCode}
                 />
               </View>
-            </TouchableWithoutFeedback>
+              {cart.discountCodeError ?
+                <Text style={styles.errorText}>
+                  {cart.discountCodeError}
+                </Text>
+                :
+                <Text style={styles.description}>
+                  All Reframe purchases come with a coupon for a free
+                  5-Pack of prints, including worldwide shipping.
+                </Text>
+              }
+            </View>
+            <Button
+              onPress={this.applyDiscount}
+              text='Redeem'
+              full
+              primary
+              loading={cart.loading}
+              disabled={!discountCodeFormIsValid}
+              style={styles.button}
+            />
           </View>
-        </TouchableWithoutFeedback>
+        </View>
       </Modal>
     )
   }

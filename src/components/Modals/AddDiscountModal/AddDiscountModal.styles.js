@@ -8,15 +8,13 @@ const LIGHTBOX_HEIGHT = 300
 
 
 export default {
-  bg: {
-    flex: 1,
-    backgroundColor: 'rgba(50,50,50,0.5)',
+  modalContentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     width: Dimensions.get('window').width - (LIGHTBOX_MARGIN * 2),
     maxHeight: LIGHTBOX_HEIGHT,
-    marginVertical: 100,
-    marginHorizontal: LIGHTBOX_MARGIN,
     borderRadius: BORDER_RADIUS,
     flex: 0,
     flexDirection: 'column',

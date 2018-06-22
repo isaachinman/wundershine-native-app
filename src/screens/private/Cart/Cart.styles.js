@@ -12,7 +12,6 @@ export default {
   content: {
     flex: 1,
     minHeight: Dimensions.get('window').height - ROW_HEIGHT - 100,
-    marginBottom: ROW_HEIGHT,
   },
   itemContainer: {
     padding: 20,
@@ -92,10 +91,6 @@ export default {
     color: blackPrimary,
   },
   actionBar: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
     height: ROW_HEIGHT,
     borderTopWidth: 1,
     borderTopColor: greyAccent,
