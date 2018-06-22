@@ -25,7 +25,7 @@ export default class ShippingDetails extends React.Component {
   handleSave = async () => {
     const { user } = this.props
     try {
-      await user.updateAddresses()
+      await user.updateAddresses({ toast: true })
       NavActions.pop()
     } catch (error) {
       // Handle update error here

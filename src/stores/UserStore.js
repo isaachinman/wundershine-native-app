@@ -50,7 +50,7 @@ class UserStore {
   setLoading = bool => this.loading = bool
 
   @action
-  updateForm = (form, field, value) => this[`${form}Form`][field] = value
+  updateForm = (form, field, value) => this[`${form}Form`][field] = value || null
 
   @action
   getUser = async () => {
@@ -104,7 +104,7 @@ class UserStore {
   }
 
   @action
-  updateAddresses = async (options) => {
+  updateAddresses = async (options = {}) => {
 
     if (equal(this.data.addresses.toJS(), [this.addressForm])) {
       return
