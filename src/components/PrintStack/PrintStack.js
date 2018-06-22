@@ -10,10 +10,11 @@ export default class PrintStack extends React.Component {
   render() {
 
     const { images } = this.props
+    const firstFive = images.slice(0, 5)
     return (
       <View style={styles.container}>
         <View style={styles.offsetAdjuster}>
-          {images.map((image, index) => (
+          {firstFive.map((image, index) => (
             <Print
               key={`print-${image._id}`}
               image={image}
