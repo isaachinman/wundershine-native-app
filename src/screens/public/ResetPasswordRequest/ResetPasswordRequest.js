@@ -5,6 +5,7 @@ import { mainWithFooter } from 'styles/layouts'
 
 import { inject, observer } from 'mobx-react'
 import { Button, Input } from 'components'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { material } from 'react-native-typography'
 
 @inject('auth')
@@ -21,7 +22,11 @@ export default class ResetPasswordRequest extends React.Component {
     } = this.props.auth
 
     return (
-      <View style={mainWithFooter.container}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={mainWithFooter.container}
+        extraScrollHeight={140}
+        keyboardShouldPersistTaps='handled'
+      >
         <View style={mainWithFooter.main}>
           <Text style={material.display1}>Request Password Reset</Text>
         </View>
@@ -43,7 +48,7 @@ export default class ResetPasswordRequest extends React.Component {
             style={{ marginTop: 25 }}
           />
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     )
   }
 }
