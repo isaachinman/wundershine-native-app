@@ -28,7 +28,7 @@ export default class CheckoutConfirmation extends React.Component {
     const { cart, orders, user } = this.props
     const pendingOrder = await orders
       .createOrder(cart.data._id, user.data.addresses[0]._id, cart.paymentMethodChosen)
-    if (pendingOrder.paymentType === 'cc') {
+    if (pendingOrder.paymentType === 'cc' || pendingOrder.paymentType === 'none') {
       setTimeout(() => {
         NavActions.showModal({ screen: 'OrderProcessing', passProps: { pendingOrderID: pendingOrder._id } })
       }, 10)

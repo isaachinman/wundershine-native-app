@@ -68,6 +68,14 @@ class CartStore {
   }
 
   @action
+  mergeIntoLocalData = (data) => {
+    this.data = data
+    if (this.data.totalPrice === 0) {
+      this.paymentMethodChosen.type = 'none'
+    }
+  }
+
+  @action
   setDefaultPaymentMethod = () => {
     const { paymentMethods } = UserStore.data
 
@@ -90,7 +98,7 @@ class CartStore {
     this.setLoading(true)
     try {
       const res = await apiRequest({ url: '/pv/cart' })
-      runInAction(() => this.data = res.data)
+      this.mergeIntoLocalData(res.data)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -108,7 +116,7 @@ class CartStore {
         url: '/pv/printpack/create',
         data: { queueType, images },
       })
-      runInAction(() => this.data = res.data.cart)
+      this.mergeIntoLocalData(res.data.cart)
     } catch (error) {
       // Throw error back to EditImage screen
       throw error
@@ -123,7 +131,7 @@ class CartStore {
 
       // Delete pack
       const res = await apiRequest({ url: '/pv/printpack/delete', data: { printpackIDs } })
-      runInAction(() => this.data = res.data.cart)
+      this.mergeIntoLocalData(res.data.cart)
       QueueStore.mergeIntoLocalData(res.data.queues[QueueStore.queueType], true)
 
     } catch (error) {
@@ -141,7 +149,7 @@ class CartStore {
         url: `/pv/cart/change-quantity/${itemID}`,
         data: { quantity },
       })
-      runInAction(() => this.data = res.data)
+      this.mergeIntoLocalData(res.data)
     } catch (error) {
       // Handle error
     }
@@ -156,7 +164,7 @@ class CartStore {
         url: '/pv/cart/apply-discount',
         data: { discountCode: this.discountCodeForm.discountCode },
       })
-      runInAction(() => this.data = res.data)
+      this.mergeIntoLocalData(res.data)
     } catch (error) {
       // Handle error
       if (error.response && error.response.data && error.response.data.error) {
@@ -173,7 +181,7 @@ class CartStore {
     this.setLoading(true)
     try {
       const res = await apiRequest({ url: '/pv/cart/remove-discount', method: 'POST' })
-      runInAction(() => this.data = res.data)
+      this.mergeIntoLocalData(res.data)
     } catch (error) {
       // Handle error
     }
