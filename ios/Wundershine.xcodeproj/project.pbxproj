@@ -270,6 +270,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				6A00166B20650B9600EAFA0E /* Embed App Extensions */,
 				86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */,
+				C06F92C24B6753AB57D178A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,6 +291,7 @@
 				6A00165920650B9500EAFA0E /* Frameworks */,
 				6A00165A20650B9500EAFA0E /* Resources */,
 				6A8CC46E2097387E00D75CFF /* ShellScript */,
+				D053980C1153A5F0E0C29C4E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -490,6 +492,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C06F92C24B6753AB57D178A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D053980C1153A5F0E0C29C4E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EA946592A73B595038C3A0DB /* [CP] Check Pods Manifest.lock */ = {

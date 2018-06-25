@@ -8,7 +8,12 @@ import stripe from 'tipsi-stripe'
 
 import 'utils/react-native/yellowbox'
 
-stripe.setOptions({ publishableKey: config.STRIPE_PUBLISHABLE_KEY });
+try {
+  stripe.setOptions({ publishableKey: config.STRIPE_PUBLISHABLE_KEY })
+} catch (e) {
+  // Handle error
+}
+
 
 (async () => {
 
