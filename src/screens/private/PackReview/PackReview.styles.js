@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 
-import { blackTertiary, greyBg } from 'styles/colours'
+import { greyBg } from 'styles/colours'
 import {
   SQUARE_REVIEW_FRAME_DIMENSION,
   SQUARE_REVIEW_FRAME_MARGIN,
@@ -20,27 +20,16 @@ export default {
   frame: {
     width: SQUARE_REVIEW_FRAME_DIMENSION,
     height: SQUARE_REVIEW_FRAME_DIMENSION,
-    zIndex: 2,
-    shadowColor: blackTertiary,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    ...Platform.select({
+      ios: {
+        zIndex: 2,
+      },
+    }),
   },
   frameContainer: {
     flex: 0,
     margin: SQUARE_REVIEW_FRAME_MARGIN,
     backgroundColor: greyBg,
-    ...Platform.select({
-      ios: {
-        shadowColor: blackTertiary,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
   },
   print: {
     width: SQUARE_REVIEW_PRINT_DIMENSION,
@@ -51,9 +40,6 @@ export default {
     ...Platform.select({
       ios: {
         zIndex: 1,
-      },
-      android: {
-        elevation: 5,
       },
     }),
     position: 'absolute',
