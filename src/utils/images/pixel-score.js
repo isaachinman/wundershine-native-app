@@ -38,7 +38,7 @@ export default (transformation) => {
     width,
     height,
     ...Object.values(PIXEL_SCORES).find(scoreRange =>
-      largestDimension > scoreRange.min && largestDimension <= scoreRange.max),
+      largestDimension >= scoreRange.min && largestDimension <= scoreRange.max),
   }
 
 }
