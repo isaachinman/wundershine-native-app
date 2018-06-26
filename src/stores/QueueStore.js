@@ -65,6 +65,7 @@ class QueueStore {
       images: [
         ...data.selectedImages.map(x => ({ ...x, selected: true })),
         ...data.deselectedImages.map(x => ({ ...x, selected: false })),
+        ...this.imagesToUpload,
       ],
     }
   }
