@@ -13,8 +13,8 @@ export default (image, _options) => {
 
   if (options.thumbnail && options.thumbnailWidth && options.thumbnailHeight) {
     secondaryTransformation = {
-      width: options.thumbnailWidth,
-      height: options.thumbnailHeight,
+      width: Math.round(options.thumbnailWidth),
+      height: Math.round(options.thumbnailHeight),
       crop: 'thumb',
     }
   }

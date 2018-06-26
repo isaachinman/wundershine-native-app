@@ -12,6 +12,8 @@ import { ActivityIndicator, Image, TouchableWithoutFeedback, View } from 'react-
 import { blackTertiary, whiteSecondary } from 'styles/colours'
 
 import squareFrameReviewImage from 'images/square_frame_review.png'
+
+import { SQUARE_REVIEW_PRINT_DIMENSION } from './constants'
 import styles from './PackReview.styles'
 
 @inject('cart', 'queue', 'ui')
@@ -95,7 +97,11 @@ export default class EditImage extends React.Component {
             onChangePage={this.changePage}
           >
             {selectedImages.map((image) => {
-              const uri = transformedImageURI(image)
+              const uri = transformedImageURI(image, {
+                thumbnail: true,
+                thumbnailWidth: SQUARE_REVIEW_PRINT_DIMENSION * 2,
+                thumbnailHeight: SQUARE_REVIEW_PRINT_DIMENSION * 2,
+              })
               return (
                 <View key={image._id}>
                   <TouchableWithoutFeedback
