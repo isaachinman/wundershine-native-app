@@ -1,4 +1,4 @@
-import { blue, red, greyBg, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
+import { blue, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
 
 export default {
   header: {
@@ -8,11 +8,7 @@ export default {
     color: blackPrimary,
   },
   content: {
-    backgroundColor: greyBg,
-    flex: 1,
-  },
-  greyBg: {
-    backgroundColor: greyBg,
+    paddingTop: 50,
   },
   iconLarge: {
     color: blue,
@@ -34,6 +30,6 @@ export default {
     borderBottomWidth: 1,
     borderBottomColor: '#C4C4C4',
     display: 'flex',
-    justifyContent: 'center',
+    paddingHorizontal: 30,
   },
 }

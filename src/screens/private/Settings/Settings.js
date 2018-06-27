@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Container, Content, Text } from 'native-base'
-import { Icon } from 'components'
-import { FlatList, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { ListItem } from 'react-native-ui-lib'
 import { NavActions, screenUtils } from 'utils/nav'
 import { observer, inject } from 'mobx-react'
@@ -17,19 +16,16 @@ const routes = [
     screenName: 'PersonalDetails',
     key: 'PersonalDetails',
     displayName: 'Personal details',
-    icon: 'ios-contact-outline',
   },
   {
     screenName: 'ShippingAddress',
     key: 'ShippingAddress',
     displayName: 'Shipping address',
-    icon: 'ios-cube-outline',
   },
   {
     screenName: 'PaymentMethods',
     key: 'PaymentMethods',
     displayName: 'Payment methods',
-    icon: 'ios-card-outline',
   },
 ]
 
@@ -48,36 +44,23 @@ export default class Settings extends React.Component {
             data={routes}
             renderItem={({ item }) => (
               <ListItem
-                style={styles.greyBg}
                 activeBackgroundColor={greyAccent}
-                height={100}
+                height={70}
                 onPress={() => NavActions.push({ screen: item.screenName })}
               >
-                <ListItem.Part left>
-                  <Icon name={item.icon} style={styles.iconLarge} />
-                </ListItem.Part>
                 <ListItem.Part middle containerStyle={styles.listItemText}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={material.title}>{item.displayName}</Text>
-                  </View>
-                  <Icon name='ios-arrow-forward' style={styles.iconArrow} />
+                  <Text style={material.title}>{item.displayName}</Text>
                 </ListItem.Part>
               </ListItem>
             )}
           />
           <ListItem
-            style={styles.greyBg}
             activeBackgroundColor={greyAccent}
-            height={100}
+            height={70}
             onPress={() => this.props.auth.logout()}
           >
-            <ListItem.Part left>
-              <Icon name='ios-log-out' style={styles.iconLogout} />
-            </ListItem.Part>
             <ListItem.Part middle containerStyle={styles.listItemText}>
-              <View style={{ flex: 1 }}>
-                <Text style={material.title}>Logout</Text>
-              </View>
+              <Text style={material.title}>Logout</Text>
             </ListItem.Part>
           </ListItem>
         </Content>
