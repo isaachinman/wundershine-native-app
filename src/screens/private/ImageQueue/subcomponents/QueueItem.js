@@ -29,6 +29,7 @@ const styles = {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
     position: 'absolute',
+    left: QUEUE_ITEM_PADDING,
     backgroundColor: 'rgba(0,0,0,0.4)',
     display: 'flex',
     justifyContent: 'center',
