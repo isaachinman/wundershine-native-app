@@ -125,6 +125,17 @@ export default class QueueItem extends React.Component {
     action()
   }
 
+  displayDeselectionAlert = async () => {
+    Alert.alert(
+      'Deselecting images',
+      'Only when you have more pictures in your queue than in the selected pack, can you deselect and reselect images for your pack.',
+      [
+        { text: 'OK' },
+      ],
+      { cancelable: false },
+    )
+  }
+
   displayLimitedPixelAlert = async () => {
     Alert.alert(
       'Limited resolution',
@@ -249,8 +260,9 @@ export default class QueueItem extends React.Component {
                     </View>
                     :
                     <TouchableOpacity
-                      disabled={!selectionActionsAllowed}
-                      onPress={() => selectionIconAction(_id)}
+                      onPress={selectionActionsAllowed ?
+                        () => selectionIconAction(_id) :
+                        () => this.displayDeselectionAlert()}
                     >
                       <Icon name={selectionIcon} style={selectionIconStyle} />
                     </TouchableOpacity>
