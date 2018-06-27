@@ -135,10 +135,7 @@ export default class QueueItem extends React.Component {
     Alert.alert(
       'Deselecting images',
       'Only when you have more pictures in your queue than in the selected pack, can you deselect and reselect images for your pack.',
-      [
-        { text: 'OK' },
-      ],
-      { cancelable: false },
+      [{ text: 'Close' }],
     )
   }
 
@@ -146,10 +143,7 @@ export default class QueueItem extends React.Component {
     Alert.alert(
       'Limited resolution',
       'This is a low resolution image. Be aware that image may appear pixelated when printed. If the image is zoomed into a larger picture, try zooming out to get more pixels in the selection. If you have received this image from a friend via messaging app, you can ask your friend to share the original resolution picture as a document in the messaging app, or via email or photo cloud service.',
-      [
-        { text: 'OK' },
-      ],
-      { cancelable: false },
+      [{ text: 'Close' }],
     )
   }
 
