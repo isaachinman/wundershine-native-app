@@ -13,7 +13,7 @@ const styles = {
     height: QUEUE_ITEM_HEIGHT + 1,
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: greyAccent,
+    borderBottomColor: '#ddd',
   },
   placeholder: {
     height: 8,

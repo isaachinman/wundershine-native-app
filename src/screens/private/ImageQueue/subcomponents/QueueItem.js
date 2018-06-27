@@ -10,8 +10,8 @@ import { NavActions } from 'utils/nav'
 
 import Interactable from 'react-native-interactable'
 
-import { blackSecondary, greyAccent, whiteSecondary } from 'styles/colours'
-import { material } from 'react-native-typography'
+import { blackSecondary, blackTertiary, greyAccent, whiteSecondary } from 'styles/colours'
+import { material, systemWeights } from 'react-native-typography'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
 
@@ -19,8 +19,11 @@ const styles = {
   container: {
     minHeight: QUEUE_ITEM_HEIGHT,
     borderBottomWidth: 1,
-    borderBottomColor: greyAccent,
+    borderBottomColor: '#ddd',
     justifyContent: 'center',
+  },
+  titleContainer: {
+    marginRight: 30,
   },
   textContainer: {
     paddingLeft: QUEUE_ITEM_PADDING,
@@ -37,9 +40,10 @@ const styles = {
   },
   imageTitle: {
     ...material.titleObject,
-    fontSize: 16,
+    ...systemWeights.regular,
+    fontSize: 15,
     lineHeight: 20,
-    marginBottom: 10,
+    marginVertical: 5,
   },
   importText: {
     ...material.captionObject,
@@ -102,6 +106,9 @@ const styles = {
   },
   pixelScoreTitle: {
     ...material.captionObject,
+    color: blackTertiary,
+    fontSize: 15,
+    lineHeight: 15 * 1.35,
   },
   iconPixelScoreLimited: {
     fontSize: 16,
@@ -247,7 +254,7 @@ export default class QueueItem extends React.Component {
                           </TouchableOpacity>
                         }
                       </View>
-                      <Text style={material.caption}>
+                      <Text style={styles.pixelScoreTitle}>
                         {pixelScoreData.width} x {pixelScoreData.height}
                       </Text>
                     </View>
