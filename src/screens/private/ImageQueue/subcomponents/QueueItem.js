@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Text, TouchableOpacity, View } from 'react-native'
 import { AnimatedImage, ListItem } from 'react-native-ui-lib'
 import { pixelScore, transformedImageURI } from 'utils/images'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
-import { Menu, MenuTrigger, MenuOptions, renderers } from 'react-native-popup-menu'
 import { NavActions } from 'utils/nav'
 
 import Interactable from 'react-native-interactable'
@@ -126,6 +125,17 @@ export default class QueueItem extends React.Component {
     action()
   }
 
+  displayLimitedPixelAlert = async () => {
+    Alert.alert(
+      'Limited resolution',
+      'This is a low resolution image. Be aware that image may appear pixelated when printed. If the image is zoomed into a larger picture, try zooming out to get more pixels in the selection. If you have received this image from a friend via messaging app, you can ask your friend to share the original resolution picture as a document in the messaging app, or via email or photo cloud service.',
+      [
+        { text: 'OK' },
+      ],
+      { cancelable: false },
+    )
+  }
+
   render() {
 
     const {
@@ -216,31 +226,14 @@ export default class QueueItem extends React.Component {
                           {pixelScoreData.title}
                         </Text>
                         {pixelScoreData.value === 'LIMITED' &&
-                          <Menu
-                            renderer={renderers.Popover}
-                            rendererProps={{
-                              preferredPlacement: 'bottom',
-                              anchorStyle: { backgroundColor: '#ddd' },
-                            }}
+                          <TouchableOpacity
+                            onPress={() => this.displayLimitedPixelAlert()}
                           >
-                            <MenuTrigger>
-                              <Icon
-                                name='ios-information-circle-outline'
-                                style={styles.iconPixelScoreLimited}
-                              />
-                            </MenuTrigger>
-                            <MenuOptions>
-                              <Text style={styles.pixelScoreLimitedText}>
-                                This is a low resolution image.
-                                Be aware that the image may appear pixelated when printed.
-                                If the image is zoomed into a larger picture, try zooming out
-                                to get more pixels in the selection. If you have received this
-                                image from a friend via a messaging app like Whatsapp, you can ask
-                                your friend to share the original resolution picture as a document
-                                in the messaging app, or via email, or photo cloud service.
-                              </Text>
-                            </MenuOptions>
-                          </Menu>
+                            <Icon
+                              name='ios-information-circle-outline'
+                              style={styles.iconPixelScoreLimited}
+                            />
+                          </TouchableOpacity>
                         }
                       </View>
                       <Text style={material.caption}>
