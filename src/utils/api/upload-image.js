@@ -52,7 +52,7 @@ export default async (_image, queueType) => {
     },
     // Android-only options
     notification: {
-      enabled: true,
+      enabled: false,
     },
   }
 
