@@ -1,6 +1,7 @@
 import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
+import { verticalScale } from 'utils/fonts/scaled-font'
 
 import { QUEUE_PADDING_BOTTOM } from './constants'
 
@@ -44,22 +45,27 @@ export default {
   },
   heading: {
     ...material.headlineObject,
+    fontSize: verticalScale(22),
     color: '#616161',
   },
   subheading: {
     ...material.subheadingObject,
     color: whiteTertiary,
     textAlign: 'center',
-    margin: 20,
+    fontSize: verticalScale(15),
+    lineHeight: verticalScale(15) * 1.5,
+    marginVertical: verticalScale(15),
+    marginHorizontal: 30,
   },
   emptyUIContainer: {
     flex: 1,
+    marginTop: 30,
     justifyContent: 'center',
     alignItems: 'center',
   },
   emptyQueueArrow: {
-    height: 180 * sizingFactor,
-    width: 30 * sizingFactor,
+    height: 130 * sizingFactor,
+    width: 20 * sizingFactor,
   },
   errorUIContainer: {
     flex: 1,
