@@ -58,7 +58,14 @@ class QueueStore {
   @action
   mergeIntoLocalData = (data, animate = false) => {
     if (animate) {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      LayoutAnimation.configureNext({
+        duration: 200,
+        create: {
+          type: LayoutAnimation.Types.easeInEaseOut,
+          property: LayoutAnimation.Properties.opacity,
+        },
+        update: { type: LayoutAnimation.Types.easeInEaseOut },
+      })
     }
     this.data = {
       packSelected: data.packSelected,
