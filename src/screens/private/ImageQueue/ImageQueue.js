@@ -170,7 +170,7 @@ export default class ImageQueue extends React.Component {
                   <Placeholder style={styles.packnamePlaceholder} />
                 :
                   <Text style={styles.packPickerSelectionText}>
-                    {coreData.products[packSelected].name}
+                    {coreData.products[packSelected].name.toUpperCase()}
                   </Text>
                 }
                 <Text style={styles.packPickerArrow}>&#x25BC;</Text>

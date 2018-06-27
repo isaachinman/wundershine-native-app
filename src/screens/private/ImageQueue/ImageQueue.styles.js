@@ -23,14 +23,17 @@ export default {
   },
   headerTitle: {
     ...material.titleObject,
-    ...systemWeights.bold,
+    ...systemWeights.semibold,
+    marginLeft: -10,
   },
   nextEnabled: {
     ...systemWeights.semibold,
     color: blue,
+    marginRight: -10,
   },
   nextDisabled: {
     color: whiteSecondary,
+    marginRight: -10,
   },
   flatlist: {
     paddingBottom: QUEUE_PADDING_BOTTOM,
