@@ -13,20 +13,17 @@ import Interactable from 'react-native-interactable'
 import { blackSecondary, greyAccent, whiteSecondary } from 'styles/colours'
 import { material } from 'react-native-typography'
 
-import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
+import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
 
 const styles = {
   container: {
-    padding: 15,
     minHeight: QUEUE_ITEM_HEIGHT,
     borderBottomWidth: 1,
     borderBottomColor: greyAccent,
+    justifyContent: 'center',
   },
   textContainer: {
-    paddingLeft: 15,
-  },
-  titleContainer: {
-    paddingRight: 15,
+    paddingLeft: QUEUE_ITEM_PADDING,
   },
   loadingImageOverlay: {
     width: QUEUE_IMAGE_DIMENSION,
@@ -50,27 +47,35 @@ const styles = {
   animatedImageContainerStyle: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
+    marginLeft: QUEUE_ITEM_PADDING,
   },
   animatedImageStyle: {
     resizeMode: 'contain',
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
-    width: 28,
-    height: 38,
     fontSize: QUEUE_ICON_SIZE,
     color: blackSecondary,
+    paddingTop: QUEUE_ITEM_PADDING,
+    paddingRight: QUEUE_ITEM_PADDING,
+    paddingBottom: QUEUE_ITEM_PADDING,
+    paddingLeft: QUEUE_ITEM_PADDING * 2,
+    marginTop: -QUEUE_ITEM_PADDING,
   },
   iconDeselected: {
-    width: 28,
-    height: 38,
     fontSize: QUEUE_ICON_SIZE,
     color: whiteSecondary,
+    paddingTop: QUEUE_ITEM_PADDING,
+    paddingRight: QUEUE_ITEM_PADDING,
+    paddingBottom: QUEUE_ITEM_PADDING,
+    paddingLeft: QUEUE_ITEM_PADDING * 2,
+    marginTop: -QUEUE_ITEM_PADDING,
   },
   loadingIconContainer: {
     paddingTop: 7,
     width: 28,
     height: 38,
+    marginRight: QUEUE_ITEM_PADDING,
   },
   slideoutContainer: {
     position: 'absolute',
@@ -90,7 +95,7 @@ const styles = {
   iconMore: {
     color: whiteSecondary,
     opacity: 0.8,
-    marginRight: 5,
+    marginRight: QUEUE_ITEM_PADDING + 5,
     fontSize: 28,
     alignSelf: 'flex-end',
   },
