@@ -40,6 +40,7 @@ const styles = {
   iconCart: {
     fontSize: 40,
     color: blackTertiary,
+    width: 40,
   },
   badge: {
     backgroundColor: blackPrimary,
@@ -49,7 +50,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: -16,
-    marginRight: -6,
     alignSelf: 'flex-end',
     ...Platform.select({
       ios: {

@@ -63,7 +63,9 @@ export default {
   iconMore: {
     fontSize: 28,
     color: blackTertiary,
-    marginTop: 15,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 30,
     paddingLeft: 30,
   },
   iconClose: {
@@ -131,5 +133,25 @@ export default {
   },
   alignRight: {
     alignItems: 'flex-end',
+  },
+  quantityPickerContainer: {
+    backgroundColor: whitePrimary,
+  },
+  quantityPickerHeader: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+  },
+  quantityPickerHeaderText: {
+    ...systemWeights.semibold,
+    fontSize: 20,
+  },
+  quantityPickerNumLabel: {
+    paddingHorizontal: 30,
+  },
+  iconPackQuantityCheckmark: {
+    color: blue,
+    fontSize: 30,
   },
 }

@@ -8,8 +8,11 @@ import { AddDiscountModal } from 'components/Modals'
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon, Loader, PrintStack } from 'components'
+import { ListItem } from 'react-native-ui-lib'
 import { Menu, MenuTrigger, MenuOptions, MenuOption } from 'react-native-popup-menu'
+import Modal from 'react-native-modal'
 
+import { greyAccent } from 'styles/colours'
 import styles from './Cart.styles'
 
 @inject('cart', 'coreData', 'ui')
@@ -19,10 +22,22 @@ export default class Cart extends React.Component {
 
   static screenTitle = 'Cart'
 
+  state = {
+    quantityPickerOpen: false,
+    packForQuantityAdjustment: {},
+  }
+
   componentWillMount() {
     if (this.props.inModal) {
       this.props.navigator.setButtons({ leftButtons: [] })
     }
+  }
+
+  toggleQuantityPicker = (bool = false, pack = {}) => {
+    this.setState({
+      quantityPickerOpen: bool,
+      packForQuantityAdjustment: pack,
+    })
   }
 
   returnToImageQueue = () => {
@@ -69,11 +84,52 @@ export default class Cart extends React.Component {
   render() {
 
     const { cart, coreData } = this.props
+    const { quantityPickerOpen, packForQuantityAdjustment } = this.state
 
     return (
       <View style={styles.container}>
+
         <Loader active={cart.loading} />
         <AddDiscountModal />
+
+        <Modal
+          isVisible={quantityPickerOpen}
+        >
+          <ScrollView style={styles.quantityPickerContainer}>
+            <View style={styles.quantityPickerHeader}>
+              <Text style={styles.quantityPickerHeaderText}>Quantity</Text>
+            </View>
+            <View>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                <ListItem
+                  activeBackgroundColor={greyAccent}
+                  height={50}
+                  onPress={() => {
+                    this.toggleQuantityPicker()
+                    setTimeout(() => {
+                      cart.changeItemQuantity(packForQuantityAdjustment._id, num)
+                    }, 500)
+                  }}
+                  key={`quantity-selection-${num}`}
+                >
+                  <ListItem.Part middle column>
+                    <Text style={styles.quantityPickerNumLabel}>{num}</Text>
+                  </ListItem.Part>
+                  <ListItem.Part right column>
+                    <Text style={styles.quantityPickerNumLabel}>
+                      {num === packForQuantityAdjustment.quantity ?
+                        <Icon name='ios-checkmark' style={styles.iconPackQuantityCheckmark} />
+                        :
+                        null
+                      }
+                    </Text>
+                  </ListItem.Part>
+                </ListItem>
+              ))}
+            </View>
+          </ScrollView>
+        </Modal>
+
         <View
           style={styles.content}
         >
@@ -99,26 +155,14 @@ export default class Cart extends React.Component {
                     </Text>
                   </Col>
                   <Col style={styles.col3}>
-
-                    <View style={styles.stepperContainer}>
-                      <TouchableOpacity
-                        onPress={() => cart.changeItemQuantity(item._id, item.quantity - 1)}
-                      >
-                        <Icon style={styles.iconStep} name='ios-remove-circle-outline' />
-                      </TouchableOpacity>
-                      <Text style={styles.stepLabel}>{item.quantity}</Text>
-                      <TouchableOpacity
-                        onPress={() => cart.changeItemQuantity(item._id, item.quantity + 1)}
-                      >
-                        <Icon style={styles.iconStep} name='ios-add-circle-outline' />
-                      </TouchableOpacity>
-                    </View>
-
                     <Menu>
                       <MenuTrigger>
                         <Icon style={styles.iconMore} name='md-more' />
                       </MenuTrigger>
                       <MenuOptions>
+                        <MenuOption onSelect={() => this.toggleQuantityPicker(true, item)}>
+                          <Text style={styles.editPackText}>Change quantity: {item.quantity}</Text>
+                        </MenuOption>
                         <MenuOption onSelect={() => this.dissolvePrintpacks([item.printpack._id])}>
                           <Text style={styles.editPackText}>Edit pack</Text>
                         </MenuOption>
