@@ -7,13 +7,14 @@ import { Icon, Loader } from 'components'
 import { inject, observer, propTypes as mobxPropTypes } from 'mobx-react'
 import { NavActions } from 'utils/nav'
 
-import { blackPrimary, blackTertiary, greyAccent, whitePrimary, whiteTertiary } from 'styles/colours'
+import { blackPrimary, blackTertiary, whitePrimary, whiteTertiary } from 'styles/colours'
 import { material, systemWeights } from 'react-native-typography'
 
 const styles = {
   container: {
-    backgroundColor: greyAccent,
-    paddingVertical: 30,
+    backgroundColor: '#FAFAFA',
+    paddingTop: 20,
+    paddingBottom: 30,
     paddingHorizontal: 20,
   },
   textCol: {
@@ -21,9 +22,9 @@ const styles = {
   },
   title: {
     ...systemWeights.light,
-    fontSize: 16,
+    fontSize: 15,
     color: blackPrimary,
-    lineHeight: 22,
+    lineHeight: 18,
   },
   restoreText: {
     ...systemWeights.regular,
@@ -48,7 +49,8 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: -16,
-    marginRight: -8,
+    marginRight: -6,
+    alignSelf: 'flex-end',
     ...Platform.select({
       ios: {
         zIndex: 1,
@@ -127,7 +129,7 @@ export default class CartNotification extends React.Component {
                 <Text style={styles.badgeText}>{printpacks.length}</Text>
               </View>
               <Icon
-                name='ios-cart'
+                name='md-cart'
                 style={styles.iconCart}
               />
             </TouchableOpacity>
