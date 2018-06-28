@@ -22,6 +22,15 @@ export default class ShippingDetails extends React.Component {
 
   static screenTitle = 'Shipping address'
 
+  componentDidMount() {
+    // If form is empty, prefill user data
+    const { user } = this.props
+    if (Object.values(user.addressForm).every(x => x === null)) {
+      user.updateForm('address', 'firstName', user.data.firstName)
+      user.updateForm('address', 'lastName', user.data.lastName)
+    }
+  }
+
   handleSave = async () => {
     const { user } = this.props
     try {
