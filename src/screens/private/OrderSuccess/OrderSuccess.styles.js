@@ -1,5 +1,5 @@
 import { blackPrimary, green, whitePrimary } from 'styles/colours'
-import { material } from 'react-native-typography'
+import { material, systemWeights } from 'react-native-typography'
 
 export default {
   container: {
@@ -16,13 +16,15 @@ export default {
   },
   title: {
     ...material.headlineObject,
-    fontSize: 30,
+    ...systemWeights.semibold,
+    fontSize: 26,
     color: blackPrimary,
     textAlign: 'center',
   },
   subtitle: {
     ...material.body2Object,
-    fontSize: 20,
+    ...systemWeights.regular,
+    fontSize: 18,
     color: '#616161',
     marginVertical: 30,
     maxWidth: 300,
