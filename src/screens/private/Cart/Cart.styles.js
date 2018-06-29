@@ -2,7 +2,7 @@ import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, green, r
 import { Dimensions } from 'react-native'
 import { systemWeights } from 'react-native-typography'
 
-const ROW_HEIGHT = 60
+const ROW_HEIGHT = 50
 
 export default {
   container: {
@@ -34,31 +34,19 @@ export default {
     alignItems: 'flex-end',
   },
   productName: {
-    fontSize: 22,
+    fontSize: 20,
     color: blackPrimary,
     marginBottom: 8,
   },
   forFrame: {
-    fontSize: 16,
+    fontSize: 15,
     color: blackSecondary,
     marginBottom: 8,
   },
   productPrice: {
     ...systemWeights.light,
-    fontSize: 18,
+    fontSize: 16,
     color: '#616161',
-  },
-  stepperContainer: {
-    marginTop: 10,
-    flexDirection: 'row',
-  },
-  iconStep: {
-    fontSize: 28,
-    color: blackTertiary,
-  },
-  stepLabel: {
-    fontSize: 22,
-    paddingHorizontal: 10,
   },
   iconMore: {
     fontSize: 28,
@@ -77,10 +65,10 @@ export default {
     height: ROW_HEIGHT,
     borderTopWidth: 1,
     borderTopColor: greyBg,
-    padding: 20,
+    padding: 15,
   },
   pricingTextNormal: {
-    fontSize: 16,
+    fontSize: 15,
     color: blackPrimary,
   },
   addDiscountCode: {
@@ -88,12 +76,12 @@ export default {
     color: blue,
   },
   pricingTextBold: {
-    ...systemWeights.bold,
-    fontSize: 16,
+    ...systemWeights.semibold,
+    fontSize: 15,
     color: blackPrimary,
   },
   actionBar: {
-    height: ROW_HEIGHT,
+    height: 60,
     borderTopWidth: 1,
     borderTopColor: greyAccent,
     flexDirection: 'row',
@@ -104,8 +92,8 @@ export default {
   },
   actionBarAddPackText: {
     ...systemWeights.semibold,
-    lineHeight: ROW_HEIGHT,
-    fontSize: 16,
+    lineHeight: 60,
+    fontSize: 15,
     color: blackSecondary,
   },
   actionBarCheckout: {
@@ -115,8 +103,8 @@ export default {
   },
   actionBarCheckoutText: {
     ...systemWeights.semibold,
-    lineHeight: ROW_HEIGHT,
-    fontSize: 16,
+    lineHeight: 60,
+    fontSize: 15,
     color: whitePrimary,
     paddingHorizontal: 10,
   },
