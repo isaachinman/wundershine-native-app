@@ -24,7 +24,7 @@ import {
 
 import styles from './ImageQueue.styles'
 
-import { QUEUE_ITEM_HEIGHT, QUEUE_PADDING_BOTTOM } from './constants'
+import { QUEUE_ITEM_HEIGHT } from './constants'
 
 @inject('cart', 'coreData', 'initialisation', 'queue', 'ui')
 @observer
@@ -124,7 +124,6 @@ export default class ImageQueue extends React.Component {
     if (images.length > 0) {
       queueItems.push({ key: 'helper-ui' })
     }
-    const queueHelperUIVisible = ui.animatables.queueHelperUI.visible
 
     if (queue.error) {
       showErrorUI = true
@@ -194,30 +193,6 @@ export default class ImageQueue extends React.Component {
               <FlatList
                 ref={x => this.flatlist = x}
                 scrollEventThrottle={1}
-                onLayout={(e) => {
-                  const { height } = e.nativeEvent.layout
-                  if (height > (images.length * QUEUE_ITEM_HEIGHT) + QUEUE_PADDING_BOTTOM + 200) {
-                    ui.setAnimatable('queueHelperUI', 'visible', true)
-                  }
-                  ui.setDimension('queueLayoutHeight', height)
-                }}
-                onContentSizeChange={(width, height) => {
-                  if (height - QUEUE_PADDING_BOTTOM > ui.dimensions.queueLayoutHeight) {
-                    ui.setAnimatable('queueHelperUI', 'visible', false)
-                  } else if (!ui.animatables.queueHelperUI.visible) {
-                    ui.setAnimatable('queueHelperUI', 'visible', true)
-                  }
-                }}
-                onScroll={(e) => {
-                  const { layoutMeasurement, contentOffset, contentSize } = e.nativeEvent
-                  const atBottom = layoutMeasurement.height + contentOffset.y >=
-                    (contentSize.height - (QUEUE_PADDING_BOTTOM - 100))
-                  if (atBottom) {
-                    ui.setAnimatable('queueHelperUI', 'visible', true)
-                  } else if (ui.animatables.queueHelperUI.visible) {
-                    ui.setAnimatable('queueHelperUI', 'visible', false)
-                  }
-                }}
                 refreshControl={(
                   <RefreshControl
                     refreshing={queue.refreshing}
@@ -235,7 +210,6 @@ export default class ImageQueue extends React.Component {
                       <HelperUI
                         key={item.key}
                         belowLimit={images.length < 5}
-                        visible={queueHelperUIVisible}
                       />
                     )
                   }
