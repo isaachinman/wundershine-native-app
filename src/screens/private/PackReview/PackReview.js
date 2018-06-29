@@ -19,9 +19,9 @@ import styles from './PackReview.styles'
 @inject('cart', 'queue', 'ui')
 @screenUtils
 @observer
-export default class EditImage extends React.Component {
+export default class PackReview extends React.Component {
 
-  static screenTitle = 'Review pack'
+  static screenTitle = 'Review'
 
   static navigatorButtons = {
     leftButtons: [
@@ -139,11 +139,13 @@ export default class EditImage extends React.Component {
         <ActionBar
           actions={[
             {
-              label: 'Crop',
+              label: 'CROP',
+              labelStyle: styles.actionBarLabel,
               onPress: () => this.redirectToEditScreen(selectedImages[page]._id),
             },
             {
-              label: 'Confirm all',
+              label: 'CONFIRM ALL',
+              labelStyle: styles.actionBarLabel,
               onPress: async () => {
                 await cart.createPrintPack()
                 await queue.getQueue()
@@ -157,7 +159,7 @@ export default class EditImage extends React.Component {
   }
 }
 
-EditImage.wrappedComponent.propTypes = {
+PackReview.wrappedComponent.propTypes = {
   cart: PropTypes.shape({
     createPrintPack: PropTypes.func.isRequired,
   }).isRequired,

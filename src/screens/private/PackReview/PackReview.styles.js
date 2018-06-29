@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
+import { systemWeights } from 'react-native-typography'
 
-import { greyBg } from 'styles/colours'
+import { blackPrimary, greyBg } from 'styles/colours'
 import {
   SQUARE_REVIEW_FRAME_DIMENSION,
   SQUARE_REVIEW_FRAME_MARGIN,
@@ -51,5 +52,9 @@ export default {
   pageControlContainer: {
     flex: 1,
     backgroundColor: greyBg,
+  },
+  actionBarLabel: {
+    ...systemWeights.semibold,
+    color: blackPrimary,
   },
 }
