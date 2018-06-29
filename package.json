@@ -14,7 +14,8 @@
 		"test:e2e": "detox test --configuration $E2E_CONFIG",
 		"test:e2e:ios": "E2E_CONFIG=ios.sim.release yarn test:e2e",
 		"test:e2e:android": "E2E_CONFIG=android.emu.release yarn test:e2e",
-		"lint": "eslint src __tests__ --fix",
+    "lint": "eslint src __tests__ --fix",
+    "postinstall": "sh ./scripts/get-core-data.sh",
 		"precommit": "npm run lint",
 		"prepush": "npm run test",
 		"prepare": "patch-package"

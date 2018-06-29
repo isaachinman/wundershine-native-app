@@ -1,32 +1,14 @@
-import { action, runInAction, observable } from 'mobx'
-import { apiRequest } from 'utils/api'
+import { observable } from 'mobx'
+
+import coreData from 'core-data.json'
 
 class CoreDataStore {
 
-  @action
-  async setup() {
-    await this.getData()
-  }
+  @observable
+  products = coreData.products
 
   @observable
-  products = {}
-
-  @observable
-  settings = {}
-
-  @action
-  getData = async () => {
-    try {
-      const res = await apiRequest({ url: '/pb/core-data' })
-      const { products, settings } = res.data
-      runInAction(() => {
-        this.products = products
-        this.settings = settings
-      })
-    } catch (error) {
-      runInAction(() => this.error = error)
-    }
-  }
+  settings = coreData.settings
 
 }
 

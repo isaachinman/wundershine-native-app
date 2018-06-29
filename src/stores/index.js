@@ -52,7 +52,6 @@ class Stores {
   async generalSetup() {
     // Hydrate store
     // await hydrate('store', this)
-    await this.coreData.setup()
   }
 
   async loggedInSetup() {
