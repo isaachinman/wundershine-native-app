@@ -22,11 +22,6 @@ const routes = [
     key: 'ShippingAddress',
     displayName: 'Shipping address',
   },
-  {
-    screenName: 'PaymentMethods',
-    key: 'PaymentMethods',
-    displayName: 'Payment methods',
-  },
 ]
 
 @inject('auth')
