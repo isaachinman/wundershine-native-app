@@ -1,17 +1,17 @@
 import { material } from 'react-native-typography'
-import { green, greyAccent, whitePrimary } from 'styles/colours'
+import { green, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
     flex: 1,
-    backgroundColor: greyAccent,
+    backgroundColor: '#FAFAFA',
     paddingVertical: 20,
   },
   row: {
     flex: 0,
     backgroundColor: whitePrimary,
-    padding: 20,
-    marginBottom: 20,
+    padding: 15,
+    marginBottom: 12,
   },
   col: {
     flexDirection: 'row',
@@ -34,10 +34,10 @@ export default {
   radioButtonLabel: {
     ...material.body2Object,
     flex: 0,
-    fontSize: 20,
+    fontSize: 17,
   },
   iconIdeal: {
-    width: 50,
-    height: 50,
+    width: 35,
+    height: 35,
   },
 }
