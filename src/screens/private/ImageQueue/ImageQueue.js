@@ -53,7 +53,7 @@ export default class ImageQueue extends React.Component {
         const queueLength = queue.data.images.length
         const screenHeight = Dimensions.get('window').height
         if ((queueLength * QUEUE_ITEM_HEIGHT) + 100 >= screenHeight && this.flatlist) {
-          this.flatlist.scrollToEnd()
+          setTimeout(() => this.flatlist.scrollToEnd(), 500)
         }
         this.setState({ didScrollToBottom: true }) // eslint-disable-line
       }
