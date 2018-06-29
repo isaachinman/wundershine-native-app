@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native'
 
-export const SQUARE_FRAME_MARGIN = 30
+export const SQUARE_FRAME_MARGIN = 20
 
 let squareFrameDimension = (Dimensions.get('window').width - (SQUARE_FRAME_MARGIN * 2)) * 0.91304347828
 if (squareFrameDimension > (Dimensions.get('window').height * 0.42)) {
