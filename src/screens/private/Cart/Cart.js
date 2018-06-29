@@ -94,40 +94,44 @@ export default class Cart extends React.Component {
 
         <Modal
           isVisible={quantityPickerOpen}
+          onBackdropPress={() => this.toggleQuantityPicker()}
+          onBackButtonPress={() => this.toggleQuantityPicker()}
         >
-          <ScrollView style={styles.quantityPickerContainer}>
-            <View style={styles.quantityPickerHeader}>
-              <Text style={styles.quantityPickerHeaderText}>Quantity</Text>
-            </View>
-            <View>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                <ListItem
-                  activeBackgroundColor={greyAccent}
-                  height={50}
-                  onPress={() => {
-                    this.toggleQuantityPicker()
-                    setTimeout(() => {
-                      cart.changeItemQuantity(packForQuantityAdjustment._id, num)
-                    }, 500)
-                  }}
-                  key={`quantity-selection-${num}`}
-                >
-                  <ListItem.Part middle column>
-                    <Text style={styles.quantityPickerNumLabel}>{num}</Text>
-                  </ListItem.Part>
-                  <ListItem.Part right column>
-                    <Text style={styles.quantityPickerNumLabel}>
-                      {num === packForQuantityAdjustment.quantity ?
-                        <Icon name='ios-checkmark' style={styles.iconPackQuantityCheckmark} />
-                        :
-                        null
-                      }
-                    </Text>
-                  </ListItem.Part>
-                </ListItem>
-              ))}
-            </View>
-          </ScrollView>
+          <View style={{ flex: 0 }}>
+            <ScrollView style={styles.quantityPickerContainer}>
+              <View style={styles.quantityPickerHeader}>
+                <Text style={styles.quantityPickerHeaderText}>Quantity</Text>
+              </View>
+              <View>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                  <ListItem
+                    activeBackgroundColor={greyAccent}
+                    height={50}
+                    onPress={() => {
+                      this.toggleQuantityPicker()
+                      setTimeout(() => {
+                        cart.changeItemQuantity(packForQuantityAdjustment._id, num)
+                      }, 500)
+                    }}
+                    key={`quantity-selection-${num}`}
+                  >
+                    <ListItem.Part middle column>
+                      <Text style={styles.quantityPickerNumLabel}>{num}</Text>
+                    </ListItem.Part>
+                    <ListItem.Part right column>
+                      <Text style={styles.quantityPickerNumLabel}>
+                        {num === packForQuantityAdjustment.quantity ?
+                          <Icon name='ios-checkmark' style={styles.iconPackQuantityCheckmark} />
+                          :
+                          null
+                        }
+                      </Text>
+                    </ListItem.Part>
+                  </ListItem>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
         </Modal>
 
         <View

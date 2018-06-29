@@ -135,6 +135,7 @@ export default {
     alignItems: 'flex-end',
   },
   quantityPickerContainer: {
+    flex: 0,
     backgroundColor: whitePrimary,
   },
   quantityPickerHeader: {
