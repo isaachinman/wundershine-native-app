@@ -133,7 +133,6 @@ export default class CheckoutDelivery extends React.Component {
         <Button
           onPress={this.handleSave}
           text={inModal ? 'Update' : 'Next'}
-          style={{ height: 60 }}
           disabled={!addressFormIsValid}
           loading={user.loading}
           primary

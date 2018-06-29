@@ -27,6 +27,7 @@ export default class Button extends React.Component {
     const textStyles = {}
     const {
       bordered,
+      full,
       text,
       icon,
       info,
@@ -51,6 +52,11 @@ export default class Button extends React.Component {
     if (info) {
       textStyles.color = blackPrimary
       buttonStyles.backgroundColor = whiteSecondary
+    }
+
+    /* Full */
+    if (full) {
+      buttonStyles.height = 60
     }
 
     /* Danger */
@@ -97,6 +103,7 @@ export default class Button extends React.Component {
 
 Button.defaultProps = {
   bordered: false,
+  full: false,
   danger: false,
   disabled: false,
   icon: null,
@@ -108,6 +115,7 @@ Button.defaultProps = {
 Button.propTypes = {
   text: PropTypes.string.isRequired,
   bordered: PropTypes.bool,
+  full: PropTypes.bool,
   danger: PropTypes.bool,
   disabled: PropTypes.bool,
   icon: PropTypes.string,
