@@ -1,17 +1,17 @@
 import { systemWeights } from 'react-native-typography'
-import { blackPrimary, blue, greyBg, greyAccent, whitePrimary } from 'styles/colours'
+import { blackPrimary, blue, greyBg, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
     flex: 1,
-    backgroundColor: greyAccent,
+    backgroundColor: '#FAFAFA',
     paddingTop: 20,
   },
   row: {
     flex: 0,
     backgroundColor: whitePrimary,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 12,
   },
   endRow: {
     flex: 0,
@@ -38,14 +38,14 @@ export default {
   sectionTitle: {
     ...systemWeights.semibold,
     color: blackPrimary,
-    fontSize: 15,
+    fontSize: 14,
   },
   sectionBody: {
     color: '#616161',
-    fontSize: 15,
+    fontSize: 14,
   },
   editText: {
     color: blue,
-    fontSize: 15,
+    fontSize: 14,
   },
 }
