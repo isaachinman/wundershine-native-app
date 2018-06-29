@@ -2,7 +2,7 @@ import { whitePrimary } from 'styles/colours'
 
 export default {
   content: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     backgroundColor: whitePrimary,
   },
   row: {

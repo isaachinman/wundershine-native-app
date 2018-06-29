@@ -1,14 +1,3 @@
-import { whitePrimary } from 'styles/colours'
+import styles from 'screens/private/CheckoutDelivery/CheckoutDelivery.styles'
 
-export default {
-  content: {
-    paddingHorizontal: 20,
-    backgroundColor: whitePrimary,
-  },
-  row: {
-    flex: 0,
-  },
-  col: {
-    padding: 10,
-  },
-}
+export default styles

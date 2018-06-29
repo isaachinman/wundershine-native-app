@@ -131,6 +131,7 @@ export default class CheckoutPayment extends React.Component {
         <Button
           onPress={this.goToCheckoutConfirmation}
           text={inModal ? 'Update' : 'Next'}
+          style={{ height: 60 }}
           disabled={!cart.paymentMethodIsValid}
           primary
           full

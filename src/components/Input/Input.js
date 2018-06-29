@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { systemWeights } from 'react-native-typography'
 import { TextInput } from 'react-native-ui-lib'
 import { blackSecondary, green } from 'styles/colours'
 
 const styles = {
   textInput: {
+    ...systemWeights.regular,
     minHeight: 21,
     marginBottom: 0,
     paddingBottom: 10,

@@ -128,6 +128,7 @@ export default class ShippingDetails extends React.Component {
         <Button
           onPress={this.handleSave}
           text='Save'
+          style={{ height: 60 }}
           disabled={!addressFormIsValid}
           primary
           full
