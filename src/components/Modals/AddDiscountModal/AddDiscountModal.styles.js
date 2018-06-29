@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 
 const BORDER_RADIUS = 10
-const LIGHTBOX_MARGIN = 30
+const LIGHTBOX_MARGIN = 20
 const LIGHTBOX_HEIGHT = 300
 
 
@@ -28,17 +28,15 @@ export default {
   },
   title: {
     ...systemWeights.light,
-    fontSize: 30,
+    fontSize: 26,
     color: blackPrimary,
     marginBottom: 20,
   },
   description: {
-    ...systemWeights.light,
+    ...systemWeights.regular,
     fontStyle: 'italic',
-    fontSize: 16,
+    fontSize: 13,
     color: blackTertiary,
-    marginVertical: 10,
-    maxWidth: 300,
   },
   button: {
     borderBottomRightRadius: BORDER_RADIUS,

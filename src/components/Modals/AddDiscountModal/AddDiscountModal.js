@@ -71,7 +71,7 @@ export default class AddDiscountModal extends React.Component {
                 :
                 <Text style={styles.description}>
                   All Reframe purchases come with a coupon for a free
-                  5-Pack of prints, including worldwide shipping.
+                  5-Pack of prints, including global shipping.
                 </Text>
               }
             </View>
