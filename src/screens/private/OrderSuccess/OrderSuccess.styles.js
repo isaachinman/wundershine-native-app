@@ -17,17 +17,17 @@ export default {
   title: {
     ...material.headlineObject,
     ...systemWeights.semibold,
-    fontSize: 26,
+    fontSize: 22,
     color: blackPrimary,
     textAlign: 'center',
   },
   subtitle: {
     ...material.body2Object,
     ...systemWeights.regular,
-    fontSize: 18,
+    fontSize: 16,
     color: '#616161',
-    marginVertical: 30,
-    maxWidth: 300,
+    marginVertical: 25,
+    maxWidth: 250,
     textAlign: 'center',
   },
   buttonContainer: {
