@@ -14,21 +14,23 @@ const styles = {
   container: {
     backgroundColor: '#FAFAFA',
     paddingTop: 20,
-    paddingBottom: 30,
+    paddingBottom: 25,
     paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
   textCol: {
     flex: 1,
   },
   title: {
     ...systemWeights.light,
-    fontSize: 15,
+    fontSize: 14,
     color: blackPrimary,
     lineHeight: 18,
   },
   restoreText: {
     ...systemWeights.regular,
-    fontSize: 14,
+    fontSize: 13,
     color: whiteTertiary,
     marginTop: 20,
   },
@@ -38,18 +40,18 @@ const styles = {
     alignItems: 'flex-end',
   },
   iconCart: {
-    fontSize: 40,
+    fontSize: 34,
     color: blackTertiary,
-    width: 40,
+    width: 34,
   },
   badge: {
     backgroundColor: blackPrimary,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: -16,
+    marginBottom: -14,
     alignSelf: 'flex-end',
     ...Platform.select({
       ios: {
@@ -62,7 +64,8 @@ const styles = {
   },
   badgeText: {
     ...material.buttonObject,
-    fontSize: 12,
+    fontSize: 11,
+    lineHeight: 16,
     color: whitePrimary,
   },
 }
