@@ -114,8 +114,7 @@ export default class CartNotification extends React.Component {
         <Row style={styles.container}>
           <Col style={styles.textCol}>
             <Text style={styles.title}>
-              You have {totalImagesInCart} images in {printpacks.length}&nbsp;
-              Reframe print pack(s) in your shopping cart.
+              You have {totalImagesInCart} images in {printpacks.length} Reframe print pack(s) in your shopping cart. {/* eslint-disable-line */}
             </Text>
             <Text
               onPress={this.dissolvePrintpacks}
