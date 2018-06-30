@@ -9,7 +9,9 @@ export default {
     flexDirection: 'column',
   },
   paper: {
-    margin: SQUARE_FRAME_MARGIN,
+    marginTop: SQUARE_FRAME_MARGIN,
+    marginRight: SQUARE_FRAME_MARGIN,
+    marginLeft: SQUARE_FRAME_MARGIN,
     paddingTop: SQUARE_FRAME_PADDING,
     paddingRight: SQUARE_FRAME_PADDING,
     paddingBottom: SQUARE_FRAME_PADDING + SQUARE_FRAME_CHIN,
@@ -36,15 +38,20 @@ export default {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 40,
+    flex: 1,
+    maxHeight: 100,
+    alignItems: 'flex-start',
   },
   buttonContainer: {
     padding: 10,
-    height: 50,
+    alignSelf: 'center',
   },
   iconExpand: {
     color: blackSecondary,
+    padding: 10,
+    marginBottom: 4,
+    alignSelf: 'center',
     fontSize: 30,
-    flex: 1,
   },
   iconRotateClockwise: {
     color: blackSecondary,
