@@ -235,7 +235,7 @@ export default class Cart extends React.Component {
               </Col>
             }
           </Row>
-          <Row style={styles.pricingRow}>
+          <Row style={styles.pricingRowLast}>
             <Col>
               <Text style={styles.pricingTextBold}>
                 TOTAL

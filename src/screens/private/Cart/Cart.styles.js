@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, green, red, whitePrimary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, blue, green, red, whitePrimary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { systemWeights } from 'react-native-typography'
 
@@ -34,18 +34,18 @@ export default {
     alignItems: 'flex-end',
   },
   productName: {
-    fontSize: 20,
+    fontSize: 17,
     color: blackPrimary,
-    marginBottom: 8,
+    marginBottom: 7,
   },
   forFrame: {
-    fontSize: 15,
+    fontSize: 14,
     color: blackSecondary,
-    marginBottom: 8,
+    marginBottom: 7,
   },
   productPrice: {
     ...systemWeights.light,
-    fontSize: 16,
+    fontSize: 15,
     color: '#616161',
   },
   iconMore: {
@@ -67,23 +67,29 @@ export default {
     borderTopColor: greyBg,
     padding: 15,
   },
+  pricingRowLast: {
+    height: ROW_HEIGHT,
+    borderTopWidth: 1,
+    borderTopColor: greyBg,
+    borderBottomWidth: 1,
+    borderBottomColor: greyBg,
+    padding: 15,
+  },
   pricingTextNormal: {
-    fontSize: 15,
+    fontSize: 14,
     color: blackPrimary,
   },
   addDiscountCode: {
-    fontSize: 16,
+    fontSize: 14,
     color: blue,
   },
   pricingTextBold: {
     ...systemWeights.semibold,
-    fontSize: 15,
+    fontSize: 14,
     color: blackPrimary,
   },
   actionBar: {
     height: 60,
-    borderTopWidth: 1,
-    borderTopColor: greyAccent,
     flexDirection: 'row',
   },
   actionBarAddPack: {
@@ -93,7 +99,7 @@ export default {
   actionBarAddPackText: {
     ...systemWeights.semibold,
     lineHeight: 60,
-    fontSize: 15,
+    fontSize: 14,
     color: blackSecondary,
   },
   actionBarCheckout: {
@@ -104,7 +110,7 @@ export default {
   actionBarCheckoutText: {
     ...systemWeights.semibold,
     lineHeight: 60,
-    fontSize: 15,
+    fontSize: 14,
     color: whitePrimary,
     paddingHorizontal: 10,
   },
