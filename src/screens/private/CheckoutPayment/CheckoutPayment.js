@@ -97,7 +97,9 @@ export default class CheckoutPayment extends React.Component {
                   <Icon
                     name={paymentMethodChosen.id === cc._id ? 'ios-radio-button-on' : 'ios-radio-button-off'}
                     style={paymentMethodChosen.id === cc._id ?
-                      styles.iconRadioButtonOn : styles.iconRadioButtonOff}
+                      Object.assign({}, styles.iconRadioButtonOn, {
+                        marginTop: -40,
+                      }) : styles.iconRadioButtonOff}
                   />
                   <CreditCard
                     {...cc}

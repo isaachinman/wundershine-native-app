@@ -42,8 +42,10 @@ const styles = {
   },
   actionText: {
     flex: 0,
-    fontSize: 12,
+    fontSize: 14,
     marginRight: 10,
+    paddingVertical: 10,
+    paddingRight: 20,
     color: blue,
   },
 }
