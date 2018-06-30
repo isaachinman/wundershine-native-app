@@ -137,6 +137,7 @@ export default class PackReview extends React.Component {
           />
         </View>
         <ActionBar
+          height={60}
           actions={[
             {
               label: 'CROP',
