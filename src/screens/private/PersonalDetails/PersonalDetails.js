@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 
 import { Button, Input, Loader } from 'components'
 import { Container, Content } from 'native-base'
+import { Col, Row } from 'react-native-easy-grid'
 import { screenUtils, NavActions } from 'utils/nav'
 
 import styles from './PersonalDetails.styles'
@@ -34,22 +35,34 @@ export default class PersonalDetails extends React.Component {
       <Container>
         <Loader active={user.loading} />
         <Content contentContainerStyle={styles.content}>
-          <Input
-            title='First name*'
-            onChangeText={t => updateForm('personalDetails', 'firstName', t)}
-            value={personalDetailsForm.firstName}
-          />
-          <Input
-            title='Last name*'
-            onChangeText={t => updateForm('personalDetails', 'lastName', t)}
-            value={personalDetailsForm.lastName}
-          />
-          <Input
-            title='Email address*'
-            onChangeText={t => updateForm('personalDetails', 'email', t)}
-            value={personalDetailsForm.email}
-            maxLength={100}
-          />
+          <Row>
+            <Col>
+              <Input
+                title='First name*'
+                onChangeText={t => updateForm('personalDetails', 'firstName', t)}
+                value={personalDetailsForm.firstName}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input
+                title='Last name*'
+                onChangeText={t => updateForm('personalDetails', 'lastName', t)}
+                value={personalDetailsForm.lastName}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input
+                title='Email address*'
+                onChangeText={t => updateForm('personalDetails', 'email', t)}
+                value={personalDetailsForm.email}
+                maxLength={100}
+              />
+            </Col>
+          </Row>
         </Content>
         <Button
           onPress={this.handleSave}

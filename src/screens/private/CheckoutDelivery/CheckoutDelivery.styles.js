@@ -9,6 +9,6 @@ export default {
     flex: 0,
   },
   col: {
-    padding: 10,
+    paddingHorizontal: 10,
   },
 }

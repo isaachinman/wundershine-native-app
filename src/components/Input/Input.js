@@ -3,9 +3,15 @@ import PropTypes from 'prop-types'
 
 import { systemWeights } from 'react-native-typography'
 import { TextInput } from 'react-native-ui-lib'
+import { View } from 'react-native'
+
 import { blackSecondary, green } from 'styles/colours'
 
 const styles = {
+  container: {
+    marginTop: 5,
+    marginBottom: 10,
+  },
   textInput: {
     ...systemWeights.regular,
     minHeight: 21,
@@ -43,18 +49,20 @@ export default class Input extends React.Component {
     }
 
     return (
-      <TextInput
-        underlineColor={{
-          default: '#dddddd',
-          focus: green,
-        }}
-        style={styles.textInput}
-        titleColor={blackSecondary}
-        autoCorrect={false}
-        onFocus={() => this.setActive(true)}
-        onBlur={() => this.setActive(false)}
-        {...textFieldProps}
-      />
+      <View style={styles.container}>
+        <TextInput
+          underlineColor={{
+            default: '#dddddd',
+            focus: green,
+          }}
+          style={styles.textInput}
+          titleColor={blackSecondary}
+          autoCorrect={false}
+          onFocus={() => this.setActive(true)}
+          onBlur={() => this.setActive(false)}
+          {...textFieldProps}
+        />
+      </View>
     )
   }
 

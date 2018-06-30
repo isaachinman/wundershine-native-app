@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Button as NativeBaseButton, Text as NativeBaseButtonText, Spinner } from 'native-base'
 import { Icon } from 'components'
 import { green, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
+import { systemWeights } from 'react-native-typography'
 
 /*
 
@@ -24,7 +25,7 @@ export default class Button extends React.Component {
     }
 
     const buttonStyles = { ...buttonProps.style }
-    const textStyles = {}
+    let textStyles = {}
     const {
       bordered,
       full,
@@ -56,6 +57,7 @@ export default class Button extends React.Component {
 
     /* Full */
     if (full) {
+      textStyles = { ...textStyles, ...systemWeights.semibold }
       buttonStyles.height = 60
     }
 

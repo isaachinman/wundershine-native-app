@@ -5,13 +5,13 @@ import { View } from 'react-native'
 
 import { greyAccent, whitePrimary } from 'styles/colours'
 
-import { QUEUE_ITEM_HEIGHT, QUEUE_IMAGE_DIMENSION } from '../constants'
+import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION } from '../constants'
 
 const styles = {
   placeholderContainer: {
     backgroundColor: whitePrimary,
     height: QUEUE_ITEM_HEIGHT + 1,
-    padding: 15,
+    padding: QUEUE_ITEM_PADDING,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },

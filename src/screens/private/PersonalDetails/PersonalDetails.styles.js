@@ -13,6 +13,5 @@ export default {
   },
   content: {
     padding: 20,
-    flex: 1,
   },
 }
