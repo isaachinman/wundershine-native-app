@@ -23,7 +23,7 @@ const styles = {
     justifyContent: 'center',
   },
   titleContainer: {
-    marginRight: 30,
+    marginRight: 50,
   },
   textContainer: {
     paddingLeft: QUEUE_ITEM_PADDING,
@@ -41,7 +41,7 @@ const styles = {
   imageTitle: {
     ...material.titleObject,
     ...systemWeights.regular,
-    fontSize: 15,
+    fontSize: 14,
     lineHeight: 20,
     marginVertical: 5,
   },
@@ -107,11 +107,12 @@ const styles = {
   pixelScoreTitle: {
     ...material.captionObject,
     color: blackTertiary,
-    fontSize: 15,
+    fontSize: 14,
     lineHeight: 15 * 1.35,
   },
   iconPixelScoreLimited: {
-    fontSize: 16,
+    fontSize: 14,
+    marginTop: 3,
     marginLeft: 3,
     color: blackSecondary,
   },
