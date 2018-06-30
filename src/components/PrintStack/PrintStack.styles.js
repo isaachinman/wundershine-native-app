@@ -43,8 +43,8 @@ export default {
   },
   shadow: {
     shadowColor: blackTertiary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
     shadowRadius: 1,
   },
 }

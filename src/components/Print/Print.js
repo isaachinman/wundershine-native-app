@@ -39,10 +39,14 @@ export default class Print extends React.Component {
   }
 }
 
+Print.defaultProps = {
+  style: {},
+}
+
 Print.propTypes = {
   image: PropTypes.shape({
     cloudinaryID: PropTypes.string.isRequired,
     transformation: PropTypes.shape().isRequired,
   }).isRequired,
-  style: PropTypes.shape().isRequired,
+  style: PropTypes.shape(),
 }

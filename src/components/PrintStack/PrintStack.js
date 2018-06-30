@@ -2,7 +2,7 @@ import React from 'react'
 import { propTypes as mobxPropTypes } from 'mobx-react'
 
 import { Print } from 'components'
-import { Platform, View } from 'react-native'
+import { Animated, Platform, View } from 'react-native'
 
 import styles from './PrintStack.styles'
 
@@ -15,10 +15,8 @@ export default class PrintStack extends React.Component {
       <View style={styles.container}>
         <View style={styles.offsetAdjuster}>
           {firstFive.map((image, index) => (
-            <Print
+            <Animated.View
               key={`print-${image._id}`}
-              image={image}
-              zIndex={index}
               style={{
                 ...styles.print,
                 ...Platform.select({
@@ -34,8 +32,14 @@ export default class PrintStack extends React.Component {
                 transform: [
                   { rotate: `${styles.angles[index]}deg` },
                 ],
+                backfaceVisibility: 'hidden',
               }}
-            />
+            >
+              <Print
+                image={image}
+                zIndex={index}
+              />
+            </Animated.View>
           ))}
         </View>
       </View>
