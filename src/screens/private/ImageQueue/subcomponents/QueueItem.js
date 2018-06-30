@@ -45,10 +45,6 @@ const styles = {
     lineHeight: 20,
     marginVertical: 5,
   },
-  importText: {
-    ...material.captionObject,
-    fontStyle: 'italic',
-  },
   animatedImageContainerStyle: {
     width: QUEUE_IMAGE_DIMENSION,
     height: QUEUE_IMAGE_DIMENSION,
@@ -237,7 +233,7 @@ export default class QueueItem extends React.Component {
                     {name}
                   </Text>
                   {notUploadedYet ?
-                    <Text style={styles.importText}>Import in progress...</Text>
+                    <Text style={styles.pixelScoreTitle}>Importing...</Text>
                     :
                     <View>
                       <View style={{ flexDirection: 'row' }}>
