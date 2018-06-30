@@ -1,4 +1,5 @@
 import { blue, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
+import { systemWeights } from 'react-native-typography'
 
 export default {
   header: {
@@ -6,9 +7,6 @@ export default {
   },
   headerTitle: {
     color: blackPrimary,
-  },
-  content: {
-    paddingTop: 50,
   },
   iconLarge: {
     color: blue,
@@ -28,8 +26,11 @@ export default {
   listItemText: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#C4C4C4',
+    borderBottomColor: '#ddd',
     display: 'flex',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
+  },
+  textLabel: {
+    ...systemWeights.regular,
   },
 }

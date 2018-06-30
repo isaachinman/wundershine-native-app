@@ -8,7 +8,6 @@ import { NavActions, screenUtils } from 'utils/nav'
 import { observer, inject } from 'mobx-react'
 
 import { greyAccent } from 'styles/colours'
-import { material } from 'react-native-typography'
 import styles from './Settings.styles'
 
 const routes = [
@@ -40,22 +39,22 @@ export default class Settings extends React.Component {
             renderItem={({ item }) => (
               <ListItem
                 activeBackgroundColor={greyAccent}
-                height={70}
+                height={60}
                 onPress={() => NavActions.push({ screen: item.screenName })}
               >
                 <ListItem.Part middle containerStyle={styles.listItemText}>
-                  <Text style={material.title}>{item.displayName}</Text>
+                  <Text style={styles.textLabel}>{item.displayName}</Text>
                 </ListItem.Part>
               </ListItem>
             )}
           />
           <ListItem
             activeBackgroundColor={greyAccent}
-            height={70}
+            height={60}
             onPress={() => this.props.auth.logout()}
           >
             <ListItem.Part middle containerStyle={styles.listItemText}>
-              <Text style={material.title}>Logout</Text>
+              <Text style={styles.textLabel}>Logout</Text>
             </ListItem.Part>
           </ListItem>
         </Content>
