@@ -149,7 +149,7 @@ export default class Cart extends React.Component {
                   </Col>
                   <Col style={styles.col2}>
                     <Text style={styles.productName}>
-                      {product.name}
+                      {product.name} {item.quantity > 1 ? `(${item.quantity})` : null}
                     </Text>
                     <Text style={styles.forFrame}>
                       For Reframe
