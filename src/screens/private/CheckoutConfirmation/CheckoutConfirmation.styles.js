@@ -38,11 +38,11 @@ export default {
   sectionTitle: {
     ...systemWeights.semibold,
     color: blackPrimary,
-    fontSize: 14,
+    fontSize: 16,
   },
   sectionBody: {
     color: '#616161',
-    fontSize: 14,
+    fontSize: 15,
   },
   editText: {
     color: blue,
