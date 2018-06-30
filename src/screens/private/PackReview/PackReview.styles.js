@@ -56,5 +56,9 @@ export default {
   actionBarLabel: {
     ...systemWeights.semibold,
     color: blackPrimary,
+    height: 60,
+    lineHeight: 60,
+    paddingHorizontal: 30,
+    marginHorizontal: -30,
   },
 }
