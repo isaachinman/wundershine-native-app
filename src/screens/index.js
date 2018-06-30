@@ -50,5 +50,6 @@ export const startApp = () => {
         contentOverlayColor: 'rgba(0,0,0,0.25)',
       },
     },
+    animationType: 'fade',
   })
 }
