@@ -12,7 +12,7 @@ const chinHeight = squareFrameDimension * CHIN_RATIO
 const additionalHeight = paddingHeight + chinHeight
 const totalHeight = squareFrameDimension + additionalHeight
 
-if (Dimensions.get('window').height - totalHeight <= 180) {
+if (Dimensions.get('window').height - totalHeight <= 150) {
   squareFrameDimension = Dimensions.get('window').height * 0.42
 }
 
