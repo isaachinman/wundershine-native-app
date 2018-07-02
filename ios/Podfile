@@ -37,6 +37,8 @@ target 'Wundershine' do
 
   pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe'
 
+  pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
+
 end
 
 target 'ShareReceiver' do

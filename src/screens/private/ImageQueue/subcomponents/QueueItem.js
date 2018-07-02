@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ActivityIndicator, Alert, Text, TouchableOpacity, View } from 'react-native'
-import { AnimatedImage, ListItem } from 'react-native-ui-lib'
-import { pixelScore, transformedImageURI } from 'utils/images'
+import { ActivityIndicator, Alert, Image, Text, TouchableOpacity, View } from 'react-native'
+import { ListItem } from 'react-native-ui-lib'
+import FastImage from 'react-native-fast-image'
 import { Col, Row } from 'react-native-easy-grid'
 import { Icon } from 'components'
 import { NavActions } from 'utils/nav'
@@ -11,6 +11,7 @@ import { NavActions } from 'utils/nav'
 import Interactable from 'react-native-interactable'
 
 import { blackSecondary, blackTertiary, greyAccent, whiteSecondary } from 'styles/colours'
+import { pixelScore, transformedImageURI } from 'utils/images'
 import { material, systemWeights } from 'react-native-typography'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
@@ -50,8 +51,7 @@ const styles = {
     height: QUEUE_IMAGE_DIMENSION,
     marginLeft: QUEUE_ITEM_PADDING,
   },
-  animatedImageStyle: {
-    resizeMode: 'contain',
+  image: {
     height: QUEUE_IMAGE_DIMENSION,
   },
   iconSelected: {
@@ -115,9 +115,29 @@ const styles = {
   pixelScoreLimitedText: {
     padding: 15,
   },
+  localImageOverlayContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
+  localImageOverlay: {
+    flex: 1,
+  },
 }
 
 export default class QueueItem extends React.Component {
+
+  state = {
+    localImageOverlay: this.props.uriIsLocal,
+  }
+
+  removeLocalImageOverlay = () => {
+    if (!this.props.uriIsLocal) {
+      this.setState({ localImageOverlay: false })
+    }
+  }
 
   openSlideout = () => {
     this.snapper.snapTo({ index: 1 })
@@ -153,12 +173,15 @@ export default class QueueItem extends React.Component {
 
   render() {
 
+    const { localImageOverlay } = this.state
+
     const {
       _id,
       deleteImage,
       deselectImage,
       cloudinaryID,
       loading,
+      localURI,
       name,
       notUploadedYet,
       selected,
@@ -186,10 +209,7 @@ export default class QueueItem extends React.Component {
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
     const selectionIconAction = selected ? deselectImage : selectImage
 
-    const animatedImageStyle = {
-      ...styles.animatedImageStyle,
-      resizeMode: uriIsLocal ? 'cover' : 'contain',
-    }
+    const resizeMode = uriIsLocal ? FastImage.resizeMode.cover : FastImage.resizeMode.contain
 
     const pixelScoreData = pixelScore(transformation)
 
@@ -208,14 +228,22 @@ export default class QueueItem extends React.Component {
             containerStyle={styles.container}
           >
             <ListItem.Part left>
-              <AnimatedImage
-                key={`queue-item-thumbnail-${imageSource}`}
-                containerStyle={styles.animatedImageContainerStyle}
-                imageStyle={animatedImageStyle}
-                imageSource={{ uri: imageSource }}
-                loader={<ActivityIndicator color={whiteSecondary} />}
-                animationDuration={200}
-              />
+              <View style={styles.animatedImageContainerStyle}>
+                <FastImage
+                  source={{ uri: imageSource }}
+                  style={styles.image}
+                  resizeMode={resizeMode}
+                  onLoad={this.removeLocalImageOverlay}
+                />
+                {localImageOverlay &&
+                  <View style={styles.localImageOverlayContainer}>
+                    <Image
+                      source={{ uri: localURI }}
+                      style={styles.localImageOverlay}
+                    />
+                  </View>
+                }
+              </View>
               {notUploadedYet &&
                 <View style={styles.loadingImageOverlay}>
                   <ActivityIndicator color={whiteSecondary} />
@@ -296,6 +324,7 @@ export default class QueueItem extends React.Component {
 
 QueueItem.defaultProps = {
   cloudinaryID: null,
+  localURI: null,
   notUploadedYet: false,
   uriIsLocal: false,
 }
@@ -306,6 +335,7 @@ QueueItem.propTypes = {
   deleteImage: PropTypes.func.isRequired,
   deselectImage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  localURI: PropTypes.string,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
   selected: PropTypes.bool.isRequired,

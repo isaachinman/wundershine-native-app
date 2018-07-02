@@ -14,6 +14,7 @@ import com.wix.interactable.Interactable;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactApplication;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.gettipsi.stripe.StripeReactPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -59,7 +60,8 @@ public class MainApplication extends NavigationApplication {
           new Interactable(),
           new PickerPackage(),
           new RNFSPackage(),
-          new StripeReactPackage()
+          new StripeReactPackage(),
+          new FastImageViewPackage()
         );
     }
 

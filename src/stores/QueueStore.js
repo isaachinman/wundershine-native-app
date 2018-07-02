@@ -1,8 +1,9 @@
 import { action, computed, toJS, runInAction, observable } from 'mobx'
 import { apiRequest, uploadImage } from 'utils/api'
+import FastImage from 'react-native-fast-image'
 import { LayoutAnimation } from 'react-native'
 import uuid from 'uuid/v1'
-import { validateImages } from 'utils/images'
+import { prefetchArray, validateImages } from 'utils/images'
 
 import CoreDataStore from './CoreDataStore'
 import UIStore from './UIStore'
@@ -104,6 +105,7 @@ class QueueStore {
         localID: uuid(),
         notUploadedYet: true,
         uriIsLocal: true,
+        localURI: image.uri,
         selected: false,
         // Metadata is determined by Cloudinary
         metaData: {},
@@ -130,6 +132,9 @@ class QueueStore {
 
       const creationData = await uploadImage(toJS(image), this.queueType)
 
+      // Preload images
+      FastImage.preload(prefetchArray(creationData.image))
+
       runInAction(() => {
         this.imagesToUpload = this.imagesToUpload.filter(i => i.localID !== image.localID)
 
@@ -140,6 +145,7 @@ class QueueStore {
               ...creationData.image,
               selected: creationData.selected,
               localID: image.localID,
+              localURI: image.localURI,
             }
           }
           return i
@@ -217,6 +223,11 @@ class QueueStore {
       })
       const { data } = res
       this.mergeIntoLocalData(data, true)
+
+      // Preload images
+      const images = [...data.selectedImages, ...data.deselectedImages]
+      FastImage.preload(prefetchArray(images.find(i => i._id === imageID)))
+
     } catch (error) {
       // Throw error back to EditImage screen
       throw error

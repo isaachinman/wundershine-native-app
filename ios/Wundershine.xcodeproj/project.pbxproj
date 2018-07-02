@@ -270,6 +270,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				6A00166B20650B9600EAFA0E /* Embed App Extensions */,
 				86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */,
+				7D919E2A2A00F368F8349A95 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,6 +291,7 @@
 				6A00165920650B9500EAFA0E /* Frameworks */,
 				6A00165A20650B9500EAFA0E /* Resources */,
 				6A8CC46E2097387E00D75CFF /* ShellScript */,
+				2BA67FE4760ED5A3AA0C1086 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -417,6 +419,21 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		2BA67FE4760ED5A3AA0C1086 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D15935F03260DA04647ABC6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,6 +464,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		7D919E2A2A00F368F8349A95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

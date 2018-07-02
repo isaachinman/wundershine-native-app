@@ -8,7 +8,9 @@ import * as Animatable from 'react-native-animatable'
 import { Col, Grid, Row } from 'react-native-easy-grid'
 import { createResponder } from 'react-native-gesture-responder'
 import { Icon, Loader } from 'components'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
+
+import FastImage from 'react-native-fast-image'
 
 import { pixelScore } from 'utils/images'
 
@@ -225,7 +227,7 @@ export default class EditImage extends React.Component {
                 ))}
               </Grid>
             </Animatable.View>
-            <Image
+            <FastImage
               {...this.gestureResponder}
               ref={i => this.image = i}
               source={{ uri: this.masterImage.uri }}
