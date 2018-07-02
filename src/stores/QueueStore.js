@@ -56,10 +56,10 @@ class QueueStore {
   setRefreshing = bool => this.refreshing = bool
 
   @action
-  mergeIntoLocalData = (data, animate = false) => {
+  mergeIntoLocalData = (data, animate = false, animateDuration = 200) => {
     if (animate) {
       LayoutAnimation.configureNext({
-        duration: 200,
+        duration: animateDuration,
         create: {
           type: LayoutAnimation.Types.easeInEaseOut,
           property: LayoutAnimation.Properties.opacity,
@@ -187,7 +187,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/select`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data, true)
+      this.mergeIntoLocalData(data, true, 300)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -200,7 +200,7 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/deselect`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data, true)
+      this.mergeIntoLocalData(data, true, 300)
     } catch (error) {
       runInAction(() => this.error = error)
     }
