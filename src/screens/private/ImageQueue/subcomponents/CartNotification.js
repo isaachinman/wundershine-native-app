@@ -105,8 +105,11 @@ export default class CartNotification extends React.Component {
     const { cart, coreData } = this.props
     const printpacks = cart.data.items.filter(i => this.printpackSKUs.includes(i.sku))
 
-    const totalImagesInCart = printpacks.reduce((acc, pack) =>
-      acc + (coreData.products[pack.sku].imageQuantity * pack.quantity), 0)
+    const totalPrintpacks = printpacks.reduce((acc, pack) =>
+      acc + pack.quantity, 0)
+
+    const totalImages = printpacks.reduce((acc, pack) =>
+      acc + (coreData.products[pack.sku].imageQuantity), 0)
 
     return (
       <Grid>
@@ -114,7 +117,7 @@ export default class CartNotification extends React.Component {
         <Row style={styles.container}>
           <Col style={styles.textCol}>
             <Text style={styles.title}>
-              You have {totalImagesInCart} images in {printpacks.length} Reframe print pack(s) in your shopping cart. {/* eslint-disable-line */}
+              You have {totalImages} images in {totalPrintpacks} Reframe print pack(s) in your shopping cart. {/* eslint-disable-line */}
             </Text>
             <Text
               onPress={this.dissolvePrintpacks}
@@ -128,7 +131,7 @@ export default class CartNotification extends React.Component {
           >
             <TouchableOpacity onPress={this.goToCart}>
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>{printpacks.length}</Text>
+                <Text style={styles.badgeText}>{totalPrintpacks}</Text>
               </View>
               <Icon
                 name='md-cart'
