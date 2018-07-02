@@ -129,8 +129,25 @@ class CartStore {
     this.setLoading(true)
     try {
 
+      // Dissolve pack
+      const res = await apiRequest({ url: '/pv/printpack/dissolve', data: { printpackIDs } })
+      this.mergeIntoLocalData(res.data.cart)
+      QueueStore.mergeIntoLocalData(res.data.queues[QueueStore.queueType], true)
+
+    } catch (error) {
+      // Throw error back to EditImage screen
+      throw error
+    }
+    this.setLoading(false)
+  }
+
+  @action
+  deletePrintpack = async (ID) => {
+    this.setLoading(true)
+    try {
+
       // Delete pack
-      const res = await apiRequest({ url: '/pv/printpack/delete', data: { printpackIDs } })
+      const res = await apiRequest({ url: `/pv/printpack/${ID}`, method: 'DELETE' })
       this.mergeIntoLocalData(res.data.cart)
       QueueStore.mergeIntoLocalData(res.data.queues[QueueStore.queueType], true)
 

@@ -58,6 +58,28 @@ export default class Cart extends React.Component {
     await cart.dissolvePrintpacks(printpacks)
   }
 
+  deletePrintpack = async (id) => {
+    Alert.alert(
+      'Delete printpack',
+      'Are you sure you want to permanently delete this pack and all its images?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete pack',
+          onPress: async () => {
+            const { cart } = this.props
+            const totalPrintpacks = cart.data.items.filter(i => i.type === 'printpack').length
+            if (totalPrintpacks <= 1) {
+              this.returnToImageQueue()
+            }
+            await cart.deletePrintpack(id)
+          },
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
   removeDiscount = async () => {
     Alert.alert(
       'Remove discount code',
@@ -170,7 +192,7 @@ export default class Cart extends React.Component {
                         <MenuOption onSelect={() => this.dissolvePrintpacks([item.printpack._id])}>
                           <Text style={styles.editPackText}>Edit pack</Text>
                         </MenuOption>
-                        <MenuOption onSelect={() => {}}>
+                        <MenuOption onSelect={() => this.deletePrintpack(item.printpack._id)}>
                           <Text style={styles.deletePackText}>Delete pack and images</Text>
                         </MenuOption>
                       </MenuOptions>
