@@ -260,17 +260,17 @@ export default class QueueItem extends React.Component {
                   onLoadStart={this.onLoadStart}
                   onLoad={this.onLoad}
                 />
+                {thumbnailLoading &&
+                  <View style={styles.thumbnailLoading}>
+                    <ActivityIndicator color={whitePrimary} />
+                  </View>
+                }
                 {localImageOverlay &&
                   <View style={styles.localImageOverlayContainer}>
                     <Image
                       source={{ uri: localURI }}
                       style={styles.localImageOverlay}
                     />
-                  </View>
-                }
-                {thumbnailLoading &&
-                  <View style={styles.thumbnailLoading}>
-                    <ActivityIndicator color={whitePrimary} />
                   </View>
                 }
               </View>
