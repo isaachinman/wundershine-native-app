@@ -72,3 +72,6 @@
 # react-native-config
 
 -keep class com.wundershine.app.BuildConfig { *; }
+
+-keep public class com.dylanvann.fastimage.* {*;}
+-keep public class com.dylanvann.fastimage.** {*;}
