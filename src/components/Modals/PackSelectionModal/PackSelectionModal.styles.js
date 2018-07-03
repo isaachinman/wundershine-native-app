@@ -20,6 +20,8 @@ const styles = {
   subheading: {
     ...material.subheadingObject,
     ...systemWeights.light,
+    fontSize: 15,
+    lineHeight: 20,
     textAlign: 'center',
     paddingHorizontal: 15,
     marginBottom: 20,
@@ -30,22 +32,23 @@ const styles = {
   },
   packRow: {
     marginBottom: 15,
-    padding: 30,
     borderRadius: 5,
     justifyContent: 'space-between',
   },
   imageContainer: {
     position: 'relative',
     marginRight: 30,
+    marginLeft: 10,
   },
   textContainer: {
     paddingVertical: 20,
+    paddingRight: 30,
   },
   packTitle: {
     ...systemWeights.semibold,
     color: blackPrimary,
-    fontSize: 20,
-    marginBottom: 15,
+    fontSize: 16,
+    marginBottom: 12,
     width: 80,
   },
   packCheck: {
@@ -57,13 +60,13 @@ const styles = {
     ...systemWeights.light,
     color: blackSecondary,
     fontSize: 22,
-    marginBottom: 15,
+    marginBottom: 12,
   },
   packShipping: {
     ...systemWeights.light,
     color: blackSecondary,
-    fontSize: 12,
-    marginBottom: 15,
+    fontSize: 14,
+    marginBottom: 12,
   },
   packImage: {
     flex: 1,

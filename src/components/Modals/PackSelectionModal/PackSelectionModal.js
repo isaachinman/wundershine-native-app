@@ -17,11 +17,11 @@ import checkImage from './images/check.png'
 const productSupplementaryContent = {
   SQPK05: {
     image: SQPK05Image,
-    shippingText: 'Includes free worldwide shipping',
+    shippingText: 'Includes free global shipping',
   },
   SQPK15: {
     image: SQPK15Image,
-    shippingText: 'Includes free worldwide shipping',
+    shippingText: 'Includes free global shipping',
   },
 }
 
