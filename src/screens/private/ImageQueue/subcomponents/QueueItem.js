@@ -166,7 +166,6 @@ export default class QueueItem extends React.Component {
   onLoad = () => {
     this.setState({
       thumbnailLoading: false,
-      localImageOverlay: this.props.uriIsLocal,
     })
   }
 
