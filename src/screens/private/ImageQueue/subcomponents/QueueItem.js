@@ -10,11 +10,25 @@ import { NavActions } from 'utils/nav'
 
 import Interactable from 'react-native-interactable'
 
-import { blackSecondary, blackTertiary, greyAccent, whiteSecondary } from 'styles/colours'
+import { blackSecondary, blackTertiary, greyAccent, whitePrimary, whiteSecondary } from 'styles/colours'
 import { pixelScore, transformedImageURI } from 'utils/images'
 import { material, systemWeights } from 'react-native-typography'
 
 import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
+
+export const calculateThumbnail = ({ cloudinaryID, transformation }) => {
+  const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
+  const HEIGHT_OF_SELECTION = transformation.bottomBoundary - transformation.topBoundary
+  const SCALE = WIDTH_OF_SELECTION / QUEUE_IMAGE_DIMENSION
+  const WIDTH_OF_THUMBNAIL = Math.round(WIDTH_OF_SELECTION / SCALE) * 2
+  const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
+
+  return transformedImageURI({ cloudinaryID, transformation }, {
+    thumbnail: true,
+    thumbnailWidth: WIDTH_OF_THUMBNAIL,
+    thumbnailHeight: HEIGHT_OF_THUMBNAIL,
+  })
+}
 
 const styles = {
   container: {
@@ -125,18 +139,35 @@ const styles = {
   localImageOverlay: {
     flex: 1,
   },
+  thumbnailLoading: {
+    position: 'absolute',
+    backgroundColor: '#E2E2E2',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }
 
 export default class QueueItem extends React.Component {
 
   state = {
+    thumbnailLoading: false,
     localImageOverlay: this.props.uriIsLocal,
   }
 
-  removeLocalImageOverlay = () => {
-    if (!this.props.uriIsLocal) {
-      this.setState({ localImageOverlay: false })
-    }
+  onLoadStart = () => {
+    this.setState({ thumbnailLoading: true })
+  }
+
+  onLoad = () => {
+    this.setState({
+      thumbnailLoading: false,
+      localImageOverlay: this.props.uriIsLocal,
+    })
   }
 
   openSlideout = () => {
@@ -173,7 +204,10 @@ export default class QueueItem extends React.Component {
 
   render() {
 
-    const { localImageOverlay } = this.state
+    const {
+      localImageOverlay,
+      thumbnailLoading,
+    } = this.state
 
     const {
       _id,
@@ -192,18 +226,8 @@ export default class QueueItem extends React.Component {
       transformation,
     } = this.props
 
-    const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
-    const HEIGHT_OF_SELECTION = transformation.bottomBoundary - transformation.topBoundary
-    const SCALE = WIDTH_OF_SELECTION / QUEUE_IMAGE_DIMENSION
-    const WIDTH_OF_THUMBNAIL = Math.round(WIDTH_OF_SELECTION / SCALE) * 2
-    const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
-
     const imageSource = notUploadedYet || uriIsLocal ? uri :
-      transformedImageURI({ cloudinaryID, transformation }, {
-        thumbnail: true,
-        thumbnailWidth: WIDTH_OF_THUMBNAIL,
-        thumbnailHeight: HEIGHT_OF_THUMBNAIL,
-      })
+      calculateThumbnail({ cloudinaryID, transformation })
 
     const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
@@ -233,7 +257,8 @@ export default class QueueItem extends React.Component {
                   source={{ uri: imageSource }}
                   style={styles.image}
                   resizeMode={resizeMode}
-                  onLoad={this.removeLocalImageOverlay}
+                  onLoadStart={this.onLoadStart}
+                  onLoad={this.onLoad}
                 />
                 {localImageOverlay &&
                   <View style={styles.localImageOverlayContainer}>
@@ -241,6 +266,11 @@ export default class QueueItem extends React.Component {
                       source={{ uri: localURI }}
                       style={styles.localImageOverlay}
                     />
+                  </View>
+                }
+                {thumbnailLoading &&
+                  <View style={styles.thumbnailLoading}>
+                    <ActivityIndicator color={whitePrimary} />
                   </View>
                 }
               </View>
