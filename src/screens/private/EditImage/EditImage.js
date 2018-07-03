@@ -4,13 +4,16 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { screenUtils, NavActions } from 'utils/nav'
 
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { Col, Grid, Row } from 'react-native-easy-grid'
 import { createResponder } from 'react-native-gesture-responder'
 import { Icon, Loader } from 'components'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+
+import FastImage from 'react-native-fast-image'
 
 import { pixelScore } from 'utils/images'
+import { whitePrimary } from 'styles/colours'
 
 import { SQUARE } from 'utils/images/aspect-ratios'
 import { SQUARE_FRAME_DIMENSION } from './constants'
@@ -47,6 +50,7 @@ export default class EditImage extends React.Component {
   state = {
     pixelScoreData: pixelScore(this.props.queue.data.images
       .find(i => i._id === this.props._id).transformation),
+    remoteImageLoading: false,
   }
 
   componentWillMount() {
@@ -85,6 +89,9 @@ export default class EditImage extends React.Component {
   componentWillUnmount = () => {
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
   }
+
+  onLoadStart = () => this.setState({ remoteImageLoading: true })
+  onLoad = () => this.setState({ remoteImageLoading: false })
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
@@ -190,7 +197,7 @@ export default class EditImage extends React.Component {
   render() {
 
     const { _id, queue } = this.props
-    const { pixelScoreData } = this.state
+    const { pixelScoreData, remoteImageLoading } = this.state
 
     return (
       <View style={styles.content}>
@@ -225,12 +232,19 @@ export default class EditImage extends React.Component {
                 ))}
               </Grid>
             </Animatable.View>
-            <Image
+            <FastImage
               {...this.gestureResponder}
               ref={i => this.image = i}
               source={{ uri: this.masterImage.uri }}
               style={{ position: 'relative' }}
+              onLoadStart={this.onLoadStart}
+              onLoad={this.onLoad}
             />
+            {remoteImageLoading &&
+              <View style={styles.remoteImageLoading}>
+                <ActivityIndicator color={whitePrimary} size='large' />
+              </View>
+            }
           </View>
           <Animatable.View
             ref={x => this.pixelScore = x}

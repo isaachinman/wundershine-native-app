@@ -47,7 +47,6 @@ export default {
   },
   ink: {
     flex: 1,
-    resizeMode: 'contain',
   },
   pageControlContainer: {
     flex: 1,

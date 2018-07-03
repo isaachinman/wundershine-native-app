@@ -6,10 +6,11 @@ import { Loader } from 'components'
 import { screenUtils, NavActions } from 'utils/nav'
 import { transformedImageURI } from 'utils/images'
 
-import { ActionBar, AnimatedImage, Carousel, PageControl } from 'react-native-ui-lib'
-import { ActivityIndicator, Image, TouchableWithoutFeedback, View } from 'react-native'
+import { ActionBar, Carousel, PageControl } from 'react-native-ui-lib'
+import { Image, TouchableWithoutFeedback, View } from 'react-native'
+import FastImage from 'react-native-fast-image'
 
-import { blackTertiary, whiteSecondary } from 'styles/colours'
+import { blackTertiary } from 'styles/colours'
 
 import squareFrameReviewImage from 'images/square_frame_review.png'
 
@@ -97,11 +98,20 @@ export default class PackReview extends React.Component {
             onChangePage={this.changePage}
           >
             {selectedImages.map((image) => {
+
+              const { transformation } = image
+
+              const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
+              const HEIGHT_OF_SELECTION = transformation.bottomBoundary - transformation.topBoundary
+              const SCALE = WIDTH_OF_SELECTION / SQUARE_REVIEW_PRINT_DIMENSION
+              const WIDTH_OF_THUMBNAIL = Math.round(WIDTH_OF_SELECTION / SCALE) * 2
+              const HEIGHT_OF_THUMBNAIL = Math.round(HEIGHT_OF_SELECTION / SCALE) * 2
               const uri = transformedImageURI(image, {
                 thumbnail: true,
-                thumbnailWidth: SQUARE_REVIEW_PRINT_DIMENSION * 2,
-                thumbnailHeight: SQUARE_REVIEW_PRINT_DIMENSION * 2,
+                thumbnailWidth: WIDTH_OF_THUMBNAIL,
+                thumbnailHeight: HEIGHT_OF_THUMBNAIL,
               })
+
               return (
                 <View key={image._id}>
                   <TouchableWithoutFeedback
@@ -114,14 +124,13 @@ export default class PackReview extends React.Component {
                           style={styles.frame}
                         />
                       </View>
-                      <AnimatedImage
-                        key={`pack-review-${uri}`}
-                        containerStyle={styles.print}
-                        imageStyle={styles.ink}
-                        imageSource={{ uri }}
-                        loader={<ActivityIndicator color={whiteSecondary} />}
-                        animationDuration={200}
-                      />
+                      <View style={styles.print}>
+                        <FastImage
+                          style={styles.ink}
+                          resizeMode={FastImage.resizeMode.contain}
+                          source={{ uri }}
+                        />
+                      </View>
                     </View>
                   </TouchableWithoutFeedback>
                 </View>

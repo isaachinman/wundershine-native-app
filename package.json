@@ -14,8 +14,8 @@
 		"test:e2e": "detox test --configuration $E2E_CONFIG",
 		"test:e2e:ios": "E2E_CONFIG=ios.sim.release yarn test:e2e",
 		"test:e2e:android": "E2E_CONFIG=android.emu.release yarn test:e2e",
-    "lint": "eslint src __tests__ --fix",
-    "postinstall": "dotenv sh ./scripts/get-core-data.sh",
+		"lint": "eslint src __tests__ --fix",
+		"postinstall": "dotenv sh ./scripts/get-core-data.sh",
 		"precommit": "npm run lint",
 		"prepush": "npm run test",
 		"prepare": "patch-package"
@@ -45,6 +45,7 @@
 		"react-native-code-push": "5.3.1",
 		"react-native-config": "0.11.5",
 		"react-native-easy-grid": "^0.1.17",
+		"react-native-fast-image": "^4.0.14",
 		"react-native-fs": "^2.9.12",
 		"react-native-gesture-responder": "^0.1.1",
 		"react-native-image-crop-picker": "0.20.3",
