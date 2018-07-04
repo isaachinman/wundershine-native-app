@@ -1,4 +1,4 @@
-import { blue, blackTertiary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
+import { blackTertiary, greyAccent, whitePrimary, greyBg } from 'styles/colours'
 import { material } from 'react-native-typography'
 
 export default {
@@ -16,9 +16,9 @@ export default {
     color: blackTertiary,
   },
   iconLarge: {
-    color: blue,
-    fontSize: 44,
-    marginHorizontal: 20,
+    color: blackTertiary,
+    fontSize: 26,
+    marginHorizontal: 30,
   },
   listItemText: {
     flex: 1,
@@ -26,5 +26,9 @@ export default {
     borderBottomColor: greyAccent,
     display: 'flex',
     justifyContent: 'center',
+  },
+  text: {
+    ...material.titleObject,
+    fontSize: 16,
   },
 }

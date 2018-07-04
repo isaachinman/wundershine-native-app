@@ -56,7 +56,7 @@
 	<string>Import your images and order digital prints!</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Ionicons.ttf</string>
+		<string>MaterialIcons.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -53,16 +53,10 @@ export default {
     alignSelf: 'center',
     fontSize: 30,
   },
-  iconRotateClockwise: {
+  iconRotate: {
     color: blackSecondary,
-    fontSize: 42,
+    fontSize: 30,
     marginTop: -7,
-  },
-  iconRotateCounterClockwise: {
-    color: blackSecondary,
-    fontSize: 42,
-    marginTop: -7,
-    transform: [{ scaleX: -1 }],
   },
   borderBox: {
     opacity: 0,

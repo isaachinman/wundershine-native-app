@@ -75,7 +75,7 @@ export default class CheckoutPayment extends React.Component {
               <Row style={styles.row}>
                 <Col style={styles.col}>
                   <Icon
-                    name={paymentMethodChosen.type === 'cc' ? 'ios-radio-button-on' : 'ios-radio-button-off'}
+                    name={paymentMethodChosen.type === 'cc' ? 'radio-button-checked' : 'radio-button-unchecked'}
                     style={paymentMethodChosen.type === 'cc' ? styles.iconRadioButtonOn : styles.iconRadioButtonOff}
                   />
                   <Text
@@ -95,11 +95,16 @@ export default class CheckoutPayment extends React.Component {
               <Row style={styles.row}>
                 <Col style={styles.col}>
                   <Icon
-                    name={paymentMethodChosen.id === cc._id ? 'ios-radio-button-on' : 'ios-radio-button-off'}
-                    style={paymentMethodChosen.id === cc._id ?
-                      Object.assign({}, styles.iconRadioButtonOn, {
-                        marginTop: -40,
-                      }) : styles.iconRadioButtonOff}
+                    name={paymentMethodChosen.id === cc._id ? 'radio-button-checked' : 'radio-button-unchecked'}
+                    style={cc._id ?
+                      Object.assign(
+                        {},
+                        paymentMethodChosen.id === cc._id ? styles.iconRadioButtonOn :
+                          styles.iconRadioButtonOff,
+                        {
+                          marginTop: -40,
+                        },
+                      ) : styles.iconRadioButtonOff}
                   />
                   <CreditCard
                     {...cc}
@@ -119,7 +124,7 @@ export default class CheckoutPayment extends React.Component {
             <Row style={styles.row}>
               <Col style={styles.col}>
                 <Icon
-                  name={paymentMethodChosen.type === 'ideal' ? 'ios-radio-button-on' : 'ios-radio-button-off'}
+                  name={paymentMethodChosen.type === 'ideal' ? 'radio-button-checked' : 'radio-button-unchecked'}
                   style={paymentMethodChosen.type === 'ideal' ? styles.iconRadioButtonOn : styles.iconRadioButtonOff}
                 />
                 <Image

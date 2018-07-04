@@ -6,39 +6,32 @@ import { FlatList, Linking, Text, View } from 'react-native'
 import { NavActions } from 'utils/nav'
 
 import { greyAccent } from 'styles/colours'
-import { material } from 'react-native-typography'
 import styles from './Drawer.styles'
 
 const routes = [
   {
     key: 'ImageQueue',
     displayName: 'Queue',
-    icon: 'ios-images-outline',
+    icon: 'filter',
     redirect: () => NavActions.push({ screen: 'ImageQueue' }),
   },
   {
     key: 'YourOrders',
     displayName: 'Your Orders',
-    icon: 'ios-cube-outline',
+    icon: 'assignment-turned-in',
     redirect: () => NavActions.push({ screen: 'YourOrders' }),
-  },
-  {
-    key: 'Settings',
-    displayName: 'Settings',
-    icon: 'ios-contact-outline',
-    redirect: () => NavActions.push({ screen: 'Settings' }),
-  },
-  {
-    key: 'Coupons',
-    displayName: 'Coupons',
-    icon: 'ios-pricetags-outline',
-    redirect: () => NavActions.push({ screen: 'Settings' }),
   },
   {
     key: 'Frame Shop',
     displayName: 'Frame Shop',
-    icon: 'ios-albums-outline',
+    icon: 'store',
     redirect: () => Linking.openURL('http://www.wundershine.com'),
+  },
+  {
+    key: 'Settings',
+    displayName: 'Settings',
+    icon: 'account-box',
+    redirect: () => NavActions.push({ screen: 'Settings' }),
   },
 ]
 
@@ -66,7 +59,7 @@ export default class Drawer extends React.Component {
             renderItem={({ item }) => (
               <ListItem
                 activeBackgroundColor={greyAccent}
-                height={100}
+                height={80}
                 onPress={() => this.handleRedirect(item.redirect)}
               >
                 <ListItem.Part left>
@@ -74,7 +67,7 @@ export default class Drawer extends React.Component {
                 </ListItem.Part>
                 <ListItem.Part middle column>
                   <View style={styles.listItemText}>
-                    <Text style={material.title}>{item.displayName}</Text>
+                    <Text style={styles.text}>{item.displayName}</Text>
                   </View>
                 </ListItem.Part>
               </ListItem>

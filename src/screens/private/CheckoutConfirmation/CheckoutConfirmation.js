@@ -206,7 +206,7 @@ export default class CheckoutConfirmation extends React.Component {
         </Content>
         <Button
           onPress={this.processOrder}
-          icon='md-lock'
+          icon='lock'
           text='Complete order'
           disabled={!cart.cartIsProcessable}
           primary

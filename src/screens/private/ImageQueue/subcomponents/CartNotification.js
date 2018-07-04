@@ -134,7 +134,7 @@ export default class CartNotification extends React.Component {
                 <Text style={styles.badgeText}>{totalPrintpacks}</Text>
               </View>
               <Icon
-                name='md-cart'
+                name='shopping-cart'
                 style={styles.iconCart}
               />
             </TouchableOpacity>

@@ -143,7 +143,7 @@ export default class Cart extends React.Component {
                     <ListItem.Part right column>
                       <Text style={styles.quantityPickerNumLabel}>
                         {num === packForQuantityAdjustment.quantity ?
-                          <Icon name='ios-checkmark' style={styles.iconPackQuantityCheckmark} />
+                          <Icon name='check' style={styles.iconPackQuantityCheckmark} />
                           :
                           null
                         }
@@ -183,7 +183,7 @@ export default class Cart extends React.Component {
                   <Col style={styles.col3}>
                     <Menu>
                       <MenuTrigger>
-                        <Icon style={styles.iconMore} name='md-more' />
+                        <Icon style={styles.iconMore} name='more-vert' />
                       </MenuTrigger>
                       <MenuOptions>
                         <MenuOption onSelect={() => this.toggleQuantityPicker(true, item)}>

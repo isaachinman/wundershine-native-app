@@ -63,7 +63,7 @@ export default class PackSelectionModal extends React.Component {
                 transparent
               >
                 <Icon
-                  name='ios-close'
+                  name='close'
                   style={styles.iconClose}
                 />
               </Button>

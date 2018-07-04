@@ -154,7 +154,7 @@ export default class ImageQueue extends React.Component {
                 onPress={() => NavActions.toggleDrawer({ side: 'left' })}
                 transparent
               >
-                <Icon name='ios-menu' style={styles.iconMenu} />
+                <Icon name='menu' style={styles.iconMenu} />
               </Button>
             </Left>
             <Body style={styles.headerBody}>
@@ -172,7 +172,7 @@ export default class ImageQueue extends React.Component {
                     {coreData.products[packSelected].name.toUpperCase()}
                   </Text>
                 }
-                <Text style={styles.packPickerArrow}>&#x25BC;</Text>
+                <Icon name='arrow-drop-down' style={styles.packPickerArrow} />
               </Button>
               <Button
                 onPress={() => NavActions.showModal({ screen: 'PackReview' })}
@@ -232,7 +232,7 @@ export default class ImageQueue extends React.Component {
               active
               onPress={this.handleLaunchImagePicker}
             >
-              <Icon name='ios-add' style={styles.circularButtonIcon} />
+              <Text style={styles.iconPlus}>+</Text>
             </Button>
           </View>
           <PackSelectionModal />

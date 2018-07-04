@@ -273,7 +273,7 @@ export default class EditImage extends React.Component {
               this.updateNativeStyles()
             }}
           >
-            <Icon name='ios-refresh' style={styles.iconRotateClockwise} />
+            <Icon name='rotate-right' style={styles.iconRotate} />
           </TouchableOpacity>
 
           {this.layout !== SQUARE &&
@@ -281,7 +281,7 @@ export default class EditImage extends React.Component {
               style={styles.buttonContainer}
               onPress={this.toggleFitFill}
             >
-              <Icon name='md-expand' style={styles.iconExpand} />
+              <Icon name='crop-free' style={styles.iconExpand} />
             </TouchableOpacity>
           }
 
@@ -293,7 +293,7 @@ export default class EditImage extends React.Component {
               this.updateNativeStyles()
             }}
           >
-            <Icon name='ios-refresh' style={styles.iconRotateCounterClockwise} />
+            <Icon name='rotate-left' style={styles.iconRotate} />
           </TouchableOpacity>
 
         </View>

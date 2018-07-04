@@ -70,7 +70,7 @@ const styles = {
   },
   iconSelected: {
     fontSize: QUEUE_ICON_SIZE,
-    color: blackSecondary,
+    color: '#424242',
     paddingTop: QUEUE_ITEM_PADDING,
     paddingRight: QUEUE_ITEM_PADDING,
     paddingBottom: QUEUE_ITEM_PADDING,
@@ -79,7 +79,7 @@ const styles = {
   },
   iconDeselected: {
     fontSize: QUEUE_ICON_SIZE,
-    color: whiteSecondary,
+    color: '#E2E2E2',
     paddingTop: QUEUE_ITEM_PADDING,
     paddingRight: QUEUE_ITEM_PADDING,
     paddingBottom: QUEUE_ITEM_PADDING,
@@ -87,10 +87,13 @@ const styles = {
     marginTop: -QUEUE_ITEM_PADDING,
   },
   loadingIconContainer: {
-    paddingTop: 7,
-    width: 28,
+    width: 65,
     height: 38,
-    marginRight: QUEUE_ITEM_PADDING,
+    paddingTop: QUEUE_ITEM_PADDING + 8,
+    paddingRight: QUEUE_ITEM_PADDING,
+    paddingBottom: QUEUE_ITEM_PADDING,
+    paddingLeft: QUEUE_ITEM_PADDING * 2,
+    marginTop: -QUEUE_ITEM_PADDING,
   },
   slideoutContainer: {
     position: 'absolute',
@@ -228,7 +231,7 @@ export default class QueueItem extends React.Component {
     const imageSource = notUploadedYet || uriIsLocal ? uri :
       calculateThumbnail({ cloudinaryID, transformation })
 
-    const selectionIcon = selected ? 'ios-checkmark-circle-outline' : 'ios-radio-button-off'
+    const selectionIcon = selected ? 'check-circle' : 'radio-button-unchecked'
     const selectionIconStyle = selected ? styles.iconSelected : styles.iconDeselected
     const selectionIconAction = selected ? deselectImage : selectImage
 
@@ -302,7 +305,7 @@ export default class QueueItem extends React.Component {
                             onPress={() => this.displayLimitedPixelAlert()}
                           >
                             <Icon
-                              name='ios-information-circle-outline'
+                              name='info'
                               style={styles.iconPixelScoreLimited}
                             />
                           </TouchableOpacity>
@@ -331,7 +334,7 @@ export default class QueueItem extends React.Component {
                   <TouchableOpacity
                     onPress={this.openSlideout}
                   >
-                    <Icon name='ios-more' style={styles.iconMore} />
+                    <Icon name='more-horiz' style={styles.iconMore} />
                   </TouchableOpacity>
                 </Col>
               </Row>
@@ -340,10 +343,10 @@ export default class QueueItem extends React.Component {
         </Interactable.View>
         <View style={styles.slideoutContainer}>
           <TouchableOpacity onPress={() => this.handleSlideoutAction(this.redirectToEditScreen)}>
-            <Icon name='ios-crop-outline' style={styles.iconSlideout} />
+            <Icon name='crop-rotate' style={styles.iconSlideout} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleSlideoutAction(deleteImage.bind(null, _id))}>
-            <Icon name='ios-trash-outline' style={styles.iconSlideout} />
+            <Icon name='delete' style={styles.iconSlideout} />
           </TouchableOpacity>
         </View>
       </View>

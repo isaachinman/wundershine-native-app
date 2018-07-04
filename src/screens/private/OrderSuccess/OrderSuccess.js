@@ -25,7 +25,7 @@ export default class OrderSuccess extends React.Component {
     return (
       <View style={styles.container}>
         <Icon
-          name='ios-checkmark-circle'
+          name='check-circle'
           style={styles.iconCheckmark}
         />
         <Text style={styles.title}>

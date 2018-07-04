@@ -16,6 +16,11 @@ export default {
     fontSize: 30,
     color: blackSecondary,
   },
+  iconPlus: {
+    fontSize: 30,
+    lineHeight: 32,
+    color: blackSecondary,
+  },
   headerBody: {
     display: 'flex',
     flexDirection: 'row',
@@ -99,8 +104,7 @@ export default {
     fontSize: 40,
   },
   packPickerArrow: {
-    fontSize: 12,
-    marginLeft: 4,
+    fontSize: 26,
     color: blackSecondary,
   },
   packPickerSelectionText: {

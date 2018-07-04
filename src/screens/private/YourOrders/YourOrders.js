@@ -68,7 +68,7 @@ export default class YourOrders extends React.Component {
                         (€{item.totalPrice.toFixed(2)})
                       </Text>
                     </View>
-                    <Icon name='ios-arrow-forward' style={styles.iconArrow} />
+                    <Icon name='keyboard-arrow-right' style={styles.iconArrow} />
                   </ListItem.Part>
                 </ListItem>
               )
