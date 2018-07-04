@@ -14,7 +14,7 @@ import { blackSecondary, blackTertiary, greyAccent, whitePrimary, whiteSecondary
 import { pixelScore, transformedImageURI } from 'utils/images'
 import { material, systemWeights } from 'react-native-typography'
 
-import { QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
+import { TEXT_CONTAINER_MARGIN_RIGHT, QUEUE_ITEM_HEIGHT, QUEUE_ITEM_PADDING, QUEUE_IMAGE_DIMENSION, QUEUE_ICON_SIZE } from '../constants'
 
 export const calculateThumbnail = ({ cloudinaryID, transformation }) => {
   const WIDTH_OF_SELECTION = transformation.rightBoundary - transformation.leftBoundary
@@ -38,7 +38,7 @@ const styles = {
     justifyContent: 'center',
   },
   titleContainer: {
-    marginRight: 50,
+    marginRight: TEXT_CONTAINER_MARGIN_RIGHT,
   },
   textContainer: {
     paddingLeft: QUEUE_ITEM_PADDING,
