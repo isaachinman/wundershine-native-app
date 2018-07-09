@@ -101,7 +101,7 @@ export default class PackSelectionModal extends React.Component {
                           />
                         </Col>
                         <Col style={styles.textContainer}>
-                          <Row>
+                          <Row style={{ flex: 0 }}>
                             <Col><Text style={styles.packTitle}>{pack.name}</Text></Col>
                             {packIsSelected ?
                               <Col>

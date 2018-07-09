@@ -39,10 +39,13 @@ const styles = {
     position: 'relative',
     marginRight: 30,
     marginLeft: 10,
+    marginVertical: 20,
+    minHeight: 150,
   },
   textContainer: {
     paddingVertical: 20,
     paddingRight: 30,
+    marginTop: 15,
   },
   packTitle: {
     ...systemWeights.semibold,
@@ -55,6 +58,7 @@ const styles = {
     alignSelf: 'flex-end',
     width: 30,
     height: 30,
+    marginTop: -5,
   },
   packPrice: {
     ...systemWeights.light,
@@ -74,7 +78,7 @@ const styles = {
     height: null,
   },
   iconClose: {
-    fontSize: 44,
+    fontSize: 38,
     color: blackPrimary,
   },
 }
