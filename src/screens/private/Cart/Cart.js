@@ -51,7 +51,7 @@ export default class Cart extends React.Component {
 
   dissolvePrintpacks = async (printpacks) => {
     const { cart } = this.props
-    const totalPrintpacks = cart.data.items.filter(i => i.type === 'printpack').length
+    const totalPrintpacks = cart.data.items.filter(i => typeof i.printpack !== 'undefined').length
     if (totalPrintpacks - printpacks.length <= 0) {
       this.returnToImageQueue()
     }
@@ -68,7 +68,7 @@ export default class Cart extends React.Component {
           text: 'Delete pack',
           onPress: async () => {
             const { cart } = this.props
-            const totalPrintpacks = cart.data.items.filter(i => i.type === 'printpack').length
+            const totalPrintpacks = cart.data.items.filter(i => typeof i.printpack !== 'undefined').length
             if (totalPrintpacks <= 1) {
               this.returnToImageQueue()
             }
