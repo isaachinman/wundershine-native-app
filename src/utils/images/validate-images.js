@@ -59,7 +59,7 @@ export default async (images) => {
       }
     */
 
-    images.forEach((image) => {
+    await Promise.all(images.map(async (image) => {
 
       let isValid = true
       let error = null
@@ -69,8 +69,8 @@ export default async (images) => {
         name: image.filename || path.basename(image.path),
         type: imageIsJPEG(image.path, image.mime) ? 'jpg' : null,
         bytes: image.size,
-        width: image.width,
-        height: image.height,
+        width: null,
+        height: null,
       }
 
       if (!jpegFormatStrings.includes(image.mime)) {
@@ -83,6 +83,15 @@ export default async (images) => {
         error = validationErrors.FILE_SIZE_TOO_BIG
       }
 
+      // Check image dimensions
+      await new Promise((resolve) => {
+        Image.getSize(image.path, (width, height) => {
+          imageToReturn.width = width
+          imageToReturn.height = height
+          resolve()
+        })
+      })
+
       if (isValid) {
         validatedImages.push(createValidatedImage(applyInitialTransformation(imageToReturn)))
       } else {
@@ -92,7 +101,7 @@ export default async (images) => {
         })
       }
 
-    })
+    }))
 
 
   } else {
