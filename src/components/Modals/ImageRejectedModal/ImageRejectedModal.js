@@ -40,7 +40,7 @@ export default class ImageRejectedModal extends React.Component {
                 transparent
               >
                 <Icon
-                  name='ios-close'
+                  name='close'
                   style={styles.iconClose}
                 />
               </Button>

@@ -18,6 +18,16 @@ export const validationErrors = {
 }
 
 const jpegFormatStrings = ['image/jpeg', 'jpg']
+const jpegPathStrings = ['.jpeg', '.jpg']
+const imageIsJPEG = (pathString, mime) => {
+  let isJPEG = false
+  if (jpegFormatStrings.includes(mime)) {
+    isJPEG = true
+  } else if (jpegPathStrings.includes(path.extname(pathString))) {
+    isJPEG = true
+  }
+  return isJPEG
+}
 
 export default async (images) => {
 
@@ -57,7 +67,7 @@ export default async (images) => {
       const imageToReturn = {
         uri: image.path,
         name: image.filename || path.basename(image.path),
-        type: jpegFormatStrings.includes(image.mime) ? 'jpg' : null,
+        type: imageIsJPEG(image.path, image.mime) ? 'jpg' : null,
         bytes: image.size,
         width: image.width,
         height: image.height,
@@ -119,7 +129,7 @@ export default async (images) => {
         error = 'FILE_SIZE_TOO_BIG'
       }
 
-      if (!jpegFormatStrings.includes(image.type)) {
+      if (!imageIsJPEG(image.value, image.type)) {
         isValid = false
         error = validationErrors.UNSUPPORTED_FORMAT
       }
