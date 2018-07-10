@@ -289,6 +289,7 @@ export default class QueueItem extends React.Component {
                     style={styles.imageTitle}
                     numberOfLines={2}
                     ellipsizeMode='middle'
+                    textBreakStrategy='simple'
                   >
                     {name}
                   </Text>
