@@ -159,7 +159,7 @@ export default class QueueItem extends React.Component {
 
   state = {
     thumbnailLoading: false,
-    localImageOverlay: this.props.uriIsLocal,
+    localImageOverlay: typeof this.props.localURI === 'string',
   }
 
   onLoadStart = () => {
@@ -267,7 +267,7 @@ export default class QueueItem extends React.Component {
                     <ActivityIndicator color={whitePrimary} />
                   </View>
                 }
-                {localImageOverlay &&
+                {localImageOverlay && localURI &&
                   <View style={styles.localImageOverlayContainer}>
                     <Image
                       source={{ uri: localURI }}

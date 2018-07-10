@@ -56,6 +56,18 @@ class QueueStore {
   @action
   setRefreshing = bool => this.refreshing = bool
 
+  preserveLocalIDs = arrayOfImages => arrayOfImages.map((image) => {
+    const imageHasPreviousLocalCopy = this.data.images.find(i =>
+      i._id === image._id && typeof i.localID === 'string')
+    if (imageHasPreviousLocalCopy) {
+      return {
+        ...image,
+        localID: imageHasPreviousLocalCopy.localID,
+      }
+    }
+    return image
+  })
+
   @action
   mergeIntoLocalData = (data, animate = false, animateDuration = 200) => {
     if (animate) {
@@ -71,8 +83,8 @@ class QueueStore {
     this.data = {
       packSelected: data.packSelected,
       images: [
-        ...data.selectedImages.map(x => ({ ...x, selected: true })),
-        ...data.deselectedImages.map(x => ({ ...x, selected: false })),
+        ...this.preserveLocalIDs(data.selectedImages.map(x => ({ ...x, selected: true }))),
+        ...this.preserveLocalIDs(data.deselectedImages.map(x => ({ ...x, selected: false }))),
         ...this.imagesToUpload,
       ],
     }
