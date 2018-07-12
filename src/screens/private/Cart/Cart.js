@@ -50,12 +50,8 @@ export default class Cart extends React.Component {
   }
 
   dissolvePrintpacks = async (printpacks) => {
-    const { cart } = this.props
-    const totalPrintpacks = cart.data.items.filter(i => typeof i.printpack !== 'undefined').length
-    if (totalPrintpacks - printpacks.length <= 0) {
-      this.returnToImageQueue()
-    }
-    await cart.dissolvePrintpacks(printpacks)
+    this.returnToImageQueue()
+    await this.props.cart.dissolvePrintpacks(printpacks)
   }
 
   deletePrintpack = async (id) => {
