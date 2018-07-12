@@ -12,6 +12,8 @@
 		6A00166720650B9600EAFA0E /* ShareReceiver.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A00165C20650B9500EAFA0E /* ShareReceiver.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A00166D20650BEA00EAFA0E /* ShareReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A00166C20650BEA00EAFA0E /* ShareReceiver.m */; };
 		6A585D1820694F6B00E7B9DA /* libVydiaRNFileUploader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A585D1720694F5B00E7B9DA /* libVydiaRNFileUploader.a */; };
+		6A6D35C820F7ACBD00151B09 /* wundershine-logos.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D35C520F7ACBD00151B09 /* wundershine-logos.ttf */; };
+		6A6D35C920F7ACBD00151B09 /* wundershine-logos.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D35C520F7ACBD00151B09 /* wundershine-logos.ttf */; };
 		6ACA76F5206577BF00A6BE39 /* ReactNativeShareExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */; };
 		951F0055FBD63C3D7AB8CC27 /* libPods-Wundershine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAF2DB259D45CD87C7B72DF /* libPods-Wundershine.a */; };
 		E33FD0F41FFBDBD900EB627A /* RNUeno.m in Sources */ = {isa = PBXBuildFile; fileRef = E33FD0F31FFBDBD900EB627A /* RNUeno.m */; };
@@ -88,6 +90,7 @@
 		6A18E36820656AD2005ABDAE /* libSentryReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSentryReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A18E36920656AD2005ABDAE /* libyoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libyoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A585D1120694F5B00E7B9DA /* VydiaRNFileUploader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VydiaRNFileUploader.xcodeproj; path = "../node_modules/react-native-background-upload/ios/VydiaRNFileUploader.xcodeproj"; sourceTree = "<group>"; };
+		6A6D35C520F7ACBD00151B09 /* wundershine-logos.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "wundershine-logos.ttf"; path = "../assets/wundershine-logos.ttf"; sourceTree = "<group>"; };
 		6A8FB8FC2065744400EEFFA7 /* libReact-f5a795f1.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-f5a795f1.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ACA76F3206577B400A6BE39 /* ReactNativeShareExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeShareExtension.h; sourceTree = "<group>"; };
 		6ACA76F4206577BF00A6BE39 /* ReactNativeShareExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeShareExtension.m; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6A6D35C520F7ACBD00151B09 /* wundershine-logos.ttf */,
 				E3A2B89D1FEACEE70099C8F8 /* Wundershine */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				6A00165D20650B9500EAFA0E /* ShareReceiver */,
@@ -270,6 +274,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				6A00166B20650B9600EAFA0E /* Embed App Extensions */,
 				86E9BCC9173030A4BD718A2D /* [CP] Copy Pods Resources */,
+				DF08F156780365234E64F957 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -290,6 +295,7 @@
 				6A00165920650B9500EAFA0E /* Frameworks */,
 				6A00165A20650B9500EAFA0E /* Resources */,
 				6A8CC46E2097387E00D75CFF /* ShellScript */,
+				4A7E55F996F6D1E48390F632 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -388,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3A2B8A91FEACEE70099C8F8 /* Images.xcassets in Resources */,
+				6A6D35C820F7ACBD00151B09 /* wundershine-logos.ttf in Resources */,
 				E3A2B8A71FEACEE70099C8F8 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6D35C920F7ACBD00151B09 /* wundershine-logos.ttf in Resources */,
 				6A00166320650B9500EAFA0E /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +441,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A7E55F996F6D1E48390F632 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareReceiver/Pods-ShareReceiver-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6A8CC46E2097387E00D75CFF /* ShellScript */ = {
@@ -490,6 +513,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF08F156780365234E64F957 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wundershine/Pods-Wundershine-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EA946592A73B595038C3A0DB /* [CP] Check Pods Manifest.lock */ = {

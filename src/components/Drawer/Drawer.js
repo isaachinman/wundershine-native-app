@@ -1,6 +1,6 @@
 import React from 'react'
-import { Icon } from 'components'
-import { Body, Container, Content, Header, Title } from 'native-base'
+import { Icon, Logo } from 'components'
+import { Body, Container, Content, Header } from 'native-base'
 import { ListItem } from 'react-native-ui-lib'
 import { FlatList, Linking, Text, View } from 'react-native'
 import { NavActions } from 'utils/nav'
@@ -50,7 +50,16 @@ export default class Drawer extends React.Component {
           style={styles.header}
         >
           <Body>
-            <Title style={styles.title}>WUNDERSHINE</Title>
+            <View style={styles.logoContainer}>
+              <Logo
+                name='wundershine_logo_graphic'
+                style={styles.logoGraphic}
+              />
+              <Logo
+                name='wundershine_logo_text'
+                style={styles.logoText}
+              />
+            </View>
           </Body>
         </Header>
         <Content style={styles.content}>
