@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
+    <item>
+      <bitmap
         android:width="200dp"
         android:height="200dp"
-        android:drawable="@mipmap/gradient"
+        android:src="@mipmap/gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType = "centerCrop"
-        android:tileMode="repeat" />
+        android:scaleType="centerCrop"
+        android:tileMode="repeat"
+      />
+    </item>
 
-    <item
+    <item>
+      <bitmap
         android:width="200dp"
         android:height="200dp"
-        android:drawable="@mipmap/wundershine_logo_graphic"
-        android:gravity="center" />
+        android:src="@mipmap/wundershine_logo_graphic"
+        android:gravity="center"
+      />
+    </item>
 
 </layer-list>
