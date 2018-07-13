@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+      <bitmap
+        android:src="@mipmap/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:tileMode="repeat"
+      />
+    </item>
+
+    <item>
+      <bitmap
+        android:width="50dp"
+        android:height="50dp"
+        android:src="@mipmap/wundershine_logo_graphic"
+        android:gravity="center"
+      />
+    </item>
+
+</layer-list>
