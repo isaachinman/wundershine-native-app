@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+
+import { Platform, View } from 'react-native'
 
 import { Button, Input } from 'components'
 import { inject, observer } from 'mobx-react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { mainWithFooter } from 'styles/layouts'
 import { screenUtils } from 'utils/nav'
+
+import { whitePrimary } from 'styles/colours'
 
 @inject('auth')
 @screenUtils
@@ -16,7 +19,11 @@ export default class Signup extends React.Component {
   static screenTitle = 'Create account'
 
   componentDidMount() {
-    this.firstInput.focus()
+    if (Platform.OS === 'ios') {
+      setTimeout(() => this.firstInput.focus(), 400)
+    } else {
+      this.firstInput.focus()
+    }
   }
 
   render() {
@@ -31,7 +38,13 @@ export default class Signup extends React.Component {
 
     return (
       <KeyboardAwareScrollView
-        contentContainerStyle={mainWithFooter.container}
+        contentContainerStyle={{
+          backgroundColor: whitePrimary,
+          paddingTop: 50,
+          paddingBottom: 50,
+          paddingLeft: 30,
+          paddingRight: 30,
+        }}
         extraScrollHeight={140}
         keyboardShouldPersistTaps='handled'
       >

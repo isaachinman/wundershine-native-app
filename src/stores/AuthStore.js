@@ -45,6 +45,7 @@ class AuthStore {
   redirectToLoggedInUI = (doNav = false) => {
     runInAction(() => this.loggedIn = true)
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
+    console.log('INSIDE redirectToLoggedInUI', doNav)
     if (doNav) {
       NavActions.resetTo({ screen: 'ImageQueue' })
     }
@@ -62,8 +63,11 @@ class AuthStore {
 
   @action
   async setToken(token) {
+    console.log('at beginning ', token)
     await AsyncStorage.setItem(`${storeKey}:${this.LOGIN_TOKEN_STORAGE_KEY}`, token)
+    console.log('in numer two')
     runInAction(() => this.token = token)
+    console.log('in numer three')
   }
 
   @action
@@ -96,12 +100,15 @@ class AuthStore {
     try {
       const res = await apiRequest({ url: '/pb/login', data: credentials })
 
+      console.log('inside login function......')
       await this.setToken(res.data.token)
+      console.log('this is never happening....')
       this.clearForm('login')
       this.setLoading(false)
       this.redirectToLoggedInUI(true)
 
     } catch (error) {
+      console.log('we have error: ', error)
       this.setLoading(false)
       let message = error.toString()
       if (error.response && error.response.status === 401) {

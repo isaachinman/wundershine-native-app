@@ -10,6 +10,7 @@ const MARGIN_TOP = WINDOW_HEIGHT > 800 ? 90 : 20
 export default {
   container: {
     flexGrow: 1,
+    backgroundColor: whitePrimary,
   },
   logoGraphic: {
     color: whitePrimary,
@@ -57,11 +58,13 @@ export default {
     justifyContent: 'center',
   },
   copyRegular: {
+    lineHeight: 20,
     flex: 0,
     color: whiteTertiary,
   },
   copyBold: {
     ...systemWeights.semibold,
+    lineHeight: 20,
     flex: 0,
     color: whiteSecondary,
   },

@@ -9,7 +9,7 @@
     "build:e2e:android": "E2E_CONFIG=android.emu.release yarn build:e2e",
     "clean": "react-native-clean-project",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"launch:ios": "react-native run-ios --simulator='iPad Air 2'",
+		"launch:ios": "react-native run-ios --simulator='iPhone X'",
 		"launch:android": "react-native run-android",
 		"test": "jest --passWithNoTests",
 		"test:e2e": "detox test --configuration $E2E_CONFIG",

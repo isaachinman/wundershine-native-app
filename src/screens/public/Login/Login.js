@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Text, View } from 'react-native'
+
+import { Text, Platform, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
 import { mainWithFooter } from 'styles/layouts'
@@ -19,7 +20,11 @@ export default class Login extends React.Component {
   static screenTitle = 'Login'
 
   componentDidMount() {
-    this.firstInput.focus()
+    if (Platform.OS === 'ios') {
+      setTimeout(() => this.firstInput.focus(), 400)
+    } else {
+      this.firstInput.focus()
+    }
   }
 
   render() {

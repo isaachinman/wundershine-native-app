@@ -5,6 +5,10 @@ export default {
   header: {
     backgroundColor: whitePrimary,
   },
+  content: {
+    flex: 1,
+    backgroundColor: whitePrimary,
+  },
   headerTitle: {
     color: blackPrimary,
   },
