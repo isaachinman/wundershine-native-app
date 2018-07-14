@@ -40,6 +40,9 @@ export const startApp = () => {
     passProps: {
       backButtonHidden: true,
     },
+    appStyle: {
+      navBarButtonColor: '#3C9CAA',
+    },
     drawer: {
       disableOpenGesture: true,
       left: {

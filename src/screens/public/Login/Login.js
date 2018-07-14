@@ -18,6 +18,10 @@ export default class Login extends React.Component {
 
   static screenTitle = 'Login'
 
+  componentDidMount() {
+    this.firstInput.focus()
+  }
+
   render() {
 
     const {
@@ -42,6 +46,7 @@ export default class Login extends React.Component {
             keyboardType='email-address'
             value={loginForm.email}
             maxLength={100}
+            ref={x => this.firstInput = x}
           />
           <Input
             title='Password'

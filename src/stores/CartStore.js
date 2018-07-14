@@ -80,7 +80,9 @@ class CartStore {
     const { paymentMethods } = UserStore.data
 
     // Only set default payment method if user has not made a selection
-    if (this.paymentMethodChosen.type === null) {
+    if (this.paymentMethodChosen.type === null ||
+        (this.paymentMethodChosen.type === 'none' && this.data.totalPrice > 0)
+    ) {
       if (paymentMethods.creditCards.length > 0) {
         this.paymentMethodChosen = {
           type: 'cc',

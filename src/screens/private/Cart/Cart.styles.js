@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, blue, green, red, whitePrimary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, green, greenLight, red, whitePrimary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { systemWeights } from 'react-native-typography'
 
@@ -81,7 +81,7 @@ export default {
   },
   addDiscountCode: {
     fontSize: 14,
-    color: blue,
+    color: green,
   },
   pricingTextBold: {
     ...systemWeights.semibold,
@@ -103,7 +103,7 @@ export default {
     color: blackSecondary,
   },
   actionBarCheckout: {
-    backgroundColor: green,
+    backgroundColor: greenLight,
     alignItems: 'center',
     flex: 1,
   },
@@ -146,7 +146,7 @@ export default {
     paddingHorizontal: 30,
   },
   iconPackQuantityCheckmark: {
-    color: blue,
+    color: green,
     fontSize: 30,
   },
 }

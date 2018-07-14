@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { inject, observer } from 'mobx-react'
 import { Toast as WixToast } from 'react-native-ui-lib'
-import { blue, red } from 'styles/colours'
+import { green, red } from 'styles/colours'
 
 @inject('ui')
 @observer
@@ -13,7 +13,7 @@ export default class Toast extends React.Component {
 
     const { toast } = this.props.ui
 
-    let bgColor = blue
+    let bgColor = green
     if (toast.type === 'error') {
       bgColor = red
     }

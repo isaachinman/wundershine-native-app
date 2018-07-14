@@ -1,5 +1,8 @@
-export const green = '#88c553'
-export const blue = '#267DCA'
+export const green = '#3C9CAA'
+export const greenLight = '#57AEB3'
+export const greenSuccess = '#88c553'
+
+export const blue = '#6F87CE'
 export const red = '#DE0000'
 
 export const blackPrimary = '#212121'

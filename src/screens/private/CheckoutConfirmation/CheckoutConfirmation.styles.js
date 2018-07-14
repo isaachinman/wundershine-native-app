@@ -1,5 +1,5 @@
 import { systemWeights } from 'react-native-typography'
-import { blackPrimary, blue, greyBg, whitePrimary } from 'styles/colours'
+import { blackPrimary, green, greyBg, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
@@ -45,7 +45,7 @@ export default {
     fontSize: 14,
   },
   editText: {
-    color: blue,
+    color: green,
     fontSize: 14,
   },
 }

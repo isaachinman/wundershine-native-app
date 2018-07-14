@@ -46,17 +46,17 @@ export default class Drawer extends React.Component {
     return (
       <Container>
         <Header
-          androidStatusBarColor='#dddddd'
+          androidStatusBarColor='transparent'
           style={styles.header}
         >
           <Body>
             <View style={styles.logoContainer}>
               <Logo
-                name='wundershine_logo_graphic'
+                type='graphic'
                 style={styles.logoGraphic}
               />
               <Logo
-                name='wundershine_logo_text'
+                type='text'
                 style={styles.logoText}
               />
             </View>

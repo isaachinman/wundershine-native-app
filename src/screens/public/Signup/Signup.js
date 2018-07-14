@@ -15,6 +15,10 @@ export default class Signup extends React.Component {
 
   static screenTitle = 'Create account'
 
+  componentDidMount() {
+    this.firstInput.focus()
+  }
+
   render() {
 
     const {
@@ -37,6 +41,7 @@ export default class Signup extends React.Component {
             title='First name'
             onChangeText={t => updateForm('signup', 'firstName', t)}
             value={signupForm.firstName}
+            ref={x => this.firstInput = x}
           />
           <Input
             title='Last name'

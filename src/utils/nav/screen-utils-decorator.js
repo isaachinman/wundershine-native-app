@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 export default (() => WrappedComponent =>
   class extends WrappedComponent {
     constructor(props) {

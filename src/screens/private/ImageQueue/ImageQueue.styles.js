@@ -1,4 +1,4 @@
-import { blackPrimary, blackSecondary, blackTertiary, blue, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
+import { blackPrimary, blackSecondary, blackTertiary, green, greyAccent, whitePrimary, whiteSecondary, whiteTertiary, greyBg } from 'styles/colours'
 import { Dimensions } from 'react-native'
 import { material, systemWeights } from 'react-native-typography'
 import { verticalScale } from 'utils/fonts/scaled-font'
@@ -33,7 +33,7 @@ export default {
   },
   nextEnabled: {
     ...systemWeights.semibold,
-    color: blue,
+    color: green,
     marginRight: -10,
   },
   nextDisabled: {

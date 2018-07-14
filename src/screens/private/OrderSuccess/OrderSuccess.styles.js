@@ -1,4 +1,4 @@
-import { blackPrimary, green, whitePrimary } from 'styles/colours'
+import { blackPrimary, greenSuccess, whitePrimary } from 'styles/colours'
 import { material, systemWeights } from 'react-native-typography'
 
 export default {
@@ -10,7 +10,7 @@ export default {
     backgroundColor: whitePrimary,
   },
   iconCheckmark: {
-    color: green,
+    color: greenSuccess,
     fontSize: 100,
     marginBottom: 20,
   },

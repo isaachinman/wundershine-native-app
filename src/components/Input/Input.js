@@ -27,6 +27,7 @@ export default class Input extends React.Component {
   }
 
   setActive = isActive => this.setState({ isActive })
+  focus = () => this.input.focus()
 
   render() {
 
@@ -51,10 +52,12 @@ export default class Input extends React.Component {
     return (
       <View style={styles.container}>
         <TextInput
+          ref={x => this.input = x}
           underlineColor={{
             default: '#dddddd',
             focus: green,
           }}
+          selectionColor={green}
           style={styles.textInput}
           titleColor={blackSecondary}
           autoCorrect={false}

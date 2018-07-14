@@ -78,7 +78,7 @@ const styles = {
     height: null,
   },
   iconClose: {
-    fontSize: 38,
+    fontSize: 30,
     color: blackPrimary,
   },
 }

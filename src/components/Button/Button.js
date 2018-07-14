@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button as NativeBaseButton, Text as NativeBaseButtonText, Spinner } from 'native-base'
 import { Icon } from 'components'
-import { green, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
+import { greenLight, red, blackPrimary, whitePrimary, whiteSecondary } from 'styles/colours'
 import { systemWeights } from 'react-native-typography'
 
 /*
@@ -40,12 +40,11 @@ export default class Button extends React.Component {
 
     /* Primary */
     if (primary) {
-      buttonStyles.backgroundColor = green
+      buttonStyles.backgroundColor = greenLight
       textStyles.color = whitePrimary
       if (bordered) {
         buttonStyles.backgroundColor = 'transparent'
-        buttonStyles.borderColor = green
-        textStyles.color = green
+        buttonStyles.borderColor = whitePrimary
       }
     }
 

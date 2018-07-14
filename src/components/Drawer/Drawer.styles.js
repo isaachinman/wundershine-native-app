@@ -1,10 +1,11 @@
-import { blackTertiary, whitePrimary, greyBg } from 'styles/colours'
+import { blackTertiary, whitePrimary, greenLight, greyBg } from 'styles/colours'
 import { material } from 'react-native-typography'
 import { Platform } from 'react-native'
 
 export default {
   header: {
-    backgroundColor: greyBg,
+    backgroundColor: greenLight,
+    height: 100,
   },
   content: {
     backgroundColor: whitePrimary,
@@ -18,8 +19,8 @@ export default {
   },
   iconLarge: {
     color: blackTertiary,
-    fontSize: 26,
-    marginHorizontal: 25,
+    fontSize: 24,
+    marginHorizontal: 22,
   },
   listItemText: {
     flex: 1,
@@ -42,10 +43,12 @@ export default {
     }),
   },
   logoGraphic: {
+    color: whitePrimary,
     fontSize: 30,
     marginRight: 10,
   },
   logoText: {
-    fontSize: 14,
+    color: whitePrimary,
+    fontSize: 16,
   },
 }

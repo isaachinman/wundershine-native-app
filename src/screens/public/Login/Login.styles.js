@@ -1,10 +1,10 @@
-import { blue } from 'styles/colours'
+import { green } from 'styles/colours'
 import { material } from 'react-native-typography'
 
 export default {
   forgotPassword: {
     ...material.captionObject,
-    color: blue,
+    color: green,
     textAlign: 'right',
   },
 }
