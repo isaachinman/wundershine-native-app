@@ -5,7 +5,7 @@ import { systemWeights } from 'react-native-typography'
 import { TextInput } from 'react-native-ui-lib'
 import { View } from 'react-native'
 
-import { blackSecondary, green } from 'styles/colours'
+import { blackSecondary, green, whitePrimary } from 'styles/colours'
 
 const styles = {
   container: {
@@ -34,7 +34,20 @@ export default class Input extends React.Component {
     const { isActive } = this.state
     const textFieldProps = Object.assign({}, this.props)
 
-    const { keyboardType, value } = textFieldProps
+    const { keyboardType, theme, value } = textFieldProps
+
+    let textInputStyles = styles.textInput
+    let titleColor = blackSecondary
+    let selectionColor = green
+
+    if (theme === 'dark') {
+      titleColor = whitePrimary
+      selectionColor = whitePrimary
+      textInputStyles = {
+        ...textInputStyles,
+        color: whitePrimary,
+      }
+    }
 
     if (textFieldProps.maxLength && isActive) {
       textFieldProps.showCharacterCounter = true
@@ -55,11 +68,11 @@ export default class Input extends React.Component {
           ref={x => this.input = x}
           underlineColor={{
             default: '#dddddd',
-            focus: green,
+            focus: selectionColor,
           }}
-          selectionColor={green}
-          style={styles.textInput}
-          titleColor={blackSecondary}
+          selectionColor={selectionColor}
+          style={textInputStyles}
+          titleColor={titleColor}
           autoCorrect={false}
           onFocus={() => this.setActive(true)}
           onBlur={() => this.setActive(false)}

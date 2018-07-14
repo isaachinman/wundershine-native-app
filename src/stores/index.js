@@ -89,12 +89,12 @@ class StoreProvider extends PureComponent {
   static propTypes = {
     store: PropTypes.object,
     children: PropTypes.node,
-  };
+  }
 
   static defaultProps = {
     store: {},
     children: undefined,
-  };
+  }
 
   render() {
     const { store, children } = this.props

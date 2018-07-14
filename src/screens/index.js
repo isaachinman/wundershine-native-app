@@ -42,6 +42,7 @@ export const startApp = (unvalidatedTokenPresent) => {
     },
     appStyle: {
       navBarButtonColor: '#3C9CAA',
+      keepStyleAcrossPush: false,
     },
     drawer: {
       disableOpenGesture: true,

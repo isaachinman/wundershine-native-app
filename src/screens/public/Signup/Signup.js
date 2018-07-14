@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 
 import { Button, Input } from 'components'
 import { inject, observer } from 'mobx-react'
@@ -17,6 +17,10 @@ import styles from './Signup.styles'
 export default class Signup extends React.Component {
 
   static screenTitle = 'Create account'
+
+  static navigatorStyle = {
+    navBarHidden: true,
+  }
 
   render() {
 
@@ -34,21 +38,25 @@ export default class Signup extends React.Component {
         extraScrollHeight={140}
         keyboardShouldPersistTaps='handled'
       >
+        <View style={styles.overlay} />
         <View style={mainWithFooter.main} />
         <View style={mainWithFooter.footer}>
           <Input
             title='First name'
+            theme='dark'
             onChangeText={t => updateForm('signup', 'firstName', t)}
             value={signupForm.firstName}
-            autoFocus
+            autoFocus={Platform.OS !== 'ios'}
           />
           <Input
             title='Last name'
+            theme='dark'
             onChangeText={t => updateForm('signup', 'lastName', t)}
             value={signupForm.lastName}
           />
           <Input
             title='Email'
+            theme='dark'
             keyboardType='email-address'
             onChangeText={t => updateForm('signup', 'email', t)}
             value={signupForm.email}
@@ -56,6 +64,7 @@ export default class Signup extends React.Component {
           />
           <Input
             title='Password'
+            theme='dark'
             secureTextEntry
             onChangeText={t => updateForm('signup', 'password', t)}
             value={signupForm.password}

@@ -18,11 +18,15 @@ class NavigationActionsClass {
   popToRoot = params => this.navigator && this.navigator.popToRoot(params)
   resetTo = params => this.navigator && (() => {
     this.onNavigateExtras()
-    this.navigator.resetTo(params)
+    this.navigator.resetTo({
+      ...params,
+      animationType: 'fade',
+    })
   })()
   toggleDrawer = params => this.navigator && this.navigator.toggleDrawer(params)
   toggleNavBar = params => this.navigator && this.navigator.toggleNavBar(params)
   setTitle = params => this.navigator && this.navigator.setTitle(params)
+  setStyle = params => this.navigator && this.navigator.setStyle(params)
   setButtons = params => this.navigator && this.navigator.setButtons(params)
   setDrawerEnabled = params => this.navigator && this.navigator.setDrawerEnabled(params)
 

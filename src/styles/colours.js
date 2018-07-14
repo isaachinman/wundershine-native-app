@@ -15,3 +15,5 @@ export const whiteTertiary = '#909090'
 
 export const greyAccent = '#EEEEEE'
 export const greyBg = '#EBE8E8'
+
+export const transparentBlack = 'rgba(0,0,0,0.65)'

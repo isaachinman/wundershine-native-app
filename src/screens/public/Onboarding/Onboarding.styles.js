@@ -1,6 +1,6 @@
 import { Dimensions, Platform } from 'react-native'
 import { systemWeights } from 'react-native-typography'
-import { whitePrimary, whiteSecondary, whiteTertiary } from 'styles/colours'
+import { transparentBlack, whitePrimary, whiteSecondary, whiteTertiary } from 'styles/colours'
 
 const WINDOW_HEIGHT = Dimensions.get('window').height
 
@@ -50,7 +50,7 @@ export default {
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: 'rgba(0,0,0,0.65)',
+    backgroundColor: transparentBlack,
   },
   storeLinkContainer: {
     marginTop: 40,

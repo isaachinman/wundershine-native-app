@@ -12,17 +12,20 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Linking } from 'react-native'
+
+import { ImageBackground, Linking } from 'react-native'
 
 import { inject, observer } from 'mobx-react'
-
 import { NavActions } from 'utils/nav'
+
+import gradientImage from 'images/gradient.png'
 
 @inject('auth', 'networking', 'routing')
 @observer
 export default class App extends React.Component {
 
   static navigatorStyle = {
+    statusBarColor: '#000000',
     navBarHidden: true,
   }
 
@@ -53,8 +56,13 @@ export default class App extends React.Component {
     Linking.removeEventListener('url')
   }
 
-  render = () => null
-
+  render = () => (
+    <ImageBackground
+      source={gradientImage}
+      style={{ flex: 1 }}
+      imageStyle={{ resizeMode: 'stretch' }}
+    />
+  )
 }
 
 App.wrappedComponent.propTypes = {

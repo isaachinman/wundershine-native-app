@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Text, View } from 'react-native'
+import { Platform, Text, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
 import { mainWithFooter } from 'styles/layouts'
@@ -19,6 +19,10 @@ export default class Login extends React.Component {
 
   static screenTitle = 'Login'
 
+  static navigatorStyle = {
+    navBarHidden: true,
+  }
+
   render() {
 
     const {
@@ -31,22 +35,25 @@ export default class Login extends React.Component {
 
     return (
       <KeyboardAwareScrollView
-        contentContainerStyle={mainWithFooter.container}
+        contentContainerStyle={styles.container}
         extraScrollHeight={140}
         keyboardShouldPersistTaps='handled'
       >
+        <View style={styles.overlay} />
         <View style={mainWithFooter.main} />
         <View style={mainWithFooter.footer}>
           <Input
             title='Email'
+            theme='dark'
             onChangeText={t => updateForm('login', 'email', t)}
             keyboardType='email-address'
             value={loginForm.email}
             maxLength={100}
-            autoFocus
+            autoFocus={Platform.OS !== 'ios'}
           />
           <Input
             title='Password'
+            theme='dark'
             onChangeText={t => updateForm('login', 'password', t)}
             secureTextEntry
             value={loginForm.password}
