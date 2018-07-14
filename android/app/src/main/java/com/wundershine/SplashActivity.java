@@ -1,4 +1,4 @@
-package com.wundershine;
+package com.wundershine.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, com.wundershine.app.MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
