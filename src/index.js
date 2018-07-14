@@ -30,6 +30,6 @@ try {
 
   stores
     .generalSetup()
-    .then(startApp)
+    .then(loggedIn => startApp(loggedIn))
 
 })()

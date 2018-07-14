@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Text, Platform, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
 import { mainWithFooter } from 'styles/layouts'
@@ -18,14 +18,6 @@ import styles from './Login.styles'
 export default class Login extends React.Component {
 
   static screenTitle = 'Login'
-
-  componentDidMount() {
-    if (Platform.OS === 'ios') {
-      setTimeout(() => this.firstInput.focus(), 400)
-    } else {
-      this.firstInput.focus()
-    }
-  }
 
   render() {
 
@@ -51,7 +43,7 @@ export default class Login extends React.Component {
             keyboardType='email-address'
             value={loginForm.email}
             maxLength={100}
-            ref={x => this.firstInput = x}
+            autoFocus
           />
           <Input
             title='Password'

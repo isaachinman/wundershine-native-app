@@ -32,6 +32,7 @@ export default class ImageQueue extends React.Component {
 
   static navigatorStyle = {
     navBarHidden: true,
+    statusBarColor: '#000000',
   }
 
   /*

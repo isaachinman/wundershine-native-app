@@ -11,6 +11,7 @@ import styles from './Onboarding.styles'
 export default class Onboarding extends React.Component {
 
   static navigatorStyle = {
+    statusBarColor: '#000000',
     navBarHidden: true,
   }
 

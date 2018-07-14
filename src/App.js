@@ -1,8 +1,19 @@
+/*
+
+  This is the entry point for react-native-navigation
+
+  This component does not actually render anything, but merely sets up some global
+  configs and resets to one of two potential navigation stacks:
+
+  1. Logged-in stack
+  2. Logged-out stack
+
+*/
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Linking } from 'react-native'
 
-import { Splash } from 'screens'
 import { inject, observer } from 'mobx-react'
 
 import { NavActions } from 'utils/nav'
@@ -27,11 +38,14 @@ export default class App extends React.Component {
     setUrl(await Linking.getInitialURL())
     Linking.addEventListener('url', url => setUrl(url.url))
 
-    // Get login status (will cause rerender)
-    this.props.auth.getLoginStatus()
-
-    // NetInfo.isConnected.addEventListener('connectionChange',
-    //   this.props.networking.setHasNetworkConnection)
+    // Direct to initial stack
+    if (this.props.unvalidatedTokenPresent) {
+      NavActions.resetTo({ screen: 'ImageQueue', animated: false })
+      this.props.auth.getLoginStatus()
+    } else {
+      NavActions.setDrawerEnabled({ side: 'left', enabled: false })
+      NavActions.resetTo({ screen: 'Onboarding', animated: false })
+    }
 
   }
 
@@ -39,24 +53,8 @@ export default class App extends React.Component {
     Linking.removeEventListener('url')
   }
 
-  render() {
+  render = () => null
 
-    const { auth } = this.props
-
-    if (auth.loginStatusLoading) {
-      return <Splash />
-    }
-
-    if (auth.loggedIn) {
-      NavActions.resetTo({ screen: 'ImageQueue' })
-    } else {
-      NavActions.setDrawerEnabled({ side: 'left', enabled: false })
-      NavActions.resetTo({ screen: 'Onboarding', animated: false })
-    }
-
-    return null
-
-  }
 }
 
 App.wrappedComponent.propTypes = {
@@ -69,4 +67,5 @@ App.wrappedComponent.propTypes = {
   routing: PropTypes.shape({
     setUrl: PropTypes.func,
   }).isRequired,
+  unvalidatedTokenPresent: PropTypes.bool.isRequired,
 }

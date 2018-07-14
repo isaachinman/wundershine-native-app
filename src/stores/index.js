@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { Platform } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
 
 import codePush from 'react-native-code-push'
 import config from 'config'
@@ -15,7 +15,7 @@ import { Toast } from 'components'
 import xhr from 'utils/xhr'
 
 // Stores
-import AuthStore from './AuthStore'
+import AuthStore, { LOGIN_TOKEN_STORAGE_KEY } from './AuthStore'
 import CartStore from './CartStore'
 import CoreDataStore from './CoreDataStore'
 import InitialisationStore from './InitialisationStore'
@@ -50,8 +50,9 @@ class Stores {
   ui = UIStore
 
   async generalSetup() {
-    // Hydrate store
-    // await hydrate('store', this)
+    // Read token, if it is a string, assume for boot purposes that it's valid
+    const token = await AsyncStorage.getItem(LOGIN_TOKEN_STORAGE_KEY)
+    return typeof token === 'string'
   }
 
   async loggedInSetup() {

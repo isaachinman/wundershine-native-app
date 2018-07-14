@@ -9,7 +9,8 @@ import * as modelActions from 'models'
 
 import UserStore from './UserStore'
 
-const storeKey = '@AuthStore'
+export const authStoreKey = '@AuthStore'
+export const LOGIN_TOKEN_STORAGE_KEY = `${authStoreKey}:@wundershine/login_token`
 
 class AuthStore {
 
@@ -28,9 +29,6 @@ class AuthStore {
   @action
   clearForm = form => Object.keys(this[`${form}Form`]).forEach(v => this[`${form}Form`][v] = null)
 
-  /* ---------- Login ---------- */
-  LOGIN_TOKEN_STORAGE_KEY = '@wundershine/login_token'
-
   // @persist
   @observable
   token = null
@@ -45,7 +43,6 @@ class AuthStore {
   redirectToLoggedInUI = (doNav = false) => {
     runInAction(() => this.loggedIn = true)
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
-    console.log('INSIDE redirectToLoggedInUI', doNav)
     if (doNav) {
       NavActions.resetTo({ screen: 'ImageQueue' })
     }
@@ -63,24 +60,21 @@ class AuthStore {
 
   @action
   async setToken(token) {
-    console.log('at beginning ', token)
-    await AsyncStorage.setItem(`${storeKey}:${this.LOGIN_TOKEN_STORAGE_KEY}`, token)
-    console.log('in numer two')
+    await AsyncStorage.setItem(LOGIN_TOKEN_STORAGE_KEY, token)
     runInAction(() => this.token = token)
-    console.log('in numer three')
   }
 
   @action
   async getLoginStatus() {
-    runInAction(() => this.loginStatusLoading = true)
-    const token = await AsyncStorage.getItem(`${storeKey}:${this.LOGIN_TOKEN_STORAGE_KEY}`)
+    const token = await AsyncStorage.getItem(LOGIN_TOKEN_STORAGE_KEY)
 
     if (typeof token === 'string') {
 
       await this.setToken(token)
+
       try {
         await apiRequest({ url: '/pv/authentication/check-token' })
-        this.redirectToLoggedInUI()
+        loggedInSetup()
         this.refreshToken()
       } catch (error) {
         runInAction(() => this.logout())
@@ -89,8 +83,6 @@ class AuthStore {
     } else {
       runInAction(() => this.loggedIn = false)
     }
-
-    runInAction(() => this.loginStatusLoading = false)
     this.setLoading(false)
   }
 
@@ -100,15 +92,12 @@ class AuthStore {
     try {
       const res = await apiRequest({ url: '/pb/login', data: credentials })
 
-      console.log('inside login function......')
       await this.setToken(res.data.token)
-      console.log('this is never happening....')
       this.clearForm('login')
       this.setLoading(false)
       this.redirectToLoggedInUI(true)
 
     } catch (error) {
-      console.log('we have error: ', error)
       this.setLoading(false)
       let message = error.toString()
       if (error.response && error.response.status === 401) {
@@ -131,7 +120,7 @@ class AuthStore {
 
   @action
   async logout() {
-    await AsyncStorage.removeItem(`${storeKey}:${this.LOGIN_TOKEN_STORAGE_KEY}`)
+    await AsyncStorage.removeItem(LOGIN_TOKEN_STORAGE_KEY)
     runInAction(() => this.loggedIn = false)
     this.redirectToLoggedOutUI()
     UserStore.teardown()

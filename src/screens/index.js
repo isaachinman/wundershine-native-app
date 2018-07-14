@@ -32,13 +32,13 @@ export const Screens = new Map([...PublicScreens, ...PrivateScreens])
 Screens.set('App', () => App)
 Screens.set('Drawer', () => Drawer)
 
-export const startApp = () => {
+export const startApp = (unvalidatedTokenPresent) => {
   Navigation.startSingleScreenApp({
     screen: {
       screen: 'App',
     },
     passProps: {
-      backButtonHidden: true,
+      unvalidatedTokenPresent,
     },
     appStyle: {
       navBarButtonColor: '#3C9CAA',
