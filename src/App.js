@@ -47,7 +47,7 @@ export default class App extends React.Component {
       this.props.auth.getLoginStatus()
     } else {
       NavActions.setDrawerEnabled({ side: 'left', enabled: false })
-      NavActions.resetTo({ screen: 'Onboarding', animated: false, navigatorStyle: { navBarHidden: true } })
+      NavActions.resetTo({ screen: 'Onboarding', animated: true })
     }
 
   }

@@ -2,12 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-      android:drawable="@mipmap/gradient"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop"
-      android:tileMode="repeat"
-    />
+      android:drawable="@color/greenLight"/>
 
     <item
       android:drawable="@mipmap/wundershine_logo_graphic"
