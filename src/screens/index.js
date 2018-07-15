@@ -29,8 +29,8 @@ Object.keys(privateScreens).forEach((screen) => {
 export const Screens = new Map([...PublicScreens, ...PrivateScreens])
 
 // Register App and Drawer
-Screens.set('App', () => App)
 Screens.set('Drawer', () => Drawer)
+Screens.set('App', () => App)
 
 export const startApp = (unvalidatedTokenPresent) => {
   Navigation.startSingleScreenApp({
@@ -41,6 +41,7 @@ export const startApp = (unvalidatedTokenPresent) => {
       unvalidatedTokenPresent,
     },
     appStyle: {
+      navBarHidden: true,
       navBarButtonColor: '#3C9CAA',
       keepStyleAcrossPush: false,
     },
