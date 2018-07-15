@@ -12,6 +12,7 @@
 #import <React/RCTLinkingManager.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "SplashScreen.h"
 #import <CodePush/CodePush.h>
 
 @implementation AppDelegate
@@ -29,9 +30,10 @@
 #endif
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  self.window.backgroundColor = [UIColor whiteColor];
+  self.window.backgroundColor = [UIColor blackColor];
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
 
+  [SplashScreen show];
   return YES;
 }
 

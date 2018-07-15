@@ -13,12 +13,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ImageBackground, Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
+
 
 import { inject, observer } from 'mobx-react'
 import { NavActions } from 'utils/nav'
-
-import gradientImage from 'images/gradient.png'
 
 @inject('auth', 'networking', 'routing')
 @observer
@@ -52,17 +52,17 @@ export default class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    if (Platform.OS === 'ios') {
+      setTimeout(() => SplashScreen.hide(), 200)
+    }
+  }
+
   componentWillUnmount() {
     Linking.removeEventListener('url')
   }
 
-  render = () => (
-    <ImageBackground
-      source={gradientImage}
-      style={{ flex: 1 }}
-      imageStyle={{ resizeMode: 'stretch' }}
-    />
-  )
+  render = () => null
 }
 
 App.wrappedComponent.propTypes = {
