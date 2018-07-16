@@ -15,6 +15,7 @@ const appConfig = {
 // Dev environment settings
 if (process.env.NODE_ENV === 'development') {
   appConfig.API_ROOT = 'http://localhost:8080'
+  appConfig.STRIPE_PUBLISHABLE_KEY = 'pk_test_OpL5YE34O9ByYmg6zuLARaFs'
 }
 
 export default appConfig
