@@ -41,7 +41,6 @@ export const startApp = (unvalidatedTokenPresent) => {
       unvalidatedTokenPresent,
     },
     appStyle: {
-      navBarHidden: true,
       navBarButtonColor: '#3C9CAA',
       keepStyleAcrossPush: false,
     },

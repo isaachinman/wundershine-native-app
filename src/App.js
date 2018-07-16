@@ -26,7 +26,6 @@ export default class App extends React.Component {
 
   static navigatorStyle = {
     statusBarColor: '#000000',
-    navBarHidden: true,
   }
 
   constructor(props) {
