@@ -8,6 +8,7 @@ import { mainWithFooter } from 'styles/layouts'
 import { Button, Input } from 'components'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { NavActions, screenUtils } from 'utils/nav'
+import { blackThemeBG } from 'styles/colours'
 
 import styles from './Login.styles'
 
@@ -21,6 +22,7 @@ export default class Login extends React.Component {
 
   static navigatorStyle = {
     navBarHidden: true,
+    screenBackgroundColor: blackThemeBG,
   }
 
   render() {
@@ -39,7 +41,6 @@ export default class Login extends React.Component {
         extraScrollHeight={140}
         keyboardShouldPersistTaps='handled'
       >
-        <View style={styles.overlay} />
         <View style={mainWithFooter.main} />
         <View style={mainWithFooter.footer}>
           <Input

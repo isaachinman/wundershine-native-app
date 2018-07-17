@@ -8,6 +8,7 @@ import { inject, observer } from 'mobx-react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { mainWithFooter } from 'styles/layouts'
 import { screenUtils } from 'utils/nav'
+import { blackThemeBG } from 'styles/colours'
 
 import styles from './Signup.styles'
 
@@ -20,6 +21,7 @@ export default class Signup extends React.Component {
 
   static navigatorStyle = {
     navBarHidden: true,
+    screenBackgroundColor: blackThemeBG,
   }
 
   render() {
@@ -38,7 +40,6 @@ export default class Signup extends React.Component {
         extraScrollHeight={140}
         keyboardShouldPersistTaps='handled'
       >
-        <View style={styles.overlay} />
         <View style={mainWithFooter.main} />
         <View style={mainWithFooter.footer}>
           <Input

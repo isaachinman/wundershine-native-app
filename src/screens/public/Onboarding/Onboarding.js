@@ -3,6 +3,7 @@ import React from 'react'
 import { Button, Logo } from 'components'
 import { ImageBackground, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { NavActions } from 'utils/nav'
+import { blackThemeBG } from 'styles/colours'
 
 import heroOnboardingImage from 'images/hero_onboarding.jpg'
 
@@ -11,8 +12,9 @@ import styles from './Onboarding.styles'
 export default class Onboarding extends React.Component {
 
   static navigatorStyle = {
-    statusBarColor: '#000000',
     navBarHidden: true,
+    statusBarColor: '#000000',
+    screenBackgroundColor: blackThemeBG,
   }
 
   render() {
@@ -23,17 +25,17 @@ export default class Onboarding extends React.Component {
           contentContainerStyle={styles.container}
           alwaysBounceVertical={false}
         >
-          <View style={styles.overlay} />
           <ImageBackground source={heroOnboardingImage} style={styles.logoContainer}>
-            <View style={styles.overlay} />
-            <Logo
-              type='graphic'
-              style={styles.logoGraphic}
-            />
-            <Logo
-              type='text'
-              style={styles.logoText}
-            />
+            <View style={styles.imageBackgroundInnerFrame}>
+              <Logo
+                type='graphic'
+                style={styles.logoGraphic}
+              />
+              <Logo
+                type='text'
+                style={styles.logoText}
+              />
+            </View>
           </ImageBackground>
           <View style={styles.buttonContainer}>
             <Button

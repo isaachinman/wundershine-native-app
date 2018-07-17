@@ -1,6 +1,6 @@
 import { Dimensions, Platform } from 'react-native'
 import { systemWeights } from 'react-native-typography'
-import { transparentBlack, whitePrimary, whiteSecondary, whiteTertiary } from 'styles/colours'
+import { blackThemeBG, whitePrimary, whiteSecondary, whiteTertiary } from 'styles/colours'
 
 const WINDOW_HEIGHT = Dimensions.get('window').height
 
@@ -10,7 +10,15 @@ const MARGIN_TOP = WINDOW_HEIGHT > 800 ? 90 : 20
 export default {
   container: {
     flexGrow: 1,
-    backgroundColor: whitePrimary,
+    backgroundColor: blackThemeBG,
+  },
+  imageBackgroundInnerFrame: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingTop: 80,
+    backgroundColor: 'rgba(0,0,0,.75)',
   },
   logoGraphic: {
     color: whitePrimary,
@@ -32,9 +40,7 @@ export default {
         marginTop: MARGIN_TOP,
       },
     }),
-    paddingTop: 80,
     alignItems: 'center',
-    backgroundColor: 'pink',
     minHeight: HERO_HEIGHT,
   },
   buttonContainer: {
@@ -43,14 +49,6 @@ export default {
     paddingRight: 30,
     paddingBottom: 30,
     paddingLeft: 30,
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: transparentBlack,
   },
   storeLinkContainer: {
     marginTop: 40,
