@@ -255,13 +255,29 @@ export default class QueueItem extends React.Component {
           >
             <ListItem.Part left>
               <View style={styles.animatedImageContainerStyle}>
-                <FastImage
-                  source={{ uri: imageSource }}
-                  style={styles.image}
-                  resizeMode={resizeMode}
-                  onLoadStart={this.onLoadStart}
-                  onLoad={this.onLoad}
-                />
+                {
+                  /*
+                    Manual fallback to <Image /> due to:
+                    https://github.com/DylanVann/react-native-fast-image/issues/195
+                  */
+                }
+                {uriIsLocal ?
+                  <Image
+                    source={{ uri: imageSource }}
+                    style={styles.image}
+                    resizeMode={resizeMode}
+                    onLoadStart={this.onLoadStart}
+                    onLoad={this.onLoad}
+                  />
+                  :
+                  <FastImage
+                    source={{ uri: imageSource }}
+                    style={styles.image}
+                    resizeMode={resizeMode}
+                    onLoadStart={this.onLoadStart}
+                    onLoad={this.onLoad}
+                  />
+                }
                 {thumbnailLoading &&
                   <View style={styles.thumbnailLoading}>
                     <ActivityIndicator color={whitePrimary} />
