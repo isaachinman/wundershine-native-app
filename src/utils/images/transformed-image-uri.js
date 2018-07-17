@@ -22,6 +22,7 @@ export default (image, _options) => {
   return cloudinary.url(cloudinaryID, {
     transformation: [
       {
+        quality: 'auto',
         angle: transformation.rotation,
         width: WIDTH_OF_SELECTION,
         height: HEIGHT_OF_SELECTION,
