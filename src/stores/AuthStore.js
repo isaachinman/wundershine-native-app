@@ -20,6 +20,9 @@ class AuthStore {
   @observable
   loginStatusLoading = true // App should initialise as loading
 
+  @observable
+  unvalidatedTokenPresent = false
+
   @action
   setLoading = bool => this.loading = bool
 
@@ -38,6 +41,9 @@ class AuthStore {
 
   @observable
   loginForm = modelActions.createLoginForm()
+
+  @action
+  setUnvalidatedTokenPresent = bool => this.unvalidatedTokenPresent = bool
 
   @action
   redirectToLoggedInUI = (doNav = false) => {

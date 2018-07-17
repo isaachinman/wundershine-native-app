@@ -49,7 +49,8 @@ class RoutingStore {
         NavActions.push({ screen: urlBase, animated: false })
 
       // If screen is private, check auth
-      } else if (PrivateScreens.get(urlBase) && AuthStore.loggedIn) {
+      } else if (PrivateScreens.get(urlBase) &&
+        (AuthStore.loggedIn || AuthStore.unvalidatedTokenPresent)) {
 
         if (params.openAsModal) {
           NavActions.showModal({
@@ -61,7 +62,8 @@ class RoutingStore {
         }
 
       // If screen is private and user is logged out, redirect to login and show feedback
-      } else if (PrivateScreens.get(urlBase) && !AuthStore.loggedIn) {
+      } else if (PrivateScreens.get(urlBase) &&
+        (!AuthStore.loggedIn && !AuthStore.unvalidatedTokenPresent)) {
         NavActions.push({ screen: 'Login', animated: false })
         toast({ message: 'Please log in to continue' })
       }

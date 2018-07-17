@@ -52,7 +52,9 @@ class Stores {
   async generalSetup() {
     // Read token, if it is a string, assume for boot purposes that it's valid
     const token = await AsyncStorage.getItem(LOGIN_TOKEN_STORAGE_KEY)
-    return typeof token === 'string'
+    const unvalidatedTokenPresent = typeof token === 'string'
+    AuthStore.setUnvalidatedTokenPresent(true)
+    return unvalidatedTokenPresent
   }
 
   async loggedInSetup() {
