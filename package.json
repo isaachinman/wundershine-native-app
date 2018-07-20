@@ -64,7 +64,7 @@
 		"react-native-share-extension": "https://github.com/Wundershine/react-native-share-extension",
 		"react-native-splash-screen": "3.0.6",
 		"react-native-typography": "^1.3.0",
-		"react-native-ui-lib": "3.3.32",
+		"react-native-ui-lib": "3.3.173",
 		"react-native-vector-icons": "^4.5.0",
 		"tipsi-stripe": "^5.2.1",
 		"tslib": "1.9.0",

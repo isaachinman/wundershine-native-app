@@ -1,5 +1,5 @@
 import { material } from 'react-native-typography'
-import { green, whitePrimary } from 'styles/colours'
+import { greenLight, whitePrimary } from 'styles/colours'
 
 export default {
   content: {
@@ -25,7 +25,7 @@ export default {
     marginRight: 10,
   },
   iconRadioButtonOn: {
-    color: green,
+    color: greenLight,
     flex: 0,
     fontSize: 30,
     paddingHorizontal: 20,

@@ -18,6 +18,10 @@ const styles = {
     marginBottom: 0,
     paddingBottom: 10,
   },
+  title: {
+    ...systemWeights.regular,
+    fontSize: 14,
+  },
 }
 
 export default class Input extends React.Component {
@@ -73,6 +77,7 @@ export default class Input extends React.Component {
           selectionColor={selectionColor}
           style={textInputStyles}
           titleColor={titleColor}
+          titleStyle={styles.title}
           autoCorrect={false}
           onFocus={() => this.setActive(true)}
           onBlur={() => this.setActive(false)}

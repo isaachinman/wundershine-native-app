@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 
-import { blackSecondary, blue } from 'styles/colours'
+import { blackSecondary, green } from 'styles/colours'
 import { material } from 'react-native-typography'
 
 // CC Images
@@ -46,7 +46,7 @@ const styles = {
     marginRight: 10,
     paddingVertical: 10,
     paddingRight: 20,
-    color: blue,
+    color: green,
   },
 }
 
