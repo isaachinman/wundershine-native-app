@@ -14,7 +14,7 @@ const appConfig = {
 }
 
 // Production settings
-if (process.env.NODE_ENV === 'production') {
+if (env.BUILD_TRACK === 'production') {
   appConfig.cloudinaryCloudName = 'wundershine'
 }
 
