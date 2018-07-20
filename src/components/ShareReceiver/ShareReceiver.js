@@ -44,6 +44,7 @@ export default class Share extends React.Component {
       await ShareExtension.close()
     } catch (e) {
       // Handle ShareExtension error
+      await ShareExtension.close()
     }
   }
   render = () => null
