@@ -53,7 +53,7 @@ export default class CheckoutDelivery extends React.Component {
     const { addressForm, addressFormIsValid, updateForm } = user
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
         >

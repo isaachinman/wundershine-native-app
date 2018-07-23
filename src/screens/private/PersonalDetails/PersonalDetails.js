@@ -32,7 +32,7 @@ export default class PersonalDetails extends React.Component {
     const { personalDetailsForm, personalDetailsFormIsValid, updateForm } = user
 
     return (
-      <Container>
+      <Container style={styles.container}>
         <Loader active={user.loading} />
         <Content contentContainerStyle={styles.content}>
           <Row>

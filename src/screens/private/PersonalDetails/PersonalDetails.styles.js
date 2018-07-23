@@ -1,6 +1,9 @@
 import { blackPrimary, whitePrimary } from 'styles/colours'
 
 export default {
+  container: {
+    backgroundColor: whitePrimary,
+  },
   header: {
     backgroundColor: whitePrimary,
   },
