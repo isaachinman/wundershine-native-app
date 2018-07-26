@@ -9,18 +9,18 @@ import { Icon } from 'components'
 import { Image, Text, TouchableOpacity } from 'react-native'
 import { Modal } from 'react-native-ui-lib'
 
-import SQPK05Image from 'images/SQPK05.png'
-import SQPK15Image from 'images/SQPK15.png'
+import PPSQ05Image from 'images/PPSQ05.png'
+import PPSQ15Image from 'images/PPSQ15.png'
 import styles from './PackSelectionModal.styles'
 import checkImage from './images/check.png'
 
 const productSupplementaryContent = {
-  SQPK05: {
-    image: SQPK05Image,
+  PPSQ05: {
+    image: PPSQ05Image,
     shippingText: 'Includes free global shipping',
   },
-  SQPK15: {
-    image: SQPK15Image,
+  PPSQ15: {
+    image: PPSQ15Image,
     shippingText: 'Includes free global shipping',
   },
 }
@@ -41,8 +41,8 @@ export default class PackSelectionModal extends React.Component {
     const { coreData, queue, ui } = this.props
 
     const packOptions = [
-      coreData.products.SQPK05,
-      coreData.products.SQPK15,
+      coreData.products.PPSQ05,
+      coreData.products.PPSQ15,
     ]
 
     return (
