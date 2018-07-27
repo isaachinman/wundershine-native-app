@@ -1,6 +1,9 @@
 import App from 'App'
 import { Drawer } from 'components'
 import { Navigation } from 'react-native-navigation'
+import { Platform } from 'react-native'
+
+import { blackPrimary, green } from 'styles/colours'
 
 import * as publicScreens from './public/*/*.js'
 import * as privateScreens from './private/*/*.js'
@@ -41,7 +44,7 @@ export const startApp = (unvalidatedTokenPresent) => {
       unvalidatedTokenPresent,
     },
     appStyle: {
-      navBarButtonColor: '#3C9CAA',
+      navBarButtonColor: Platform.OS === 'ios' ? green : blackPrimary,
       keepStyleAcrossPush: false,
     },
     drawer: {
