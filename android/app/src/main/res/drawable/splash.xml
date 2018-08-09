@@ -6,8 +6,8 @@
 
     <item
       android:drawable="@mipmap/wundershine_logo_graphic"
-      android:width="100dp"
-      android:height="100dp"
+      android:width="85dp"
+      android:height="85dp"
       android:gravity="center"
     />
 
