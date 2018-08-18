@@ -36,6 +36,7 @@ export default class Button extends React.Component {
       danger,
       disabled,
       loading,
+      manualTextInput,
     } = this.props
 
     /* Primary */
@@ -89,9 +90,13 @@ export default class Button extends React.Component {
           />
           : null
         }
-        <NativeBaseButtonText style={textStyles}>
-          {text.toUpperCase()}
-        </NativeBaseButtonText>
+        {manualTextInput ?
+          <React.Fragment>{manualTextInput}</React.Fragment>
+          :
+          <NativeBaseButtonText style={textStyles}>
+            {text.toUpperCase()}
+          </NativeBaseButtonText>
+        }
         {loading ?
           <Spinner color='white' />
           : null
@@ -110,6 +115,7 @@ Button.defaultProps = {
   icon: null,
   info: false,
   loading: false,
+  manualTextInput: null,
   primary: false,
 }
 
@@ -122,5 +128,6 @@ Button.propTypes = {
   icon: PropTypes.string,
   info: PropTypes.bool,
   loading: PropTypes.bool,
+  manualTextInput: PropTypes.node,
   primary: PropTypes.bool,
 }
