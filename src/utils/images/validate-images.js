@@ -17,16 +17,30 @@ export const validationErrors = {
   },
 }
 
-const jpegFormatStrings = ['image/jpeg', 'jpg']
-const jpegPathStrings = ['.jpeg', '.jpg']
-const imageIsJPEG = (pathString, mime) => {
-  let isJPEG = false
-  if (jpegFormatStrings.includes(mime)) {
-    isJPEG = true
-  } else if (jpegPathStrings.includes(path.extname(pathString))) {
-    isJPEG = true
+const imageTypes = {
+  acceptedMimeTypes: ['image/jpeg', 'image/png'],
+  jpeg: {
+    value: 'jpg',
+    formatStrings: ['image/jpeg', 'jpg'],
+    pathStrings: ['.jpeg', '.jpg'],
+  },
+  png: {
+    value: 'png',
+    formatStrings: ['image/png', 'png'],
+    pathStrings: ['.png'],
+  },
+}
+
+const getImageType = (pathString, mime) => {
+  let type = null
+  if (imageTypes.png.formatStrings.includes(mime) ||
+    imageTypes.png.pathStrings.includes(path.extname(pathString))) {
+    type = imageTypes.png.value
+  } else if (imageTypes.jpeg.formatStrings.includes(mime) ||
+    imageTypes.jpeg.pathStrings.includes(path.extname(pathString))) {
+    type = imageTypes.jpeg.value
   }
-  return isJPEG
+  return type
 }
 
 export default async (images) => {
@@ -67,13 +81,13 @@ export default async (images) => {
       const imageToReturn = {
         uri: image.path,
         name: image.filename || path.basename(image.path),
-        type: imageIsJPEG(image.path, image.mime) ? 'jpg' : null,
+        type: getImageType(image.path, image.mime),
         bytes: image.size,
         width: null,
         height: null,
       }
 
-      if (!jpegFormatStrings.includes(image.mime)) {
+      if (!imageTypes.acceptedMimeTypes.includes(image.mime)) {
         isValid = false
         error = validationErrors.UNSUPPORTED_FORMAT
       }
@@ -138,7 +152,7 @@ export default async (images) => {
         error = 'FILE_SIZE_TOO_BIG'
       }
 
-      if (!imageIsJPEG(image.value, image.type)) {
+      if (!getImageType(image.value, image.type)) {
         isValid = false
         error = validationErrors.UNSUPPORTED_FORMAT
       }

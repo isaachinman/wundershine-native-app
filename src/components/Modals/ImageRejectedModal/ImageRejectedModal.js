@@ -64,7 +64,7 @@ export default class ImageRejectedModal extends React.Component {
               (1) Smaller than 55mb (filesize)
             </Text>
             <Text style={styles.bulletPoint}>
-              (2) Must be jpeg format
+              (2) Must be jpeg or png format
             </Text>
           </Content>
         </Container>
