@@ -20,7 +20,7 @@ export default {
   },
   logoText: {
     color: whitePrimary,
-    fontSize: 24,
+    fontSize: 28,
   },
   button: {
     elevation: 0,
