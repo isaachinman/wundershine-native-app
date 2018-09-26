@@ -5,7 +5,7 @@ import path from 'react-native-path'
 import RNFS from 'react-native-fs'
 import ShareExtension from 'utils/share-extension'
 
-export default class Share extends React.Component {
+export default class ShareReceiver extends React.Component {
 
   async componentDidMount() {
     try {
