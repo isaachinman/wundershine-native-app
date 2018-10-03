@@ -84,7 +84,13 @@ export default class EditImage extends React.Component {
 
   }
 
-  componentDidMount = () => this.updateNativeStyles()
+  componentDidMount = () => {
+    this.updateNativeStyles()
+
+    // Briefly flash grid UI on screen mount
+    this.setGridVisibility(true)
+    this.setGridVisibility(false)
+  }
 
   componentWillUnmount = () => {
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
