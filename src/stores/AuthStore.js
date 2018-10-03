@@ -4,6 +4,7 @@ import { apiRequest } from 'utils/api'
 import { loggedInSetup } from 'stores'
 import toast from 'utils/toast'
 import { NavActions } from 'utils/nav'
+import uuid from 'uuid/v1'
 
 import * as modelActions from 'models'
 
@@ -79,7 +80,7 @@ class AuthStore {
       await this.setToken(token)
 
       try {
-        await apiRequest({ url: '/pv/authentication/check-token' })
+        await apiRequest({ url: `/pv/authentication/check-token?unique_request=${uuid()}` })
         loggedInSetup()
         this.refreshToken()
       } catch (error) {
