@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { ActivityIndicator, Alert, Image, Text, TouchableOpacity, View } from 'react-native'
-import { ListItem } from 'react-native-ui-lib'
-import FastImage from 'react-native-fast-image'
 import { Col, Row } from 'react-native-easy-grid'
+import FastImage from 'react-native-fast-image'
+import isEqual from 'react-fast-compare'
+import { ListItem } from 'react-native-ui-lib'
 import { Icon } from 'components'
 import { NavActions } from 'utils/nav'
 
@@ -160,6 +161,12 @@ export default class QueueItem extends React.Component {
   state = {
     thumbnailLoading: false,
     localImageOverlay: typeof this.props.localURI === 'string',
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const propsChanged = !isEqual(this.props, nextProps)
+    const stateChanged = !isEqual(this.state, nextState)
+    return propsChanged || stateChanged
   }
 
   onLoadStart = () => {
