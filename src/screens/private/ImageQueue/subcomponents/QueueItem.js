@@ -224,6 +224,7 @@ export default class QueueItem extends React.Component {
       deselectImage,
       cloudinaryID,
       loading,
+      loadPriority,
       localURI,
       name,
       notUploadedYet,
@@ -278,7 +279,12 @@ export default class QueueItem extends React.Component {
                   />
                   :
                   <FastImage
-                    source={{ uri: imageSource }}
+                    source={{
+                      uri: imageSource,
+                      priority: FastImage.priority[loadPriority >= 0 && loadPriority < 33 ? 'high' :
+                        loadPriority >= 33 && loadPriority < 66 ? 'medium' :
+                          'low'],
+                    }}
                     style={styles.image}
                     resizeMode={resizeMode}
                     onLoadStart={this.onLoadStart}
@@ -391,6 +397,7 @@ QueueItem.propTypes = {
   deleteImage: PropTypes.func.isRequired,
   deselectImage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  loadPriority: PropTypes.number.isRequired,
   localURI: PropTypes.string,
   name: PropTypes.string.isRequired,
   notUploadedYet: PropTypes.bool,
