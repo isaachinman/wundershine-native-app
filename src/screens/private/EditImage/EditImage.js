@@ -84,20 +84,17 @@ export default class EditImage extends React.Component {
 
   }
 
-  componentDidMount = () => {
-    this.updateNativeStyles()
-
-    // Briefly flash grid UI on screen mount
-    this.setGridVisibility(true)
-    this.setGridVisibility(false)
-  }
+  componentDidMount = () => this.updateNativeStyles()
 
   componentWillUnmount = () => {
     NavActions.setDrawerEnabled({ side: 'left', enabled: true })
   }
 
   onLoadStart = () => this.setState({ remoteImageLoading: true })
-  onLoad = () => this.setState({ remoteImageLoading: false })
+  onLoad = () => {
+    this.setState({ remoteImageLoading: false })
+    this.flashGridUI()
+  }
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
@@ -109,24 +106,30 @@ export default class EditImage extends React.Component {
     }
   }
 
-  setGridVisibility = (visibleState) => {
-    if (this.borderBox && this.gridOverlay) {
-      const animatables = [this.borderBox, this.gridOverlay, this.pixelScore]
-      if (visibleState === true) {
-        clearTimeout(this.hideGridOverlay)
-        if (!this.gridActivated) {
-          animatables.forEach(x => x.fadeIn(100))
-          this.gridActivated = true
-        }
-      } else if (visibleState === false && this.gridActivated) {
-        this.hideGridOverlay = setTimeout(() => {
-          if (this.gridActivated) {
-            animatables.forEach(x => x.fadeOut(700))
-            this.gridActivated = false
+  setGridVisibility =
+    (visibleState, animatables = [this.borderBox, this.gridOverlay, this.pixelScore]) => {
+      if (this.borderBox && this.gridOverlay) {
+        if (visibleState === true) {
+          clearTimeout(this.hideGridOverlay)
+          if (!this.gridActivated) {
+            animatables.forEach(x => x.fadeIn(100))
+            this.gridActivated = true
           }
-        }, 1000)
+        } else if (visibleState === false && this.gridActivated) {
+          this.hideGridOverlay = setTimeout(() => {
+            if (this.gridActivated) {
+              animatables.forEach(x => x.fadeOut(700))
+              this.gridActivated = false
+            }
+          }, 1000)
+        }
       }
     }
+
+  flashGridUI = () => {
+    const animatables = [this.borderBox, this.gridOverlay]
+    this.setGridVisibility(true, animatables)
+    this.setGridVisibility(false, animatables)
   }
 
   updateNativeStyles = () => {
