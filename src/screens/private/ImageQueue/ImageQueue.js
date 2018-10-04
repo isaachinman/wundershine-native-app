@@ -109,11 +109,12 @@ export default class ImageQueue extends React.Component {
     /* Assemble items for flatlist and add helper ui text */
     /* Prefer localID as key to prevent flicker of imported images after upload */
     /* Prefer _id as _id to allow API actions on newly-uploaded images */
-    const queueItems = queue.data.images.map(item => ({
+    const queueItems = queue.data.images.map((item, index) => ({
       ...item,
       key: item.localID || item._id,
       _id: item._id || item.localID,
       loading: queue.imagesLoading.includes(item._id),
+      loadPriority: Math.round((index / queue.data.images.length) * 100),
     }))
 
     // Add cart notification UI to top of queue
