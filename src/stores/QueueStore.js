@@ -205,7 +205,12 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/select`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data, true, 300)
+
+      const distanceTravelled = Math.abs(this.data.images.findIndex(i => i._id === imageID) -
+        [...data.selectedImages, ...data.deselectedImages].findIndex(i => i._id === imageID))
+      const animationDuration = Math.min((300 + (distanceTravelled * 30)), 800)
+
+      this.mergeIntoLocalData(data, true, animationDuration)
     } catch (error) {
       runInAction(() => this.error = error)
     }
@@ -218,7 +223,12 @@ class QueueStore {
     try {
       const res = await apiRequest({ url: `/pv/queue/${this.queueType}/images/deselect`, data: { imageID } })
       const { data } = res
-      this.mergeIntoLocalData(data, true, 300)
+
+      const distanceTravelled = Math.abs(this.data.images.findIndex(i => i._id === imageID) -
+        [...data.selectedImages, ...data.deselectedImages].findIndex(i => i._id === imageID))
+      const animationDuration = Math.min((300 + (distanceTravelled * 30)), 800)
+
+      this.mergeIntoLocalData(data, true, animationDuration)
     } catch (error) {
       runInAction(() => this.error = error)
     }
