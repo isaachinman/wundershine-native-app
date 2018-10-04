@@ -11,5 +11,15 @@ export default {
   paymentMethods: {
     creditCards: joi.array(),
   },
+  instagram: {
+    _id: joi.string().required(),
+    accessToken: joi.string().allow(null),
+    user: {
+      id: joi.string(),
+      username: joi.string(),
+      profilePicture: joi.string(),
+      fullName: joi.string(),
+    },
+  },
   _id: joi.string().required(),
 }
