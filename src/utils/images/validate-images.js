@@ -83,8 +83,8 @@ export default async (images) => {
         name: image.filename || path.basename(image.path),
         type: getImageType(image.path, image.mime),
         bytes: image.size,
-        width: null,
-        height: null,
+        width: image.width,
+        height: image.height,
       }
 
       if (!imageTypes.acceptedMimeTypes.includes(image.mime)) {
@@ -96,15 +96,6 @@ export default async (images) => {
         isValid = false
         error = validationErrors.FILE_SIZE_TOO_BIG
       }
-
-      // Check image dimensions
-      await new Promise((resolve) => {
-        Image.getSize(image.path, (width, height) => {
-          imageToReturn.width = width
-          imageToReturn.height = height
-          resolve()
-        })
-      })
 
       if (isValid) {
         validatedImages.push(createValidatedImage(applyInitialTransformation(imageToReturn)))
