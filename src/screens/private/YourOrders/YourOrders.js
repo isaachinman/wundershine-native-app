@@ -24,7 +24,7 @@ export default class YourOrders extends React.Component {
 
     const orderList = []
     orders.data.forEach((order) => {
-      if (order.status === 'paid') {
+      if (order.status.code === 'paid') {
         orderList.push({
           key: order._id,
           ...order,

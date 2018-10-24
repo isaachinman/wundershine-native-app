@@ -70,7 +70,7 @@ class OrdersStore {
       const poll = setInterval(async () => {
         await this.getOrder(orderID)
         const order = this.data.get(orderID)
-        if (order.status !== 'pending') {
+        if (order.status.code !== 'pending') {
           clearInterval(poll)
         }
       }, 2000)

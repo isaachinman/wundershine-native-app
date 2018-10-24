@@ -28,14 +28,14 @@ export default class OrderProcessing extends React.Component {
   async componentDidUpdate() {
     const { orders, cart } = this.props
     const order = orders.data.get(this.pendingOrderID)
-    if (order.status !== 'pending' && !cart.loading && !orders.loading) {
+    if (order.status.code !== 'pending' && !cart.loading && !orders.loading) {
 
       // Refetch cart and orders
       await cart.getCart()
       await orders.getOrders()
 
       NavActions.showModal({
-        screen: order.status === 'paid' ? 'OrderSuccess' : 'OrderFailure',
+        screen: order.status.code === 'paid' ? 'OrderSuccess' : 'OrderFailure',
         passProps: { orderID: order._id },
       })
     }
@@ -48,7 +48,7 @@ export default class OrderProcessing extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          Order {processingOrder.status}...
+          Order {processingOrder.status.code}...
         </Text>
         <Text style={styles.subtitle}>
           Please wait as your order is processed. This can take a few minutes.
