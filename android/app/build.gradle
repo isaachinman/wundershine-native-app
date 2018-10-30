@@ -177,7 +177,7 @@ dependencies {
     implementation project(':react-native-code-push')
     implementation project(':react-native-config')
     implementation project(':react-native-blur')
-    implementation "com.google.android.gms:play-services-base:11.6.0"
+    implementation "com.google.android.gms:play-services-base:11.8.0"
     implementation "com.android.support:appcompat-v7:25.0.0"
     implementation("com.android.support:design:27.1.0")
     implementation "com.facebook.react:react-native:+"
