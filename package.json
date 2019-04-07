@@ -79,7 +79,6 @@
 		"babel-plugin-module-resolver": "3.1.0",
 		"babel-preset-react-native": "4.0.0",
 		"babel-preset-react-native-stage-0": "1.0.1",
-		"detox": "7.2.0",
 		"enzyme": "3.3.0",
 		"enzyme-adapter-react-16": "1.1.1",
 		"eslint": "4.18.2",
@@ -118,36 +117,5 @@
 		"testMatch": [
 			"**/__tests__/**/*.spec.js"
 		]
-	},
-	"detox": {
-		"test-runner": "mocha",
-		"specs": "__tests__",
-		"runner-config": "__tests__/mocha.opts",
-		"configurations": {
-			"ios.sim.release": {
-				"binaryPath": "ios/build/Build/Products/Release-iphonesimulator/Wundershine.app",
-				"build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -workspace ios/Wundershine.xcworkspace -scheme Wundershine -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet",
-				"type": "ios.simulator",
-				"name": "iPhone 7 Plus"
-			},
-			"ios.sim.debug": {
-				"binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Wundershine.app",
-				"build": "xcodebuild -workspace ios/Wundershine.xcworkspace -scheme Wundershine -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet",
-				"type": "ios.simulator",
-				"name": "iPhone 7 Plus"
-			},
-			"android.emu.release": {
-				"binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-				"build": "pushd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && popd",
-				"type": "android.emulator",
-				"name": "Nexus_5_API_27"
-			},
-			"android.emu.debug": {
-				"binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
-				"build": "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
-				"type": "android.emulator",
-				"name": "Nexus_5_API_27"
-			}
-		}
 	}
 }
