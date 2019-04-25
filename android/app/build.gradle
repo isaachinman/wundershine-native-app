@@ -161,6 +161,9 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE'
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 configurations.all {
