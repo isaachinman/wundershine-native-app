@@ -63,7 +63,8 @@ export default class CheckoutDelivery extends React.Component {
                 <Dropdown
                   label='Country*'
                   data={coreData.settings.shippableCountries
-                    .map(c => ({ value: c, label: countries.getName(c) }))}
+                    .map(c => ({ value: c, label: countries.getName(c) }))
+                    .sort((a, b) => ((a.label < b.label) ? -1 : (a.label > b.label) ? 1 : 0))}
                   value={addressForm.country}
                   onChangeText={t => updateForm('address', 'country', t)}
                 />
